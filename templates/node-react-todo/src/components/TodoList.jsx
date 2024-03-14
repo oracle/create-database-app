@@ -10,7 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import './style.css';
 import { convertCharsToBooleans, convertBooleansToChars } from '../utils/utils';
 import { getTasks, createTask, updateTask, deleteTask } from '../api/rest-service';
-import { TodoListHeader } from './TodoListHeader';
+import { TodoListInput } from './ToDoListInput';
+import { TodoListFilter } from './ToDoListFilter';
 import { TodoListItems } from './TodoListItems';
 import { TodoListFooter } from './TodoListFooter';
 
@@ -55,30 +56,37 @@ const TodoList = () => {
 
     // Render the todo list
     return (
-        <div className={'container'}>
+        <div className={'todo-list-container'}>
             <ToastContainer />
             <div className={'todo-app'}>
-                <TodoListHeader
-                    tasks={tasks}
-                    inputValue={inputValue}
-                    setInputValue={setInputValue}
-                    setRefresh={setRefresh}
-                    editTaskId={editTaskId}
-                    setEditTaskId={setEditTaskId}
-                    setFilter={setFilter}
-                />
-                <TodoListItems
-                    tasks={tasks}
-                    setInputValue={setInputValue}
-                    setRefresh={setRefresh}
-                    setEditTaskId={setEditTaskId}
-                    isLoading={isLoading}
-                    filteredTasks={filteredTasks}
-                />
-                <TodoListFooter
-                    tasks={tasks}
-                    setRefresh={setRefresh}
-                />
+                <section className={'filter-section'}>
+                    <TodoListFilter
+                        filter={filter}
+                        setFilter={setFilter}
+                    />
+                </section>
+                <section className={'tasks-section'}>
+                    <TodoListInput
+                        inputValue={inputValue}
+                        setInputValue={setInputValue}
+                        tasks={tasks}
+                        editTaskId={editTaskId}
+                        setRefresh={setRefresh}
+                    
+                    />
+                    <TodoListItems
+                        tasks={tasks}
+                        setInputValue={setInputValue}
+                        setRefresh={setRefresh}
+                        setEditTaskId={setEditTaskId}
+                        isLoading={isLoading}
+                        filteredTasks={filteredTasks}
+                    />
+                    <TodoListFooter
+                        tasks={tasks}
+                        setRefresh={setRefresh}
+                    />
+                </section>
             </div>
         </div>
     );

@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 
 import { updateTask, deleteTask } from '../api/rest-service';
 import { convertBooleansToChars } from '../utils/utils';
+import checked from '../images/checked.png'
+import unchecked from '../images/unchecked.png'
 import loading from "../images/loading.gif"
 
 export const TodoListItems = (props) => {
@@ -49,42 +51,46 @@ export const TodoListItems = (props) => {
 
     return (
         <>
-            {
-                props.isLoading ?
-                    <div className={'loading-container'}>
-                        <img src={loading} alt={'loading-image'} className={'loading-image'} />
-                    </div>
-                    :
-                    <ul id="list">
-                        {props.filteredTasks.map((task) => (
-                            <li key={task.ID}>
-                                <input
-                                    type={'checkbox'}
-                                    id={`task-${task.ID}`}
-                                    data-id={task.ID}
-                                    className={'custom-checkbox'}
-                                    checked={task.IS_COMPLETED}
-                                    onChange={() => handleTaskCheckboxChange(task.ID, task.IS_COMPLETED)}
-                                />
-                                <label htmlFor={`task-${task.ID}`}>{task.NAME}</label>
-                                <div>
-                                    <img
-                                        src="https://cdn-icons-png.flaticon.com/128/1159/1159633.png"
-                                        className={'edit'}
-                                        data-id={task.ID}
-                                        onClick={() => handleEditTask(task.ID)}
-                                    />
-                                    <img
-                                        src="https://cdn-icons-png.flaticon.com/128/3096/3096673.png"
-                                        className={'delete'}
-                                        data-id={task.ID}
-                                        onClick={() => handleDeleteTask(task.ID)}
-                                    />
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-            }
-        </>
+        {props.isLoading ?
+            <div className={'loading-container'}>
+                <img src={loading} alt={'loading-image'} className={'loading-image'} />
+            </div>
+            :
+            <ul className={"unordered-list"}>
+                {props.filteredTasks.map((task) => (
+                    <li className={`list-item ${task.IS_COMPLETED ? 'checked' : 'unchecked'}`} key={task.ID}>
+                        <label htmlFor={`task-${task.ID}`}>
+                            <img
+                                src={task.IS_COMPLETED ? checked : unchecked}
+                                alt={task.IS_COMPLETED ? 'Checked' : 'Unchecked'}
+                                className="custom-checkbox-image"
+                            />
+                            <input
+                                type="checkbox"
+                                id={`task-${task.ID}`}
+                                data-id={task.ID}
+                                className="hidden-checkbox"
+                                checked={task.IS_COMPLETED}
+                                onChange={() => handleTaskCheckboxChange(task.ID, task.IS_COMPLETED)}
+                            />
+                        </label>
+                        <span className={"task-name"}><p>{task.NAME}</p></span>
+                        <img
+                            src="https://cdn-icons-png.flaticon.com/128/1159/1159633.png"
+                            className={'edit'}
+                            data-id={task.ID}
+                            onClick={() => handleEditTask(task.ID)}
+                        />
+                        <img
+                            src="https://cdn-icons-png.flaticon.com/128/3096/3096673.png"
+                            className={'delete'}
+                            data-id={task.ID}
+                            onClick={() => handleDeleteTask(task.ID)}
+                        />
+                    </li>
+                ))}
+            </ul>
+        }
+    </>
     );
 }
