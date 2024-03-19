@@ -14,6 +14,13 @@
     --component: #2f2d36;
     --gradient-1: rgb(145, 114, 247);
     --gradient-2: rgb(104, 61, 247);
+    --toastify-color-progress-success: var(--gradient-1);
+    --toastify-color-progress-error: var(--gradient-1);
+    --toastify-color-success: var(--gradient-1);
+    --toastify-color-error: var(--gradient-1);
+    --toastify-text-color-success: var(--gradient-1);
+    --toastify-text-color-error: var(--gradient-1);
+    --toastify-toast-background: var(--card);
 }
 
 * {
@@ -100,7 +107,7 @@ ul {
     font-size: 14px;
 }
 
-.filter-option{
+.filter-option {
     display: flex;
     align-items: start;
     padding: 8px 5px;
@@ -121,9 +128,9 @@ ul {
 
 .tasks-section {
     width: 510px;
-    max-height: 60vh; 
+    max-height: 60vh;
     overflow-y: auto;
-    position: relative; 
+    position: relative;
 }
 
 .tasks-section .row {
@@ -173,7 +180,7 @@ input {
     flex-flow: row-reverse;
 }
 
-.unordered-list{
+.unordered-list {
     overflow-x: hidden;
     overflow-y: auto;
     max-height: 55%;
@@ -254,7 +261,8 @@ input {
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.complete-all, .clear-all {
+.complete-all,
+.clear-all {
     background: linear-gradient(160deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
     border: none;
     outline: none;
@@ -265,7 +273,8 @@ input {
     cursor: pointer;
 }
 
-.complete-all:hover, .clear-all:hover{
+.complete-all:hover,
+.clear-all:hover {
     cursor: pointer;
     transform: scale(1.02);
 }
@@ -278,7 +287,6 @@ input {
 }
 
 .loading-image {
-    height:30px;
+    height: 30px;
     width: 30px;
 }
-
