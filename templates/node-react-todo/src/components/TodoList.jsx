@@ -71,6 +71,7 @@ const TodoList = () => {
                         setInputValue={setInputValue}
                         tasks={tasks}
                         editTaskId={editTaskId}
+                        setEditTaskId={setEditTaskId}
                         setRefresh={setRefresh}
                     
                     />

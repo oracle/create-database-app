@@ -18,9 +18,11 @@
     --toastify-color-progress-error: var(--gradient-1);
     --toastify-color-success: var(--gradient-1);
     --toastify-color-error: var(--gradient-1);
-    --toastify-text-color-success: var(--gradient-1);
-    --toastify-text-color-error: var(--gradient-1);
-    --toastify-toast-background: var(--card);
+}
+
+.Toastify__toast {
+    background: var(--card);
+    color: white;
 }
 
 * {
@@ -197,8 +199,6 @@ input {
     margin-bottom: 8px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 4px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
     transition: 0.2s ease-out;
-
-
 }
 
 .list-item .task-name {
@@ -224,7 +224,7 @@ input {
 .custom-checkbox-image {
     width: 15px;
     height: 15px;
-    margin: 5px 10px 5px 5px;
+    margin: 10px 10px 5px 10px;
     cursor: pointer;
     filter: invert(57%) sepia(33%) saturate(211%) hue-rotate(202deg) brightness(87%) contrast(84%);
 }
