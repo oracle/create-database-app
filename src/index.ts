@@ -237,6 +237,11 @@ export default class Generate extends Command {
                         description: 'This creates an empty project with Oracle JET and Oracle database connection starter code.',
                     },
                     {
+                        name: 'node-angular',
+                        value: 'node-angular',
+                        description: 'This creates an empty project with Angular and Oracle database connection starter code.',
+                    },
+                    {
                         name: 'node-react-todo',
                         value: 'node-react-todo',
                         description: 'This creates a simple Todo app made with ExpressJS as the backend, React as the frontend, and an Oracle Database connection that will be created from the details you provide later...',
