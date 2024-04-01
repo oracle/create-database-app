@@ -7,13 +7,13 @@
 
 :root {
     --bg-color: #121215;
-    --primary: #8d8fd2;
+    --primary: #d28d8d;
     --dk-text: #dfe0fb;
     --dk-subtext: #84849d;
     --card: #18181c;
     --component: #2f2d36;
-    --gradient-1: rgb(145, 114, 247);
-    --gradient-2: rgb(104, 61, 247);
+    --gradient-1: #B3311F;
+    --gradient-2: hsl(9, 55%, 52%); 
     --toastify-color-progress-success: var(--gradient-1);
     --toastify-color-progress-error: var(--gradient-1);
     --toastify-color-success: var(--gradient-1);
