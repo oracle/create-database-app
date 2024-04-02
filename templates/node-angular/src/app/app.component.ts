@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   standalone: true, 
 })
 export class AppComponent implements OnInit {
-  oracleLogo = '/assets/ORCL.svg'
+  oracleLogo = '/assets/oracle.svg'
   angularLogo = '/assets/angular.svg'
   title: string = 'node-angular';
   isConnected?: boolean;
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
       if (data.status === 'ok') {
         this.isConnected = true;
       } else {
-        this.isConnected = undefined;
+        this.isConnected = false;
       }
     } catch (error) {
       console.error('Error fetching connection status:', error);
