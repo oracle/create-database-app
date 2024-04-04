@@ -6,14 +6,13 @@
 */
 
 :root {
-    --bg-color: #121215;
-    --primary: #d28d8d;
-    --dk-text: #dfe0fb;
-    --dk-subtext: #84849d;
-    --card: #18181c;
-    --component: #2f2d36;
-    --gradient-1: #B3311F;
-    --gradient-2: hsl(9, 55%, 52%); 
+    --bg-color: #F5F4F2; /* Light grey background */
+    --primary: #4a4a4a; /* Dark grey for primary text */
+    --dk-text: #2a2a2a; /* Even darker grey for headings or important text */
+    --dk-subtext: #6a6a6a; /* Medium grey for subtext */
+    --card: #ffffff; /* White for card backgrounds */
+    --component: #e4e4e4; 
+    --gradient-1:#3A3632; 
     --toastify-color-progress-success: var(--gradient-1);
     --toastify-color-progress-error: var(--gradient-1);
     --toastify-color-success: var(--gradient-1);
@@ -22,7 +21,7 @@
 
 .Toastify__toast {
     background: var(--card);
-    color: white;
+    color: var(--dk-text)
 }
 
 * {
@@ -79,7 +78,7 @@ ul {
 .filter-section,
 .tasks-section {
     background-color: var(--card);
-    border-radius: 5px;
+    border-radius: 6px;
     padding: 24px;
     height: 50vh;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px;
@@ -98,7 +97,7 @@ ul {
 .filter-icon {
     width: 20px;
     height: auto;
-    filter: invert(57%) sepia(33%) saturate(211%) hue-rotate(202deg) brightness(87%) contrast(84%);
+    filter: invert(14%) sepia(11%) saturate(569%) hue-rotate(349deg) brightness(99%) contrast(81%);
 }
 
 .filters li {
@@ -114,7 +113,7 @@ ul {
     align-items: start;
     padding: 8px 5px;
     margin-bottom: 3px;
-    border-radius: 5px;
+    border-radius: 6px;
     background-color: transparent;
     transition: background-color 0.3s ease;
 }
@@ -138,16 +137,17 @@ ul {
 .tasks-section .row {
     height: 40px;
     display: flex;
-    background-color: var(--component);
-    border-radius: 5px;
+    border-radius: 6px;
     padding-left: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
 .add-btn {
     border: none;
     outline: none;
     padding: 10px 50px;
-    background: linear-gradient(160deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+    background: var(--gradient-1);
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -159,12 +159,11 @@ ul {
 }
 
 .add-btn:hover {
-    transform: scale(1.02);
+    background-color: #413D3B;
     cursor: pointer;
 }
 
 input {
-    color: white;
     position: relative;
     flex: 1;
     border: none;
@@ -192,7 +191,7 @@ input {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    border-radius: 5px;
+    border-radius: 6px;
     width: 100%;
     min-width: 0;
     height: 35px;
@@ -226,7 +225,7 @@ input {
     height: 15px;
     margin: 10px 10px 5px 10px;
     cursor: pointer;
-    filter: invert(57%) sepia(33%) saturate(211%) hue-rotate(202deg) brightness(87%) contrast(84%);
+    filter: invert(14%) sepia(11%) saturate(569%) hue-rotate(349deg) brightness(99%) contrast(81%);
 }
 
 .custom-checkbox-label {
@@ -239,13 +238,13 @@ input {
     height: 25px;
     padding: 5px 5px;
     border-radius: 3px;
-    filter: invert(57%) sepia(33%) saturate(211%) hue-rotate(202deg) brightness(87%) contrast(84%);
+    filter: invert(14%) sepia(11%) saturate(569%) hue-rotate(349deg) brightness(99%) contrast(81%);
 }
 
 .edit:hover,
 .delete:hover {
     cursor: pointer;
-    transform: scale(1.1);
+    scale: 1.2;
 }
 
 
@@ -263,12 +262,12 @@ input {
 
 .complete-all,
 .clear-all {
-    background: linear-gradient(160deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+    background: var(--gradient-1);
     border: none;
     outline: none;
     padding: 12px 25px;
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
 }
@@ -276,7 +275,7 @@ input {
 .complete-all:hover,
 .clear-all:hover {
     cursor: pointer;
-    transform: scale(1.02);
+    background-color: #413D3B;
 }
 
 
