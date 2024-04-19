@@ -2,3 +2,6 @@
 /templates
 /generated
 node_modules
+/templates
+/generated
+/eslintrc.d.ts
