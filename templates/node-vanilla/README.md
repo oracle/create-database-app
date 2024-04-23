@@ -1,3 +1,125 @@
+# How to Create an ORM
+
+## Database Connection
+
+The first thing you need is a connection to your database. In this example, we're using Oracle Database, so you would need the appropriate driver for Oracle in your Node.js application.
+
+```javascript
+const db = require('oracledb');
+```
+
+## Define Class
+
+Define a class to represent the entity you want to map to the database. In this case, it's the Task class. This class typically mirrors the structure of your database table, with properties corresponding to columns.
+
+```javascript
+class Task {
+    constructor(id, title, description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
+}
+```
+
+## ORM Class
+
+Create a class that will act as the ORM. In the example, it's the TaskORM class. This class will contain methods for performing CRUD (Create, Read, Update, Delete) operations on the Task objects.
+
+```javascript
+class TaskORM {
+    constructor(databaseConnection) {
+        this.db = databaseConnection;
+    }
+
+    async createTask(task) {
+        // Implementation goes here
+    }
+
+    async getAllTasks() {
+        // Implementation goes here
+    }
+
+    async getTaskById(id) {
+        // Implementation goes here
+    }
+
+    // Other CRUD methods can be added here
+}
+```
+
+## Constructor
+
+The constructor of the ORM class initializes the database connection.
+
+```javascript
+constructor(databaseConnection) {
+    this.db = databaseConnection;
+}
+```
+
+## CRUD Methods
+
+Implement methods for CRUD operations. Each method interacts with the database using the provided database connection.
+
+```javascript
+async createTask(task) {
+    // Implementation to insert task into database
+}
+
+async getAllTasks() {
+    // Implementation to retrieve all tasks from database
+}
+
+async getTaskById(id) {
+    // Implementation to retrieve task by ID from database
+}
+```
+
+## Error Handling
+
+Ensure proper error handling in each method to handle any errors that may occur during database operations.
+
+```javascript
+async createTask(task) {
+    try {
+        // Database operation to insert task
+    } catch (error) {
+        console.error("Error creating task:", error);
+    }
+}
+
+async getAllTasks() {
+    try {
+        // Database operation to retrieve all tasks
+    } catch (error) {
+        console.error("Error getting all tasks:", error);
+    }
+}
+
+async getTaskById(id) {
+    try {
+        // Database operation to retrieve task by ID
+    } catch (error) {
+        console.error("Error getting task by ID:", error);
+    }
+}
+
+```
+
+## Export
+
+Export the Task class and the TaskORM class so that they can be used in other parts of your application.
+
+```javascript
+module.exports = {
+    Task,
+    TaskORM
+};
+```
+
+By following these steps and integrating the code into the explanation, you can create a simple ORM for managing tasks in your Node.js application, with the ability to interact with an Oracle database.
+
 # Creating New Rest End Points
 
 To create new REST endpoints you first need to determine what functionalities you want to add to your API. Then, you can define the endpoint names according to the REST convention.
