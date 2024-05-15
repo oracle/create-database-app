@@ -174,6 +174,22 @@ const getWalletFileChoices = async () => {
 };
 
 
+// Prompts
+
+const promptWalletPath = async () => {
+    console.log( '\u001B[33m%s\u001B[0m', 'In order to unzip and copy the Wallet file, please ensure that you have file access permissions. \n' );
+
+    return await input(
+        {
+            // TODO: Cannot use tab to autocomplete, cannot use ~ for $HOME
+            message: 'Please enter the path of your Oracle Wallet:',
+            validate ( input ) {
+                return checkIfDirectoryOrZip( input );
+            }
+        }
+    );
+}
+
 // Here we promisify the exec function from child_process to use it with async/await
 const execAsync = promisify( exec );
 export default class Generate extends Command {
@@ -300,6 +316,12 @@ export default class Generate extends Command {
 
         // TODO: Validate and use wallet path
         const walletPathDirectory = flags['wallet-path'] ? flags['wallet-path'] : '';
+        let walletPathValidationResult = undefined;
+
+        if (walletPathDirectory !== ''){
+            walletPathValidationResult = checkIfDirectoryOrZip(walletPathDirectory);
+        }
+
 
         // Ask the user for the application name.
         const appName = name === '' ? await input(
@@ -438,20 +460,18 @@ export default class Generate extends Command {
                 connectionString: generateConnectionString( protocol, hostname, port, serviceValue )
             };
         } else {
-            let walletPath;
+            let walletPath = '';
 
-            console.log( '\u001B[33m%s\u001B[0m', 'In order to unzip and copy the Wallet file, please ensure that the read permissions have been given to the terminal. \n' );
-
-            walletPath = await input(
-                {
-                    // TODO: Cannot use tab to autocomplete, cannot use ~ for $HOME
-                    message: 'Please enter your Cloud Wallet Path:',
-                    validate ( input ) {
-                        return checkIfDirectoryOrZip( input );
-                    }
+            if(walletPathValidationResult === true){
+                walletPath = walletPathDirectory;
+            }
+            else{
+                if(walletPathValidationResult !== undefined){
+                    console.error('\u001B[31m%s\u001B[0m', walletPathValidationResult);
                 }
-            );
 
+                walletPath = await promptWalletPath();
+            }
             // walletPath = createWalletDirectory( walletPath );
             walletPath = path.resolve( untildify( walletPath ) );
             walletDirectory = path.dirname( walletPath );
