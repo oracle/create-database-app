@@ -7,6 +7,7 @@
 const db = require( '../db/index.cjs' );
 
 exports.getStatus = async function () {
+    await db.init();
     const connection = await db.getConnection();
     const result = await connection.execute( 'select 1 from dual' );
     await connection.close();

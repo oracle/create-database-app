@@ -12,19 +12,37 @@ oracledb.autoCommit = true;
 
 class DBConnector {
     constructor() {
-        this.pool = oracledb.createPool({
-            ...dbConfig,
-            poolMax: 10,
-            poolMin: 10
-        });
+        this.pool = null;
     }
 
-    getConnection(options = {}) {
-        const pool = oracledb.getPool();
-        return pool.getConnection({
-            ...dbConfig,
-            ...options
-        });
+    async init() {
+        try {
+            this.pool = await oracledb.createPool({
+                ...dbConfig,
+                poolMax: 10,
+                poolMin: 10
+            });
+            console.log('Connection pool created successfully.');
+        } catch (error) {
+            console.error('Error creating connection pool:', error);
+            throw error;
+        }
+    }
+
+    async getConnection(options = {}) {
+        if (!this.pool) {
+            throw new Error('Connection pool not initialized.');
+        }
+        try {
+            const connection = await this.pool.getConnection({
+                ...dbConfig,
+                ...options
+            });
+            return connection;
+        } catch (error) {
+            console.error('Error getting connection:', error);
+            throw error;
+        }
     }
 }
 
