@@ -4,6 +4,8 @@
 ** All rights reserved
 ** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
+
+// app/server/utils/db/config.cjs
 const oracledb = require('oracledb');
 const dbConfig = require('./config.cjs');
 
@@ -15,24 +17,24 @@ class DBConnector {
         this.pool = null;
     }
 
-    async init() {
-        try {
-            this.pool = await oracledb.createPool({
-                ...dbConfig,
-                poolMax: 10,
-                poolMin: 10
-            });
-            console.log('Connection pool created successfully.');
-        } catch (error) {
-            console.error('Error creating connection pool:', error);
-            throw error;
+    async createPool() {
+        if (!this.pool) {
+            try {
+                this.pool = await oracledb.createPool({
+                    ...dbConfig,
+                    poolMax: 10,
+                    poolMin: 10
+                });
+                console.log('Connection pool created successfully.');
+            } catch (error) {
+                console.error('Error creating connection pool:', error);
+                throw error;
+            }
         }
     }
 
     async getConnection(options = {}) {
-        if (!this.pool) {
-            throw new Error('Connection pool not initialized.');
-        }
+        await this.createPool();
         try {
             const connection = await this.pool.getConnection({
                 ...dbConfig,
