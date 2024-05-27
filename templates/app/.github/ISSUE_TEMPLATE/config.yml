@@ -1,0 +1,15 @@
+blank_issues_enabled: false
+#contact_links:
+#  - name: README
+#    url: https://github.com/mig8447/temp-create-database-app/blob/master/README.md
+#    about: Basic Documentation of Database Create App.
+#  - name: Contributing guidelines
+#    url: https://github.com/mig8447/temp-create-database-app/blob/master/doc/development/CONTRIBUTING.md
+#    about: How to contribute to the project.
+issue_template:
+  - name: Bug Report
+    description: Use this template to report any issues encountered.
+    template: bug_report.yml
+  - name: Feature Request
+    description: Use this template to suggest a new feature for this project.
+    template: feature_request.yml

@@ -108,6 +108,10 @@ export default class extends Generator {
             this.templatePath( `${this.options.templateChoice}/.eslintrc.cjs` ),
             this.destinationPath( '.eslintrc.cjs' ),
         );
+        this.fs.copy(
+            this.templatePath(`${ path.dirname( this.options.templateChoice ) }/app/.github`),
+            this.destinationPath('.github')
+        )
         this.fs.copyTpl(
             this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/${ path.basename( this.options.templateChoice ) == 'node-jet' ? 'index-proxied' : 'index' }.cjs` ),
             this.destinationPath( 'server/index.cjs' ),
