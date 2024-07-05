@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json.schemastore.org/nodemon.json",
+    "quiet": false,
+    "restartable": false,
+    "watch": [
+        "package.json",
+        "nodemon.json",
+        "src/*.ts",
+        "generators/*.ts",
+        "templates/**/*"
+    ],
+    "cwd": "./generated",
+    "signal": "SIGTERM",
+    "stdin": false,
+    "exec": "npm run --silent _dev --",
+    "ext": "js,ts,cjs,json"
+}

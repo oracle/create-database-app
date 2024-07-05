@@ -1,0 +1,4 @@
+/dist
+/templates
+/generated
+node_modules

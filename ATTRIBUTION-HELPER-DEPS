@@ -1,0 +1,647 @@
+==================
+
+Dependencies:
+-----------------------
+
+@babel/
+  code-frame 7.23.5
+  helper-validator-identifier 7.22.20
+  highlight 7.23.4
+@colors/colors 1.5.0
+@cspotcode/source-map-support 0.8.1
+@gar/promisify 1.1.3
+@inquirer/
+  checkbox 1.5.2
+  confirm 2.0.17
+  core 5.1.2
+  core 6.0.0
+  editor 1.2.15
+  expand 1.1.16
+  input 1.2.16
+  password 1.1.16
+  prompts 3.3.0
+  rawlist 1.2.16
+  select 1.3.3
+  type 1.2.0
+@isaacs/
+  cliui 8.0.2
+  string-locale-compare 1.1.0
+@jridgewell/
+  resolve-uri 3.1.2
+  sourcemap-codec 1.4.15
+  trace-mapping 0.3.9
+@ljharb/through 2.3.13
+@nodelib/
+  fs.scandir 2.1.5
+  fs.stat 2.0.5
+  fs.walk 1.2.8
+@npmcli/
+  agent 2.2.1
+  arborist 4.3.1
+  arborist 7.4.0
+  config 8.2.0
+  disparity-colors 3.0.0
+  fs 1.1.1
+  fs 2.1.2
+  fs 3.1.0
+  git 2.1.0
+  git 4.1.0
+  git 5.0.4
+  installed-package-contents 1.0.7
+  installed-package-contents 2.0.2
+  map-workspaces 2.0.4
+  map-workspaces 3.0.4
+  metavuln-calculator 2.0.0
+  metavuln-calculator 7.0.0
+  move-file 1.1.2
+  move-file 2.0.1
+  name-from-folder 1.0.1
+  name-from-folder 2.0.0
+  node-gyp 1.0.3
+  node-gyp 3.0.0
+  package-json 1.0.1
+  package-json 5.0.0
+  promise-spawn 1.3.2
+  promise-spawn 6.0.2
+  promise-spawn 7.0.1
+  query 3.1.0
+  run-script 2.0.0
+  run-script 6.0.2
+  run-script 7.0.4
+@oclif/
+  core 2.15.0
+  core 3.20.0
+  core 3.24.0
+  plugin-help 5.2.20
+  plugin-plugins 4.1.10
+@octokit/
+  auth-token 2.5.0
+  core 3.6.0
+  endpoint 6.0.12
+  graphql 4.8.0
+  openapi-types 12.11.0
+  plugin-paginate-rest 2.21.3
+  plugin-request-log 1.0.4
+  plugin-rest-endpoint-methods 5.16.2
+  request-error 2.1.0
+  request 5.6.3
+  rest 18.12.0
+  types 6.41.0
+@pkgjs/parseargs 0.11.0
+@sigstore/
+  bundle 1.1.0
+  bundle 2.2.0
+  core 1.0.0
+  protobuf-specs 0.2.1
+  protobuf-specs 0.3.0
+  sign 1.0.0
+  sign 2.2.3
+  tuf 1.0.3
+  tuf 2.3.1
+  verify 1.1.0
+@tootallnate/
+  once 1.1.2
+  once 2.0.0
+@tsconfig/
+  node10 1.0.9
+  node12 1.0.11
+  node14 1.0.3
+  node16 1.0.4
+@tufjs/
+  canonical-json 1.0.0
+  canonical-json 2.0.0
+  models 1.0.4
+  models 2.0.0
+@types/
+  cli-progress 3.11.5
+  expect 1.20.4
+  minimatch 3.0.5
+  mute-stream 0.0.4
+  node 15.14.9
+  node 20.11.26
+  normalize-package-data 2.4.4
+  vinyl 2.0.11
+  wrap-ansi 3.0.0
+  yauzl 2.10.3
+abbrev 1.1.1
+abbrev 2.0.0
+abort-controller 3.0.0
+acorn-walk 8.3.2
+acorn 8.11.3
+agent-base 6.0.2
+agent-base 7.1.0
+agentkeepalive 4.5.0
+aggregate-error 3.1.0
+ansi-escapes 4.3.2
+ansi-regex 5.0.1
+ansi-regex 6.0.1
+ansi-styles 3.2.1
+ansi-styles 4.3.0
+ansi-styles 6.2.1
+ansicolors 0.3.2
+aproba 2.0.0
+archy 1.0.0
+are-we-there-yet 2.0.0
+are-we-there-yet 3.0.1
+are-we-there-yet 4.0.2
+arg 4.1.3
+argparse 1.0.10
+array-differ 3.0.0
+array-union 2.1.0
+arrify 2.0.1
+asap 2.0.6
+astral-regex 2.0.0
+async 3.2.5
+balanced-match 1.0.2
+base64-js 1.5.1
+before-after-hook 2.2.3
+bin-links 3.0.3
+bin-links 4.0.3
+binary-extensions 2.2.0
+binaryextensions 4.19.0
+bl 4.1.0
+brace-expansion 1.1.11
+brace-expansion 2.0.1
+braces 3.0.2
+buffer-crc32 0.2.13
+buffer 5.7.1
+buffer 6.0.3
+builtins 1.0.3
+builtins 5.0.1
+cacache 15.3.0
+cacache 16.1.3
+cacache 17.1.4
+cacache 18.0.2
+call-bind 1.0.7
+cardinal 2.1.1
+chalk 2.4.2
+chalk 4.1.2
+chalk 5.3.0
+chardet 0.7.0
+chownr 2.0.0
+ci-info 3.9.0
+ci-info 4.0.0
+cidr-regex 3.1.1
+clean-stack 2.2.0
+clean-stack 3.0.1
+cli-columns 4.0.0
+cli-cursor 3.1.0
+cli-progress 3.12.0
+cli-spinners 2.9.2
+cli-table3 0.6.3
+cli-table 0.3.11
+cli-width 3.0.0
+cli-width 4.1.0
+clone-buffer 1.0.0
+clone-stats 1.0.0
+clone 1.0.4
+clone 2.1.2
+cloneable-readable 1.1.3
+cmd-shim 5.0.0
+cmd-shim 6.0.2
+color-convert 1.9.3
+color-convert 2.0.1
+color-name 1.1.3
+color-name 1.1.4
+color-string 1.9.1
+color-support 1.1.3
+color 4.2.3
+colors 1.0.3
+columnify 1.6.0
+commander 7.1.0
+common-ancestor-path 1.0.1
+commondir 1.0.1
+concat-map 0.0.1
+console-control-strings 1.1.0
+core-util-is 1.0.3
+create-require 1.1.1
+cross-spawn 7.0.3
+cssesc 3.0.0
+dargs 7.0.0
+dateformat 4.6.3
+debug 4.3.4
+debuglog 1.0.1
+deep-extend 0.6.0
+defaults 1.0.4
+define-data-property 1.1.4
+delegates 1.0.0
+deprecation 2.3.1
+dezalgo 1.0.4
+diff 4.0.2
+diff 5.2.0
+dir-glob 3.0.1
+eastasianwidth 0.2.0
+ejs 3.1.9
+emoji-regex 8.0.0
+emoji-regex 9.2.2
+encoding 0.1.13
+end-of-stream 1.4.4
+env-paths 2.2.1
+err-code 2.0.3
+error-ex 1.3.2
+error 10.4.0
+es-define-property 1.0.0
+es-errors 1.3.0
+escape-string-regexp 1.0.5
+escape-string-regexp 4.0.0
+escape-string-regexp 5.0.0
+esprima 4.0.1
+event-target-shim 5.0.1
+eventemitter3 4.0.7
+events 3.3.0
+execa 5.1.1
+exponential-backoff 3.1.1
+external-editor 3.1.0
+extract-zip 2.0.1
+fast-glob 3.3.2
+fastest-levenshtein 1.0.16
+fastq 1.17.1
+fd-slicer 1.1.0
+figures 3.2.0
+figures 5.0.0
+filelist 1.0.4
+fill-range 7.0.1
+find-up 4.1.0
+find-up 5.0.0
+find-yarn-workspace-root2 1.2.16
+first-chunk-stream 2.0.0
+foreground-child 3.1.1
+fs-minipass 2.1.0
+fs-minipass 3.0.3
+fs.realpath 1.0.0
+function-bind 1.1.2
+gauge 3.0.2
+gauge 4.0.4
+gauge 5.0.1
+get-intrinsic 1.2.4
+get-package-type 0.1.0
+get-stream 5.2.0
+get-stream 6.0.1
+github-username 6.0.0
+glob-parent 5.1.2
+glob 10.3.10
+glob 7.2.3
+glob 8.1.0
+globby 11.1.0
+gopd 1.0.1
+graceful-fs 4.2.11
+grouped-queue 2.0.0
+has-flag 3.0.0
+has-flag 4.0.0
+has-property-descriptors 1.0.2
+has-proto 1.0.3
+has-symbols 1.0.3
+has-unicode 2.0.1
+hasown 2.0.2
+hosted-git-info 2.8.9
+hosted-git-info 4.1.0
+hosted-git-info 6.1.1
+hosted-git-info 7.0.1
+http-cache-semantics 4.1.1
+http-proxy-agent 4.0.1
+http-proxy-agent 5.0.0
+http-proxy-agent 7.0.2
+https-proxy-agent 5.0.1
+https-proxy-agent 7.0.4
+human-signals 2.1.0
+humanize-ms 1.2.1
+hyperlinker 1.0.0
+iconv-lite 0.4.24
+iconv-lite 0.6.3
+ieee754 1.2.1
+ignore-walk 4.0.1
+ignore-walk 6.0.4
+ignore 5.3.1
+imurmurhash 0.1.4
+indent-string 4.0.0
+infer-owner 1.0.4
+inflight 1.0.6
+inherits 2.0.4
+ini 4.1.2
+init-package-json 6.0.2
+inquirer 8.2.6
+inquirer 9.2.12
+interpret 1.4.0
+ip-address 9.0.5
+ip-regex 4.3.0
+is-arrayish 0.2.1
+is-arrayish 0.3.2
+is-cidr 4.0.2
+is-core-module 2.13.1
+is-docker 2.2.1
+is-extglob 2.1.1
+is-fullwidth-code-point 3.0.0
+is-glob 4.0.3
+is-interactive 1.0.0
+is-lambda 1.0.1
+is-number 7.0.0
+is-plain-obj 2.1.0
+is-plain-object 5.0.0
+is-scoped 2.1.0
+is-stream 2.0.1
+is-unicode-supported 0.1.0
+is-unicode-supported 1.3.0
+is-utf8 0.2.1
+is-wsl 2.2.0
+isarray 1.0.0
+isbinaryfile 4.0.10
+isbinaryfile 5.0.2
+isexe 2.0.0
+isexe 3.1.1
+jackspeak 2.3.6
+jake 10.8.7
+js-tokens 4.0.0
+js-yaml 3.14.1
+jsbn 1.1.0
+json-parse-even-better-errors 2.3.1
+json-parse-even-better-errors 3.0.1
+json-stringify-nice 1.1.4
+jsonparse 1.3.1
+just-diff-apply 5.5.0
+just-diff 5.2.0
+just-diff 6.0.2
+libnpmaccess 8.0.2
+libnpmdiff 6.0.7
+libnpmexec 7.0.8
+libnpmfund 5.0.5
+libnpmhook 10.0.1
+libnpmorg 6.0.2
+libnpmpack 6.0.7
+libnpmpublish 9.0.4
+libnpmsearch 7.0.1
+libnpmteam 6.0.1
+libnpmversion 5.0.2
+lines-and-columns 1.2.4
+load-yaml-file 0.2.0
+locate-path 5.0.0
+locate-path 6.0.0
+lodash 4.17.21
+log-symbols 4.1.0
+lru-cache 10.2.0
+lru-cache 6.0.0
+lru-cache 7.18.3
+make-error 1.3.6
+make-fetch-happen 10.2.1
+make-fetch-happen 11.1.1
+make-fetch-happen 13.0.0
+make-fetch-happen 9.1.0
+mem-fs-editor 9.7.0
+mem-fs 2.3.0
+merge-stream 2.0.0
+merge2 1.4.1
+micromatch 4.0.5
+mimic-fn 2.1.0
+minimatch 3.1.2
+minimatch 5.1.6
+minimatch 7.4.6
+minimatch 9.0.3
+minimist 1.2.8
+minipass-collect 1.0.2
+minipass-collect 2.0.1
+minipass-fetch 1.4.1
+minipass-fetch 2.1.2
+minipass-fetch 3.0.4
+minipass-flush 1.0.5
+minipass-json-stream 1.0.1
+minipass-pipeline 1.2.4
+minipass-sized 1.0.3
+minipass 3.3.6
+minipass 5.0.0
+minipass 7.0.4
+minizlib 2.1.2
+mkdirp-infer-owner 2.0.0
+mkdirp 1.0.4
+ms 2.1.2
+ms 2.1.3
+multimatch 5.0.0
+mute-stream 0.0.8
+mute-stream 1.0.0
+natural-orderby 2.0.3
+negotiator 0.6.3
+node-fetch 2.7.0
+node-gyp 10.0.1
+node-gyp 8.4.1
+node-gyp 9.4.1
+nopt 5.0.0
+nopt 6.0.0
+nopt 7.2.0
+normalize-package-data 2.5.0
+normalize-package-data 5.0.0
+normalize-package-data 6.0.0
+normalize-path 3.0.0
+npm-audit-report 5.0.0
+npm-bundled 1.1.2
+npm-bundled 3.0.0
+npm-install-checks 4.0.0
+npm-install-checks 6.3.0
+npm-normalize-package-bin 1.0.1
+npm-normalize-package-bin 2.0.0
+npm-normalize-package-bin 3.0.1
+npm-package-arg 10.1.0
+npm-package-arg 11.0.1
+npm-package-arg 8.1.5
+npm-packlist 3.0.0
+npm-packlist 7.0.4
+npm-packlist 8.0.2
+npm-pick-manifest 6.1.1
+npm-pick-manifest 8.0.2
+npm-pick-manifest 9.0.0
+npm-profile 9.0.0
+npm-registry-fetch 12.0.2
+npm-registry-fetch 14.0.5
+npm-registry-fetch 16.1.0
+npm-run-path 4.0.1
+npm-user-validate 2.0.0
+npm 10.2.3
+npmlog 5.0.1
+npmlog 6.0.2
+npmlog 7.0.1
+object-assign 4.1.1
+object-treeify 1.1.33
+once 1.4.0
+onetime 5.1.2
+ora 5.4.1
+os-tmpdir 1.0.2
+p-finally 1.0.0
+p-limit 2.3.0
+p-limit 3.1.0
+p-locate 4.1.0
+p-locate 5.0.0
+p-map 4.0.0
+p-queue 6.6.2
+p-timeout 3.2.0
+p-transform 1.3.0
+p-try 2.2.0
+pacote 12.0.3
+pacote 15.2.0
+pacote 17.0.6
+parse-conflict-json 2.0.2
+parse-conflict-json 3.0.1
+parse-json 5.2.0
+password-prompt 1.1.3
+path-exists 4.0.0
+path-is-absolute 1.0.1
+path-key 3.1.1
+path-parse 1.0.7
+path-scurry 1.10.1
+path-type 4.0.0
+pend 1.2.0
+picomatch 2.3.1
+pify 2.3.0
+pify 4.0.1
+pkg-dir 4.2.0
+postcss-selector-parser 6.0.15
+preferred-pm 3.1.3
+pretty-bytes 5.6.0
+proc-log 1.0.0
+proc-log 3.0.0
+process-nextick-args 2.0.1
+process 0.11.10
+promise-all-reject-late 1.0.1
+promise-call-limit 1.0.2
+promise-call-limit 3.0.1
+promise-inflight 1.0.1
+promise-retry 2.0.1
+promzard 1.0.0
+pump 3.0.0
+qrcode-terminal 0.12.0
+queue-microtask 1.2.3
+read-cmd-shim 3.0.1
+read-cmd-shim 4.0.0
+read-package-json-fast 2.0.3
+read-package-json-fast 3.0.2
+read-package-json 6.0.4
+read-package-json 7.0.0
+read-pkg-up 7.0.1
+read-pkg 5.2.0
+read 2.1.0
+read 3.0.1
+readable-stream 2.3.8
+readable-stream 3.6.2
+readable-stream 4.5.2
+readdir-scoped-modules 1.1.0
+rechoir 0.6.2
+redeyed 2.1.1
+remove-trailing-separator 1.1.0
+replace-ext 1.0.1
+resolve 1.22.8
+restore-cursor 3.1.0
+retry 0.12.0
+reusify 1.0.4
+rimraf 3.0.2
+run-async 2.4.1
+run-async 3.0.0
+run-parallel 1.2.0
+rxjs 7.8.1
+safe-buffer 5.1.2
+safe-buffer 5.2.1
+safer-buffer 2.1.2
+scoped-regex 2.1.0
+semver 5.7.2
+semver 7.6.0
+set-blocking 2.0.0
+set-function-length 1.2.2
+shebang-command 2.0.0
+shebang-regex 3.0.0
+shelljs 0.8.5
+signal-exit 3.0.7
+signal-exit 4.1.0
+sigstore 1.9.0
+sigstore 2.2.2
+simple-swizzle 0.2.2
+slash 3.0.0
+slice-ansi 4.0.0
+smart-buffer 4.2.0
+socks-proxy-agent 6.2.1
+socks-proxy-agent 7.0.0
+socks-proxy-agent 8.0.2
+socks 2.8.1
+sort-keys 4.2.0
+spdx-correct 3.2.0
+spdx-exceptions 2.5.0
+spdx-expression-parse 3.0.1
+spdx-license-ids 3.0.17
+sprintf-js 1.0.3
+sprintf-js 1.1.3
+ssri 10.0.5
+ssri 8.0.1
+ssri 9.0.1
+string-width-cjs 4.2.3
+string-width 4.2.3
+string-width 5.1.2
+string_decoder 1.1.1
+string_decoder 1.3.0
+strip-ansi-cjs 6.0.1
+strip-ansi 6.0.1
+strip-ansi 7.1.0
+strip-bom-buf 1.0.0
+strip-bom-stream 2.0.0
+strip-bom 2.0.0
+strip-bom 3.0.0
+strip-final-newline 2.0.0
+supports-color 5.5.0
+supports-color 7.2.0
+supports-color 8.1.1
+supports-color 9.4.0
+supports-hyperlinks 2.3.0
+supports-preserve-symlinks-flag 1.0.0
+tar 6.2.0
+text-table 0.2.0
+textextensions 5.16.0
+through 2.3.8
+tiny-relative-date 1.3.0
+tmp 0.0.33
+to-regex-range 5.0.1
+tr46 0.0.3
+treeverse 1.0.4
+treeverse 3.0.0
+ts-node 10.9.2
+tslib 2.6.2
+tuf-js 1.1.7
+tuf-js 2.2.0
+type-fest 0.21.3
+type-fest 0.6.0
+type-fest 0.8.1
+undici-types 5.26.5
+unique-filename 1.1.1
+unique-filename 2.0.1
+unique-filename 3.0.0
+unique-slug 2.0.2
+unique-slug 3.0.0
+unique-slug 4.0.0
+universal-user-agent 6.0.1
+untildify 4.0.0
+untildify 5.0.0
+util-deprecate 1.0.2
+v8-compile-cache-lib 3.0.1
+validate-npm-package-license 3.0.4
+validate-npm-package-name 3.0.0
+validate-npm-package-name 5.0.0
+vinyl-file 3.0.0
+vinyl 2.2.1
+walk-up-path 1.0.0
+walk-up-path 3.0.1
+wcwidth 1.0.1
+webidl-conversions 3.0.1
+whatwg-url 5.0.0
+which-pm 2.0.0
+which 2.0.2
+which 3.0.1
+which 4.0.0
+wide-align 1.1.5
+widest-line 3.1.0
+wordwrap 1.0.0
+wrap-ansi-cjs 7.0.0
+wrap-ansi 6.2.0
+wrap-ansi 7.0.0
+wrap-ansi 8.1.0
+wrappy 1.0.2
+write-file-atomic 4.0.2
+write-file-atomic 5.0.1
+yallist 4.0.0
+yarn 1.22.22
+yauzl 2.10.0
+yeoman-environment 3.19.3
+yeoman-generator 5.10.0
+yn 3.1.1
+yocto-queue 0.1.0

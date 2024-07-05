@@ -1,0 +1,13 @@
+{
+    "npm.exclude": [
+        "**/templates/**",
+        "**/generated/**",
+    ],
+    "npm.scriptExplorerExclude": [
+        "^_",
+        "^pre(?!pare)",
+        "^post",
+        "^prepare:",
+    ],
+    "forbeslindesay-taskrunner.source": "Workspace"
+}

@@ -1,0 +1,309 @@
+/*
+**
+** Copyright (c) 2024, Oracle and/or its affiliates.
+** All rights reserved
+** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
+*/
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+/* container */
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background: #fbf9f8;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-app {
+    width: 100%;
+    max-width: 540px;
+    background: white;
+    border: 2px solid #dcdbda;
+    /* margin: 100px auto 20px; */
+    padding: 40px 30px 40px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5vh;
+}
+
+.todo-app h2 {
+    display: flex;
+    color: blue;
+    align-items: center;
+    justify-content: center;
+}
+
+.todo-app h2 img {
+    width: 30px;
+    /* margin-left: 10px; */
+}
+
+/* input box */
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #edeef0;
+    border-radius: 30px;
+    padding-left: 20px;
+}
+
+input {
+    position: relative;
+    flex: 1;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 10px;
+}
+
+.add-btn {
+    border: none;
+    outline: none;
+    padding: 16px 50px;
+    background: #ff5945;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 40px;
+}
+
+/* styling on mid */
+.mid {
+    display: flex;
+    font-size: 1.2rem;
+    justify-content: space-between;
+}
+
+.complete-all {
+    background: #2ecc71;
+    border: none;
+    outline: none;
+    padding: 12px 25px;
+    color: #ffffff;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+.complete-all:hover {
+    background: #27ae60;
+    color: #ffffff;
+}
+
+.clear-all {
+    background: #e74c3c;
+    border: none;
+    outline: none;
+    padding: 12px 25px;
+    color: #ffffff;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.clear-all:hover {
+    background: #c0392b;
+    color: #ffffff;
+}
+
+
+/* styling on todo list */
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* border: 1px solid #e5e5e5; */
+}
+
+ul li {
+    padding: 10px;
+    /* padding-left: 0; */
+    display: flex;
+    justify-content: space-between;
+    align-items: inherit;
+    align-items: center;
+}
+
+ul li:hover {
+    background: lightyellow;
+}
+
+#list input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+}
+
+#list label {
+    position: relative;
+    cursor: pointer;
+}
+
+#list label:before {
+    content: '';
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 2px solid #0079bf;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#list input:checked+label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 9px;
+    width: 6px;
+    height: 14px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+#list input:checked+label:before {
+    background: #0079bf;
+}
+
+#list input:checked+label {
+    text-decoration: line-through;
+}
+
+.delete {
+    height: 25px;
+    padding: 5px 0px;
+    border-radius: 3px;
+}
+
+.delete:hover {
+    background: #f2f2f2;
+    cursor: pointer;
+}
+
+.edit {
+    height: 25px;
+    padding: 5px 0px;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+
+.edit:hover {
+    background: #f2f2f2;
+    cursor: pointer;
+}
+
+h1 {
+    text-align: center;
+}
+
+.add-task {
+    width: 100%;
+    outline: none;
+    font-size: 15px;
+    padding: 11px;
+    margin-bottom: 3px;
+}
+
+#total-tasks {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: gray;
+}
+
+/*
+dropdown*/
+.filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+.loading-container {
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 9999;
+}
+
+.loading-image {
+    height: 250px;
+    width: 250px;
+}
+
+@media screen and (max-width: 500px) {
+    .filters {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+    }
+
+    .mid {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+    }
+}

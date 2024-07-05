@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "streetsidesoftware.code-spell-checker",
+        "dbaeumer.vscode-eslint",
+        "yzhang.markdown-all-in-one",
+        "davidanson.vscode-markdownlint",
+        "forbeslindesay.forbeslindesay-taskrunner",
+        "gruntfuggly.triggertaskonsave",
+        "dotenv.dotenv-vscode",
+        "gruntfuggly.todo-tree"
+    ]
+}

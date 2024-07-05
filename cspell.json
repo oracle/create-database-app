@@ -1,0 +1,19 @@
+{
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "darwin",
+        "dbtools",
+        "hackathon",
+        "myplugin",
+        "oclif",
+        "toc",
+        "tocstop",
+        "untildify"
+    ],
+    "ignoreWords": [],
+    "import": [],
+    "allowCompoundWords": true
+}

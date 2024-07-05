@@ -1,0 +1,111 @@
+{
+  "name": "@oracle/create-database-app",
+  "version": "1.1.8",
+  "description": "Create an Oracle Database Application from a Template",
+  "author": "Oracle Corporation",
+  "keywords": [
+    "oracle",
+    "database",
+    "app"
+  ],
+  "license": "UPL-1.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oracle/create-database-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oracle/create-database-app/issues"
+  },
+  "bin": {
+    "create-database-app": "./bin/run.js"
+  },
+  "files": [
+    "/bin",
+    "/dist",
+    "/templates",
+    "/oclif.manifest.json"
+  ],
+  "oclif": {
+    "bin": "create-database-app",
+    "dirname": "create-database-app",
+    "default": ".",
+    "commands": "./dist/src",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "hello": {
+        "description": "Say hello to the world and others"
+      }
+    }
+  },
+  "scripts": {
+    "start": "cd generated && ../bin/run.js",
+    "dev": "nodemon --config nodemon.json",
+    "_dev": "cd generated && ../bin/dev.js",
+    "debug": "cd generated && node --inspect-brk ../bin/dev.js",
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "npm run lint",
+    "prepack": "npm run build && oclif manifest && oclif readme",
+    "pre_dev": "run-s -s build",
+    "predebug": "run-s -s build",
+    "prepare:build": "npm run build",
+    "prepare:husky": "husky install",
+    "prepare": "run-s -s prepare:*",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md && run-s build"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "3.3.0",
+    "@oclif/core": "3.20.0",
+    "@oclif/plugin-help": "5.2.20",
+    "@oclif/plugin-plugins": "4.1.10",
+    "extract-zip": "2.0.1",
+    "inquirer": "9.2.12",
+    "untildify": "5.0.0",
+    "yeoman-environment": "3.19.3",
+    "yeoman-generator": "5.10.0"
+  },
+  "bundledDependencies": [
+    "@inquirer/prompts",
+    "@oclif/core",
+    "@oclif/plugin-help",
+    "@oclif/plugin-plugins",
+    "extract-zip",
+    "inquirer",
+    "untildify",
+    "yeoman-environment",
+    "yeoman-generator"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@oclif/prettier-config": "0.2.1",
+    "@oclif/test": "3.2.1",
+    "@types/chai": "^4",
+    "@types/fs-extra": "^11.0.4",
+    "@types/mocha": "^10",
+    "@types/node": "^18",
+    "@types/yeoman-generator": "^5.2.14",
+    "chai": "^4",
+    "dotenv-cli": "7.0.0",
+    "eslint": "^8",
+    "eslint-config-oclif": "^5",
+    "eslint-config-oclif-typescript": "^3",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "husky": "^8.0.3",
+    "mocha": "^10",
+    "nodemon": "^3.0.3",
+    "npm-run-all": "^4.1.5",
+    "oclif": "4.4.20",
+    "shx": "0.3.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5"
+  }
+}
