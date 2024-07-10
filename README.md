@@ -58,7 +58,7 @@ using the the [`oracledb` database driver](https://github.com/oracle/node-oracle
     [React](https://react.dev/). It is built by [`vite`](https://vitejs.dev/)
 - `node-vue`: A starter template that uses Node.js and
     [Vue.js](https://vuejs.org/). It is built by [`vite`](https://vitejs.dev/)
-- `node-todo`: A simple task manager template that uses Node.js and
+- `node-react-todo`: A simple task manager template that uses Node.js and
     [React](https://react.dev/). It demonstrates the use of the database for
     Create, Read, Update and Delete (CRUD) operations. It is built by
     [`vite`](https://vitejs.dev/)
@@ -95,7 +95,7 @@ template, you can execute:
 ```sh
 npm create @oracle/database-app -- \
     --name 'my-todo' \
-    --template 'node-todo'
+    --template 'node-react-todo'
 ```
 
 ## Contributing
