@@ -79,7 +79,9 @@ If you want to generate an application named `my-app` with the `node-react`
 template, you can execute:
 
 ```sh
-npm create @oracle/database-app --name 'my-app' --template 'node-react'
+npm create @oracle/database-app \
+    --name 'my-app' \
+    --template 'node-react'
 ```
 
 #### Create a Todo Database App
@@ -88,7 +90,9 @@ If you want to generate an application named `my-todo` with the `node-todo`
 template, you can execute:
 
 ```sh
-npm create @oracle/database-app --name 'my-todo' --template 'node-todo'
+npm create @oracle/database-app \
+    --name 'my-todo' \
+    --template 'node-todo'
 ```
 
 ## Contributing
