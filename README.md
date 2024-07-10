@@ -22,12 +22,15 @@ using the least privileged account possible.
 
 ## Prerequisites
 
+- An Oracle Database, either on-prem or an
+    [Autonomous Database](https://www.oracle.com/autonomous-database/) instance
 - Node.js 18 (Recommendation is to use [nvm](https://github.com/nvm-sh/nvm))
 
 ## Usage
 
 The main application usage is through the `@oracle/create-database-app` NPM
-package, which will scaffold an application connected to a database.
+package, which will scaffold an application that will be connected to your
+Oracle Database.
 
 ```sh
 npm create @oracle/database-app
