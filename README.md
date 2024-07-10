@@ -82,7 +82,7 @@ If you want to generate an application named `my-app` with the `node-react`
 template, you can execute:
 
 ```sh
-npm create @oracle/database-app \
+npm create @oracle/database-app -- \
     --name 'my-app' \
     --template 'node-react'
 ```
@@ -93,7 +93,7 @@ If you want to generate an application named `my-todo` with the `node-todo`
 template, you can execute:
 
 ```sh
-npm create @oracle/database-app \
+npm create @oracle/database-app -- \
     --name 'my-todo' \
     --template 'node-todo'
 ```
