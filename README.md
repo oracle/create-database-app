@@ -4,7 +4,7 @@
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
-- [Usage](#usage)
+- [Getting Started](#getting-started)
     - [Examples](#examples)
         - [Create a React Database App](#create-a-react-database-app)
         - [Create a Todo Database App](#create-a-todo-database-app)
@@ -26,7 +26,7 @@ using the least privileged account possible.
     [Autonomous Database](https://www.oracle.com/autonomous-database/) instance
 - Node.js 18 (Recommendation is to use [nvm](https://github.com/nvm-sh/nvm))
 
-## Usage
+## Getting Started
 
 The main application usage is through the `@oracle/create-database-app` NPM
 package, which will scaffold an application that will be connected to your
