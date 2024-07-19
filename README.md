@@ -4,7 +4,7 @@
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
-- [Usage](#usage)
+- [Getting Started](#getting-started)
     - [Examples](#examples)
         - [Create a React Database App](#create-a-react-database-app)
         - [Create a Todo Database App](#create-a-todo-database-app)
@@ -22,12 +22,15 @@ using the least privileged account possible.
 
 ## Prerequisites
 
+- An Oracle Database, either on-prem or an
+    [Autonomous Database](https://www.oracle.com/autonomous-database/) instance
 - Node.js 18 (Recommendation is to use [nvm](https://github.com/nvm-sh/nvm))
 
-## Usage
+## Getting Started
 
 The main application usage is through the `@oracle/create-database-app` NPM
-package, which will scaffold an application connected to a database.
+package, which will scaffold an application that will be connected to your
+Oracle Database.
 
 ```sh
 npm create @oracle/database-app
@@ -55,7 +58,7 @@ using the the [`oracledb` database driver](https://github.com/oracle/node-oracle
     [React](https://react.dev/). It is built by [`vite`](https://vitejs.dev/)
 - `node-vue`: A starter template that uses Node.js and
     [Vue.js](https://vuejs.org/). It is built by [`vite`](https://vitejs.dev/)
-- `node-todo`: A simple task manager template that uses Node.js and
+- `node-react-todo`: A simple task manager template that uses Node.js and
     [React](https://react.dev/). It demonstrates the use of the database for
     Create, Read, Update and Delete (CRUD) operations. It is built by
     [`vite`](https://vitejs.dev/)
@@ -79,7 +82,9 @@ If you want to generate an application named `my-app` with the `node-react`
 template, you can execute:
 
 ```sh
-npm create @oracle/database-app --name 'my-app' --template 'node-react'
+npm create @oracle/database-app -- \
+    --name 'my-app' \
+    --template 'node-react'
 ```
 
 #### Create a Todo Database App
@@ -88,7 +93,9 @@ If you want to generate an application named `my-todo` with the `node-todo`
 template, you can execute:
 
 ```sh
-npm create @oracle/database-app --name 'my-todo' --template 'node-todo'
+npm create @oracle/database-app -- \
+    --name 'my-todo' \
+    --template 'node-react-todo'
 ```
 
 ## Contributing
