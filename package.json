@@ -62,7 +62,7 @@
     "version": "oclif readme && git add README.md && run-s build"
   },
   "dependencies": {
-    "@inquirer/prompts": "3.3.0",
+    "@inquirer/prompts": "3.3.2",
     "@oclif/core": "3.27.0",
     "@oclif/plugin-help": "5.2.20",
     "@oclif/plugin-plugins": "4.1.10",
