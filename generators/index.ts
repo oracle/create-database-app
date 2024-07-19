@@ -141,6 +141,6 @@ export default class extends Generator {
     }
 
     end() {
-        this.log( 'Application generated successfuly. Run the following command: \n\ncd '+ path.join( process.cwd(), this.options.appName ) );
+        this.log( 'Application generated successfuly. Run the following command: \n\ncd ' + path.join( process.cwd(), this.options.appName ) + '\n');
     }
 }
