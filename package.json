@@ -67,7 +67,7 @@
     "@oclif/plugin-help": "5.2.20",
     "@oclif/plugin-plugins": "^5.3.7",
     "extract-zip": "2.0.1",
-    "inquirer": "9.2.12",
+    "inquirer": "9.3.6",
     "untildify": "5.0.0",
     "yeoman-environment": "3.19.3",
     "yeoman-generator": "5.10.0"
