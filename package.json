@@ -94,7 +94,7 @@
     "@types/node": "^18",
     "@types/yeoman-generator": "^5.2.14",
     "chai": "^4",
-    "dotenv-cli": "7.0.0",
+    "dotenv-cli": "7.4.2",
     "eslint": "^8",
     "eslint-config-oclif": "^5",
     "eslint-config-oclif-typescript": "^3",
