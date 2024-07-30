@@ -7,18 +7,12 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-import { createTask, updateTask } from '../api/rest-service';
-import todoImage from "../images/todo.png"
-export const TodoListHeader = (props) => {
+import { createTask, updateTask } from '../api/rest-service.js';
 
+export const TodoListInput = (props) => {
     // Handle input change
     const handleInputChange = (event) => {
         props.setInputValue(event.target.value);
-    };
-
-    // Handle filter change
-    const handleFilterChange = (filterType) => {
-        props.setFilter(filterType);
     };
 
     // Add a new task
@@ -66,13 +60,10 @@ export const TodoListHeader = (props) => {
 
     return (
         <>
-            <h2>
-                <img src={todoImage} alt={'todo-image'} /> Todo List
-            </h2>
+            <div className={"header"}><h2>Tasks</h2></div>
             <div className={'row'}>
                 <input
                     type={'text'}
-                    className={'add-task'}
                     id={'add'}
                     placeholder={'Add your todo'}
                     autoFocus
@@ -83,35 +74,13 @@ export const TodoListHeader = (props) => {
                     {props.editTaskId ? 'Update' : 'Add'}
                 </button>
             </div>
-
-            <div className={'filters'}>
-                <div className={'dropdown'}>
-                    <button className={'dropbtn'}>Filter Tasks</button>
-                    <div className={'dropdown-content'}>
-                        <a href={'#'} id={'all'} onClick={() => handleFilterChange('all')}>
-                            All
-                        </a>
-                        <a href={'#'} id={'rem'} onClick={() => handleFilterChange('uncompleted')}>
-                            Uncompleted
-                        </a>
-                        <a href={'#'} id={'com'} onClick={() => handleFilterChange('completed')}>
-                            Completed
-                        </a>
-                    </div>
-                </div>
-
-                <div className={'completed-task'}>
-                    <p>
-                        Completed: <span id={'c-count'}>{props.tasks.filter((task) => task.IS_COMPLETED).length}</span>
-                    </p>
-                </div>
-                <div className={'remaining-task'}>
-                    <p>
-                        <span id={'total-tasks'}>Total Tasks:
-                            <span id={'tasks-counter'}>{props.tasks.length}</span>
-                        </span>
-                    </p>
-                </div>
+            <div className={'info-tasks'}>
+                <p>
+                    Complete: <span>{props.tasks.filter((task) => task.IS_COMPLETED).length}</span>
+                </p>
+                <p>
+                    Total: <span>{props.tasks.length}</span>
+                </p>
             </div>
         </>
     );

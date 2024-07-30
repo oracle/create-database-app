@@ -15,3 +15,4 @@ oclif.manifest.json
 /generated/*
 !/generated/.gitkeep*
 /templates/**/*/package-lock.json
+/templates/node-angular/.angular/*

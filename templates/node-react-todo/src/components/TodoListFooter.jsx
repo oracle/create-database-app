@@ -49,8 +49,8 @@ export const TodoListFooter = (props) => {
     return (
         <>
             <div className={'mid'}>
-                <button className={'complete-all'} onClick={handleCompleteAll}>Complete all tasks</button>
-                <button className={'clear-all'} onClick={handleClearCompleted}>Delete completed tasks</button>
+                <button className={'complete-all'} onClick={handleCompleteAll}>Mark all as complete</button>
+                <button className={'clear-all'} onClick={handleClearCompleted}>Delete complete tasks</button>
             </div>
         </>
     );
