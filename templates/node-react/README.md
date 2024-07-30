@@ -2,9 +2,203 @@
 
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# How to Create an ORM
 
-Currently, two official plugins are available:
+## Database Connection
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The first thing you need is a connection to your database. In this example, we're using Oracle Database, so you would need the appropriate driver for Oracle in your Node.js application.
+
+```javascript
+const db = require('oracledb');
+```
+
+## Define Class
+
+Define a class to represent the entity you want to map to the database. In this case, it's the Task class. This class typically mirrors the structure of your database table, with properties corresponding to columns.
+
+```javascript
+class Task {
+    constructor(id, title, description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
+}
+```
+
+## ORM Class
+
+Create a class that will act as the ORM. In the example, it's the TaskORM class. This class will contain methods for performing CRUD (Create, Read, Update, Delete) operations on the Task objects.
+
+```javascript
+class TaskORM {
+    constructor(databaseConnection) {
+        this.db = databaseConnection;
+    }
+
+    async createTask(task) {
+        // Implementation goes here
+    }
+
+    async getAllTasks() {
+        // Implementation goes here
+    }
+
+    async getTaskById(id) {
+        // Implementation goes here
+    }
+
+    // Other CRUD methods can be added here
+}
+```
+
+## Constructor
+
+The constructor of the ORM class initializes the database connection.
+
+```javascript
+constructor(databaseConnection) {
+    this.db = databaseConnection;
+}
+```
+
+## CRUD Methods
+
+Implement methods for CRUD operations. Each method interacts with the database using the provided database connection.
+
+```javascript
+async createTask(task) {
+    // Implementation to insert task into database
+}
+
+async getAllTasks() {
+    // Implementation to retrieve all tasks from database
+}
+
+async getTaskById(id) {
+    // Implementation to retrieve task by ID from database
+}
+```
+
+## Error Handling
+
+Ensure proper error handling in each method to handle any errors that may occur during database operations.
+
+```javascript
+async createTask(task) {
+    try {
+        // Database operation to insert task
+    } catch (error) {
+        console.error("Error creating task:", error);
+    }
+}
+
+async getAllTasks() {
+    try {
+        // Database operation to retrieve all tasks
+    } catch (error) {
+        console.error("Error getting all tasks:", error);
+    }
+}
+
+async getTaskById(id) {
+    try {
+        // Database operation to retrieve task by ID
+    } catch (error) {
+        console.error("Error getting task by ID:", error);
+    }
+}
+
+```
+
+## Export
+
+Export the Task class and the TaskORM class so that they can be used in other parts of your application.
+
+```javascript
+module.exports = {
+    Task,
+    TaskORM
+};
+```
+
+By following these steps and integrating the code into the explanation, you can create a simple ORM for managing tasks in your Node.js application, with the ability to interact with an Oracle database.
+
+# Creating New Rest End Points
+
+To create new REST endpoints you first need to determine what functionalities you want to add to your API. Then, you can define the endpoint names according to the REST convention.
+
+## Read (GET)
+
+This operation is used to retrieve existing resources.
+
+```javascript
+export const getTasks = async () => {
+    const response = await fetch(URL, {
+        method: 'GET',
+    })
+
+    if (!response.ok) {
+        throw new Error('Failed to get tasks');
+    }
+
+    return response.json();
+}
+```
+##  Create (Post)
+
+This operation is used to create a new resource.
+
+```javascript
+export const createTask = async (task) => {
+    const response = await fetch(URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(task)
+    })
+
+    if (!response.ok) {
+        throw new Error('Failed to create task');
+    }
+
+    return response;
+}
+```
+
+## Update(PUT or PATCH)
+
+This operation is used to modify an existing resource
+
+```javascript
+export const updateTask = async (taskId, task) => {
+    const response = await fetch(`${URL}${taskId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(task)
+    })
+
+    if (!response.ok) {
+        throw new Error('Failed to update task');
+    }
+
+    return response;
+}
+```
+
+## Delete (DELETE)
+
+This operation is used to remove a resource. 
+
+```javascript
+export const deleteTask = async (taskId) => {
+    const response = await fetch(`${URL}${taskId}`, {
+        method: 'DELETE',
+    })
+
+    if (!response.ok) {
+        throw new Error('Failed to delete task');
+    }
+
+    return response;
+}
+```
