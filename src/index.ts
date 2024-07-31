@@ -174,11 +174,27 @@ const getWalletFileChoices = async () => {
 };
 
 
+// Prompts
+
+const promptWalletPath = async () => {
+    console.log( '\u001B[33m%s\u001B[0m', 'In order to unzip and copy the Wallet file, please ensure that you have file access permissions. \n' );
+
+    return await input(
+        {
+            // TODO: Cannot use tab to autocomplete, cannot use ~ for $HOME
+            message: 'Please enter the path of your Oracle Wallet:',
+            validate ( input ) {
+                return checkIfDirectoryOrZip( input );
+            }
+        }
+    );
+}
+
 // Here we promisify the exec function from child_process to use it with async/await
 const execAsync = promisify( exec );
 export default class Generate extends Command {
     static args = {
-        file: Args.string( { description: 'file to read' } ),
+        name: Args.string( { name:'name', required: false, description: 'Name of the project' } ),
     };
 
     static description = 'generate template';
@@ -187,19 +203,125 @@ export default class Generate extends Command {
         '<%= config.bin %> <%= command.id %>',
     ];
 
-    static flags = {
-        // flag with a value (-n, --name=VALUE)
-        name: Flags.string( { char: 'n', description: 'name to print' } ),
-        // // flag with no value (-f, --force)
-        // force: Flags.boolean({char: 'f'}),
-        // // flag with no value (-t, --template)
-        template: Flags.string( { char: 't', description: 'Template name' } ),
+    static flags = {    
+        'template': Flags.string({ 
+            char: 't', 
+            description: 'Template to use',
+            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo'], 
+            multiple: false
+        }),
+        
+        'connection-type': Flags.string({ 
+            char: 'c', 
+            description: 'Connection type', 
+            options:['basic', 'walletPath'], 
+            multiple: false
+        }),
+        
+        'db-username': Flags.string({ 
+            description: 'Database username', 
+            multiple: false
+        }),
+
+        // basic connection flags
+        'db-protocol': Flags.string({ 
+            description: 'Database protocol', 
+            multiple: false, 
+            relationships:[{
+                    type:'none', flags:[
+                        {name: 'connection-type', when: async (flags) => flags['connection-type'] === 'walletPath'}
+                    ]
+                }
+            ]}),
+        
+        'db-hostname': Flags.string( { 
+            description: 'Database host name', 
+            multiple: false,
+            relationships:[{
+                type:'none', flags:[
+                    {name: 'connection-type', when: async (flags) => flags['connection-type'] === 'walletPath'}
+                ]
+            }]
+        }),
+        'db-port': Flags.integer({ 
+            description: 'Database port number', 
+            max: 65535, 
+            min: 0, 
+            multiple: false,
+            relationships:[{
+                type:'none', flags:[
+                    {name: 'connection-type', when: async (flags) => flags['connection-type'] === 'walletPath'}
+                ]
+            }
+        ]
+        }),
+        'db-service-type': Flags.string({ 
+            description: 'Database service type. Only can be sid or service name', 
+            options: ['sid', 'serviceName'], 
+            multiple: false,
+            relationships:[{
+                type:'none', flags:[
+                    {name: 'connection-type', when: async (flags) => flags['connection-type'] === 'walletPath'}
+                ]
+            }
+        ]
+        }),
+        'db-sid': Flags.string({ 
+            description: 'Database service ID, only needed if service type was sid', 
+            multiple: false,
+            relationships:[{
+                type:'none', flags:[
+                    {name: 'connection-type', when: async (flags) => flags['connection-type'] === 'walletPath'},
+                    {name: 'db-service-type', when: async (flags) => flags['db-service-type'] === 'serviceName'}
+                ]
+            }
+        ]
+        }),
+        'db-service-name': Flags.string({ 
+            description: 'Database service name, only needed if service type was serviceName', 
+            multiple: false,
+            relationships:[{
+                type:'none', flags:[
+                    {name: 'connection-type', when: async (flags) => flags['connection-type'] === 'walletPath'},
+                    {name: 'db-service-type', when: async (flags) => flags['db-service-type'] === 'sid'}
+                ]
+            }
+        ]
+        }),
+        'wallet-path': Flags.string({ 
+            description: 'Cloud wallet path', 
+            dependsOn: ['connection-type'], 
+            multiple: false,
+            relationships:[{
+                type:'none', flags:[
+                    {name: 'connection-type', when: async (flags) => flags['connection-type'] === 'basic'}
+                ]
+            }
+        ]
+        })
     };
 
     public async run (): Promise<void> {
         const { args, flags } = await this.parse( Generate );
-        const name = flags.name ? flags.name : '';
-        const template = flags.template ? flags.template : '';
+        const name = args.name ?? '';
+        const template = flags['template'] ?? '';
+        const connectionType = flags['connection-type'] ?? '';
+        const databaseProtocol = flags['db-protocol'] ?? '';
+        const databaseHostName = flags['db-hostname'] ?? '';
+        const databasePort = flags['db-port']?.toString() ?? '';
+        const databaseServiceType = flags['db-service-type'] ?? '';
+        const databaseSID = flags['db-sid'] ?? '';
+        const databaseServiceName = flags['db-service-name'] ?? '';
+        const databaseUsername = flags['db-username'] ?? '';
+
+        // TODO: Validate and use wallet path
+        const walletPathDirectory = flags['wallet-path'] ? flags['wallet-path'] : '';
+        let walletPathValidationResult = undefined;
+
+        if (walletPathDirectory !== ''){
+            walletPathValidationResult = checkIfDirectoryOrZip(walletPathDirectory);
+        }
+
 
         // Ask the user for the application name.
         const appName = name === '' ? await input(
@@ -252,7 +374,7 @@ export default class Generate extends Command {
         ) : template;
 
         // Ask the user for the database connection type (Either basic connection or a connection using a cloud wallet).
-        const databaseConnectionType = await select(
+        const databaseConnectionType = connectionType === '' ? await select(
             {
                 message: 'Which database connection type would you like to choose?',
                 choices: [
@@ -267,7 +389,7 @@ export default class Generate extends Command {
                 ],
                 default: 'walletPath'
             }
-        );
+        ) : connectionType;
 
         // This represents the config object that will hold all the information that the user has inputted and selected.
         let configObject;
@@ -275,21 +397,21 @@ export default class Generate extends Command {
         // If the user has chosen the basic connection type, then we ask for the protocol, hostname, port and service name / SID.
         if ( databaseConnectionType === 'basic' ) {
 
-            const protocol = await input(
+            const protocol = databaseProtocol === '' ? await input(
                 {
                     message: 'What is your database protocol?',
                     default: 'tcp'
                 },
-            );
+            ) : databaseProtocol;
 
-            const hostname = await input(
+            const hostname = databaseHostName === '' ? await input(
                 {
                     message: 'What is your database hostname?',
                     default: 'localhost'
                 },
-            );
+            ) : databaseHostName;
 
-            const port = await input(
+            const port = databasePort === '' ? await input(
                 {
                     message: 'What is your database port?',
                     validate ( input ) {
@@ -297,9 +419,9 @@ export default class Generate extends Command {
                     },
                     default: '1521'
                 },
-            );
+            ) : databasePort;
 
-            const serviceType = await select(
+            const serviceType = databaseServiceType === '' ? await select(
                 {
                     message: 'Which service type would you like to use?',
                     choices: [
@@ -313,29 +435,29 @@ export default class Generate extends Command {
                         }
                     ]
                 }
-            );
+            ) : databaseServiceType;
 
             let serviceValue;
 
-            serviceValue = await (
-                serviceType === 'sid'
-                    ? input(
-                        {
-                            message: 'Please input your database SID: ',
-                            validate ( input ) {
-                                return input.trim().length === 0 ? 'This field cannot be empty!' : true;
-                            }
+            if (serviceType === 'sid') {
+                serviceValue = databaseSID === '' ? await input(
+                    {
+                        message: 'Please enter your database SID: ',
+                        validate ( input ) {
+                            return input.trim().length === 0 ? 'This field cannot be empty!' : true;
                         }
-                    )
-                    : input(
-                        {
-                            message: 'Please input your database service name: ',
-                            validate ( input ) {
-                                return input.trim().length === 0 ? 'This field cannot be empty!' : true;
-                            }
+                    }
+                ) : databaseSID;
+            } else {
+                serviceValue = databaseServiceName === '' ? await input(
+                    {
+                        message: 'Please enter your database service name: ',
+                        validate ( input ) {
+                            return input.trim().length === 0 ? 'This field cannot be empty!' : true;
                         }
-                    ) );
-
+                    }
+                ) : databaseServiceName;
+            }
             // This will be config object for the basic connection type.
             configObject = {
                 appName,
@@ -343,20 +465,18 @@ export default class Generate extends Command {
                 connectionString: generateConnectionString( protocol, hostname, port, serviceValue )
             };
         } else {
-            let walletPath;
+            let walletPath = '';
 
-            console.log( '\u001B[33m%s\u001B[0m', 'In order to unzip and copy the Wallet file, please ensure that the read permissions have been given to the terminal. \n' );
-
-            walletPath = await input(
-                {
-                    // TODO: Cannot use tab to autocomplete, cannot use ~ for $HOME
-                    message: 'Please input your Cloud Wallet Path:',
-                    validate ( input ) {
-                        return checkIfDirectoryOrZip( input );
-                    }
+            if(walletPathValidationResult === true){
+                walletPath = walletPathDirectory;
+            }
+            else{
+                if(walletPathValidationResult !== undefined){
+                    console.error('\u001B[31m%s\u001B[0m', walletPathValidationResult);
                 }
-            );
 
+                walletPath = await promptWalletPath();
+            }
             // walletPath = createWalletDirectory( walletPath );
             walletPath = path.resolve( untildify( walletPath ) );
             walletDirectory = path.dirname( walletPath );
@@ -364,7 +484,7 @@ export default class Generate extends Command {
             const walletPassword = await password(
                 {
                     mask: true,
-                    message: 'Please input your wallet password:',
+                    message: 'Please enter your wallet password:',
                     validate ( input ) {
                         return input.trim().length === 0 ? 'This field cannot be empty!' : true;
                     }
@@ -383,14 +503,14 @@ export default class Generate extends Command {
 
         // Ask the user for the database connection username.
         Object.assign( configObject, {
-            connectionUsername: await input(
+            connectionUsername: databaseUsername === '' ? await input(
                 {
                     message: 'What\'s your database username?',
                     validate ( input ) {
                         return input.trim().length === 0 ? 'This field cannot be empty!' : true;
                     }
                 },
-            )
+            ) : databaseUsername
         } );
 
         // Ask the user for the database connection password.

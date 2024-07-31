@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+issue_template:
+  - name: Bug Report
+    description: Use this template to report any issues encountered.
+    template: bug_report.yml
+  - name: Feature Request
+    description: Use this template to suggest a new feature for this project.
+    template: feature_request.yml

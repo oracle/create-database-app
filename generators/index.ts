@@ -104,6 +104,14 @@ export default class extends Generator {
             this.templatePath( `${this.options.templateChoice}/.gitignore.template` ),
             this.destinationPath( '.gitignore' ),
         );
+        this.fs.copy(
+            this.templatePath( `${this.options.templateChoice}/.eslintrc.cjs` ),
+            this.destinationPath( '.eslintrc.cjs' ),
+        );
+        this.fs.copy(
+            this.templatePath(`${ path.dirname( this.options.templateChoice ) }/app/.github`),
+            this.destinationPath('.github')
+        )
         this.fs.copyTpl(
             this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/${ path.basename( this.options.templateChoice ) == 'node-jet' ? 'index-proxied' : 'index' }.cjs` ),
             this.destinationPath( 'server/index.cjs' ),
@@ -138,6 +146,22 @@ export default class extends Generator {
             this.destinationPath( '.env' ),
             this.options
         );
+        this.fs.copy(
+            this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/CONTRIBUTING.md` ),
+            this.destinationPath( 'CONTRIBUTING.md' ),
+        );
+
+        const readme_data = this.fs.read(this.templatePath(`${path.dirname(this.options.templateChoice)}/app/README.md`));
+
+        if(this.fs.exists((this.destinationPath('README.md')))){
+            this.fs.append(this.destinationPath('README.md'), readme_data);
+        }
+        else{
+            this.fs.copy(
+                this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/README.md` ),
+                this.destinationPath( 'README.md' ),
+            );
+        }
     }
 
     end() {
