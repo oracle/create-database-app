@@ -11,9 +11,18 @@ shell: bash
 
 steps:
   - type: Command
-    name: "Install dependencies & cyclonedx-node-npm package"
+    name: "Install npm"
     command: |
-      npm instal --ignore-scripts && npm install --ignore-scripts -g @cyclonedx/cyclonedx-npm
+      # Install npm version 8.19.4
+      npm i -g npm@v8.19.4
+  - type: Command
+    name: "Install node-cli & unit-testing packages"
+    command: |
+      npm install --ignore-scripts
+  - type: Command
+    name: "Install cyclonedx-node-npm package"
+    command: |
+      npm install --ignore-scripts -g --save-dev @cyclonedx/cyclonedx-npm
   - type: Command
     name: "Run cyclonedx-node-npm package"
     command: |
