@@ -13,7 +13,7 @@ steps:
   - type: Command
     name: "Install dependencies & cyclonedx-node-npm package"
     command: |
-      npm install && npm install --save-dev @cyclonedx/cyclonedx-npm
+      npm instal --ignore-scripts && npm install --ignore-scripts --save-dev @cyclonedx/cyclonedx-npm
   - type: Command
     name: "Run cyclonedx-node-npm package"
     command: |
