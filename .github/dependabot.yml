@@ -7,6 +7,9 @@ updates:
     labels:
       - "dependencies"
       - "create-database-app"
+    commit-message:
+      prefix: fix(deps)
+      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-angular/"
@@ -15,6 +18,9 @@ updates:
     labels:
       - "dependencies"
       - "templates-angular"
+    commit-message:
+      prefix: fix(deps)
+      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-jet/"
@@ -23,6 +29,9 @@ updates:
     labels:
       - "dependencies"
       - "templates-jet"
+    commit-message:
+      prefix: fix(deps)
+      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-react/"
@@ -31,6 +40,9 @@ updates:
     labels:
       - "dependencies"
       - "templates-react"
+    commit-message:
+      prefix: fix(deps)
+      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-react-todo/"
@@ -39,6 +51,9 @@ updates:
     labels:
       - "dependencies"
       - "templates-react-todo"
+    commit-message:
+      prefix: fix(deps)
+      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-vanilla/"
@@ -47,6 +62,9 @@ updates:
     labels:
       - "dependencies"
       - "templates-vanilla"
+    commit-message:
+      prefix: fix(deps)
+      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-vue/"
@@ -55,3 +73,6 @@ updates:
     labels:
       - "dependencies"
       - "templates-vue"
+    commit-message:
+      prefix: fix(deps)
+      prefix-development: chore(dev-deps)
