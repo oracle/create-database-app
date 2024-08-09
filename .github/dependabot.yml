@@ -1,22 +1,57 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: 'weekly'
-      day: 'saturday'
-    versioning-strategy: 'increase'
+      interval: "monthly"
     labels:
-      - 'dependencies'
-    open-pull-requests-limit: 5
-    pull-request-branch-name:
-      separator: '-'
-    commit-message:
-      # cause a release for non-dev-deps
-      prefix: fix(deps)
-      # no release for dev-deps
-      prefix-development: chore(dev-deps)
-    ignore:
-      - dependency-name: '@salesforce/dev-scripts'
-      - dependency-name: '*'
-        update-types: ['version-update:semver-major']
+      - "dependencies"
+      - "create-database-app"
+
+  - package-ecosystem: "npm" 
+    directory: "/templates/node-angular/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "templates-angular"
+
+  - package-ecosystem: "npm" 
+    directory: "/templates/node-jet/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "templates-jet"
+
+  - package-ecosystem: "npm" 
+    directory: "/templates/node-react/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "templates-react"
+
+  - package-ecosystem: "npm" 
+    directory: "/templates/node-react-todo/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "templates-react-todo"
+
+  - package-ecosystem: "npm" 
+    directory: "/templates/node-vanilla/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "templates-vanilla"
+
+  - package-ecosystem: "npm" 
+    directory: "/templates/node-vue/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "templates-vue"
