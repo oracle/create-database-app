@@ -42,6 +42,6 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.4.2",
     "concurrently": "^8.2.2",
-    "eslint": "^8.55.0"
+    "eslint": "^9.9.0"
   }
 }
