@@ -49,13 +49,13 @@ Next, you will be able to open the project in your favorite IDE or Code Editor a
 
 ## Templates
 
-The package offers the following templates, which connect to the database using the the [oracledb database driver](https://github.com/oracle/node-oracledb):
+The package offers the following templates, which connect to the database using the [oracledb database driver](https://github.com/oracle/node-oracledb):
 
 - `node-vanilla`: A starter template that uses Node.js, vanilla JavaScript, HTML and CSS. It is built by [vite](https://vitejs.dev/).
 - `node-jet`: A starter template that uses Node.js and [Oracle JET](https://www.oracle.com/webfolder/technetwork/jet/index.html). It is built using the [ojet-cli](https://www.npmjs.com/package/@oracle/ojet-cli).
 - `node-react`: A starter template that uses Node.js and [React](https://react.dev/). It is built by [vite](https://vitejs.dev/).
 - `node-vue`: A starter template that uses Node.js and [Vue.js](https://vuejs.org/). It is built by [vite](https://vitejs.dev/).
-- `node-angular`: A starter template that uses and [Angular](https://angular.dev/). It is built by [Angular CLI](https://github.com/angular/angular-cli). (New in `v1.2.0`)
+- `node-angular`: A starter template that uses Node.js and [Angular](https://angular.dev/). It is built by [Angular CLI](https://github.com/angular/angular-cli). (New in `v1.2.0`)
 - `node-react-todo`: A simple task manager template that uses Node.js and [React](https://react.dev/). It demonstrates the use of the database for Create, Read, Update and Delete (CRUD) operations. It is built by [vite](https://vitejs.dev/).
 
 Each of the templates include documentation for you to get started with them, as well as NPM scripts for you to use right after generating the application.
@@ -69,7 +69,7 @@ You can provide the following options directly to the command:
   - `basic`: Requires additional information like `db-protocol`, `db-hostname`, etc.
   - `walletPath`: Requires a path to the wallet via the `wallet-path` flag.
 - `wallet-path`: Path to the zip file (or folder if uncompressed) containing the wallet and network configuration files.
-- `db-username`: Dabase username to connect. **Note**: For [Autonomous Databases](https://www.oracle.com/autonomous-database/) we do not recommend using the ADMIN user.
+- `db-username`: Database username to connect. **Note**: For [Autonomous Databases](https://www.oracle.com/autonomous-database/) we do not recommend using the ADMIN user.
 - `db-protocol`: For details consult [Connecting to Oracle Database](https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html).
 - `db-hostname`: For details consult [Connecting to Oracle Database](https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html).
 - `db-port`: For details consult [Connecting to Oracle Database](https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html).
@@ -80,7 +80,7 @@ You can provide the following options directly to the command:
 - `db-sid`: For details consult [Connecting to Oracle Database](https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html).
 
 ## Database Environment
-When an application is generated, you'll find an .env file with details regarding the connection to the database used in the application.
+When an application is generated, you'll find a `.env` file with details regarding the connection to the database used in the application.
 
 ```properties
 # Database user
@@ -108,7 +108,7 @@ npm create @oracle/database-app -- "my-react-app" --template "node-react"
 
 ### React todo app
 
-You can generate an example of an fully functional application. The example below creates an app named `my-todo` with the `node-react-todo` template.
+You can generate an example of a fully functional application. The example below creates an app named `my-todo` with the `node-react-todo` template.
 
 ```sh
 npm create @oracle/database-app -- "my-todo" --template "node-react-todo"
