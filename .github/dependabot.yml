@@ -4,75 +4,103 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      dependencies:
+        update-types:
+          - "minor"
+          - "patch"
     labels:
       - "dependencies"
       - "create-database-app"
     commit-message:
       prefix: fix(deps)
-      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-angular/"
     schedule:
       interval: "monthly"
+    groups:
+      dependencies:
+        update-types:
+          - "minor"
+          - "patch"
     labels:
       - "dependencies"
       - "templates-angular"
     commit-message:
       prefix: fix(deps)
-      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-jet/"
     schedule:
       interval: "monthly"
+    groups:
+      dependencies:
+        update-types:
+          - "minor"
+          - "patch"
     labels:
       - "dependencies"
       - "templates-jet"
     commit-message:
       prefix: fix(deps)
-      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-react/"
     schedule:
       interval: "monthly"
+    groups:
+      dependencies:
+        update-types:
+          - "minor"
+          - "patch"
     labels:
       - "dependencies"
       - "templates-react"
     commit-message:
       prefix: fix(deps)
-      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-react-todo/"
     schedule:
       interval: "monthly"
+    groups:
+      dependencies:
+        update-types:
+          - "minor"
+          - "patch"
     labels:
       - "dependencies"
       - "templates-react-todo"
     commit-message:
       prefix: fix(deps)
-      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-vanilla/"
     schedule:
       interval: "monthly"
+    groups:
+      dependencies:
+        update-types:
+          - "minor"
+          - "patch"
     labels:
       - "dependencies"
       - "templates-vanilla"
     commit-message:
       prefix: fix(deps)
-      prefix-development: chore(dev-deps)
 
   - package-ecosystem: "npm" 
     directory: "/templates/node-vue/"
     schedule:
       interval: "monthly"
+    groups:
+      dependencies:
+        update-types:
+          - "minor"
+          - "patch"
     labels:
       - "dependencies"
       - "templates-vue"
     commit-message:
       prefix: fix(deps)
-      prefix-development: chore(dev-deps)
