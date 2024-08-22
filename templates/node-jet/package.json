@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@oracle/oraclejet": "~16.1.0",
-    "@oracle/oraclejet-core-pack": "~16.1.0",
+    "@oracle/oraclejet-core-pack": "~17.0.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
