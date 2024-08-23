@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      dependencies:
+      create-database-app-dependencies:
         update-types:
           - "minor"
           - "patch"
@@ -20,7 +20,7 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      dependencies:
+      angular-dependencies:
         update-types:
           - "minor"
           - "patch"
@@ -35,7 +35,7 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      dependencies:
+      jet-dependencies:
         update-types:
           - "minor"
           - "patch"
@@ -50,7 +50,7 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      dependencies:
+      react-dependencies:
         update-types:
           - "minor"
           - "patch"
@@ -65,7 +65,7 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      dependencies:
+      react-todo-dependencies:
         update-types:
           - "minor"
           - "patch"
@@ -80,7 +80,7 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      dependencies:
+      js-vanilla-dependencies:
         update-types:
           - "minor"
           - "patch"
@@ -95,7 +95,7 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      dependencies:
+      vue-dependencies:
         update-types:
           - "minor"
           - "patch"
