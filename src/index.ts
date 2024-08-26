@@ -207,7 +207,7 @@ export default class Generate extends Command {
         'template': Flags.string({ 
             char: 't', 
             description: 'Template to use',
-            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo'], 
+            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular'],
             multiple: false
         }),
         
