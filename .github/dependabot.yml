@@ -9,6 +9,13 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      create-database-app-oclif-dependencies:
+        patterns:
+          - "@oclif*"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
     labels:
       - "dependencies"
       - "create-database-app"
@@ -22,6 +29,13 @@ updates:
     groups:
       angular-dependencies:
         update-types:
+          - "minor"
+          - "patch"
+      angular-core-dependencies:
+        patterns:
+          - "@angular*"
+        update-types:
+          - "major"
           - "minor"
           - "patch"
     labels:
@@ -39,6 +53,13 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      jet-core-dependencies:
+        patterns:
+          - "@oracle*"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
     labels:
       - "dependencies"
       - "templates-jet"
@@ -54,6 +75,14 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      react-core-dependencies:
+        patterns:
+          - "react"
+          - "react-dom"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
     labels:
       - "dependencies"
       - "templates-react"
@@ -67,6 +96,14 @@ updates:
     groups:
       react-todo-dependencies:
         update-types:
+          - "minor"
+          - "patch"
+      react-todo-core-dependencies:
+        patterns:
+          - "react"
+          - "react-dom"
+        update-types:
+          - "major"
           - "minor"
           - "patch"
     labels:
