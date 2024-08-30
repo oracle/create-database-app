@@ -1,0 +1,15 @@
+blank_issues_enabled: false
+contact_links:
+  - name: README
+    url: https://github.com/oracle/create-database-app/blob/main/README.md
+    about: Basic documentation of the project.
+  - name: Contributing Guidelines
+    url: https://github.com/oracle/create-database-app/blob/main/CONTRIBUTING.md
+    about: How to contribute to the project.
+issue_template:
+  - name: Bug Report
+    description: Use this template to report any issue.
+    template: bug_report.yml
+  - name: Enhancement Request
+    description: Use this template to suggest a new enhancement/feature for this project.
+    template: enhancement_request.yml
