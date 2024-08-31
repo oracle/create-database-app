@@ -4,20 +4,17 @@
 ** All rights reserved
 ** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
-import {expect, test} from '@oclif/test'
+import { runCommand } from '@oclif/test';
+import { expect } from 'chai';
 
-describe('generate', () => {
-  test
-  .stdout()
-  .command(['generate'])
-  .it('runs hello', ctx => {
-    expect(ctx.stdout).to.contain('hello world')
-  })
+describe( 'generate', () => {
+    it( 'runs hello', async() => {
+        const { stdout } = await runCommand< { name: string } >( [ 'generate' ] );
+        expect( stdout ).to.contain( 'hello world' );
+    } );
 
-  test
-  .stdout()
-  .command(['generate', '--name', 'jeff'])
-  .it('runs hello --name jeff', ctx => {
-    expect(ctx.stdout).to.contain('hello jeff')
-  })
-})
+    it( 'runs hello --name jeff', async() => {
+        const { stdout } = await runCommand< { name: string } >( [ 'generate', '--name', 'jeff' ] );
+        expect( stdout ).to.contain( 'hello jeff' );
+    } );
+} );

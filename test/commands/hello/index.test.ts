@@ -4,13 +4,12 @@
 ** All rights reserved
 ** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
-import { expect, test } from '@oclif/test';
+import { runCommand } from '@oclif/test';
+import { expect } from 'chai';
 
 describe( 'hello', () => {
-    test
-        .stdout()
-        .command( [ 'hello', 'friend', '--from=oclif' ] )
-        .it( 'runs hello cmd', ctx => {
-            expect( ctx.stdout ).to.contain( 'hello friend from oclif!' );
-        } );
+    it( 'runs hello cmd', async() => {
+        const { stdout } = await runCommand< { name: string } >( [ 'hello', 'friend', '--from=oclif' ] );
+        expect( stdout ).to.contain( 'hello friend from oclif!' );
+    } );
 } );
