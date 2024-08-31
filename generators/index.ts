@@ -104,9 +104,20 @@ export default class extends Generator {
             this.templatePath( `${this.options.templateChoice}/.gitignore.template` ),
             this.destinationPath( '.gitignore' ),
         );
+        // This copy of `eslintrc.cjs` should be removed once all templates support eslint v9
         this.fs.copy(
             this.templatePath( `${this.options.templateChoice}/.eslintrc.cjs` ),
             this.destinationPath( '.eslintrc.cjs' ),
+            {
+                ignoreNoMatch: true
+            }
+        );
+        this.fs.copy(
+            this.templatePath( `${this.options.templateChoice}/eslint.config.mjs` ),
+            this.destinationPath( 'eslint.config.mjs' ),
+            {
+                ignoreNoMatch: true
+            }
         );
         this.fs.copy(
             this.templatePath(`${ path.dirname( this.options.templateChoice ) }/app/.github`),

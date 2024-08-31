@@ -87,7 +87,7 @@
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@oclif/prettier-config": "^0.2.1",
-    "@oclif/test": "^3.2.15",
+    "@oclif/test": "^4.0.9",
     "@types/chai": "^4",
     "@types/fs-extra": "^11.0.4",
     "@types/mocha": "^10",
