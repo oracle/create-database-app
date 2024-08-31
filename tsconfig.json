@@ -5,9 +5,14 @@
     "outDir": "dist",
     "strict": true,
     "target": "es2022",
-    "moduleResolution": "node16"
+    "moduleResolution": "node16",
+    "skipLibCheck": true,
+    "types": ["node", "mocha"]
   },
-  "include": ["./src/**/*"],
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ],
   "ts-node": {
     "esm": true
   }
