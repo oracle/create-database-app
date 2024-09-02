@@ -92,7 +92,7 @@ export default class extends Generator {
             const { protocol, hostname, port, serviceName } = retrieveConnectionStringDetailsFromORAFile( path.join( walletPath, 'tnsnames.ora' ) );
             this.options.connectionString = generateConnectionString( protocol, hostname, port, serviceName );
         }
-
+        // Copy files that are common to all of the templates.
         this.fs.copyTpl(
             this.templatePath( this.options.templateChoice ),
             this.destinationPath(),
@@ -101,70 +101,99 @@ export default class extends Generator {
             }
         );
         this.fs.copy(
-            this.templatePath( `${this.options.templateChoice}/.gitignore.template` ),
-            this.destinationPath( '.gitignore' ),
-        );
+            this.templatePath(`${ path.dirname( this.options.templateChoice ) }/app/.github`),
+            this.destinationPath('.github')
+        )
         this.fs.copy(
             this.templatePath( `${this.options.templateChoice}/.eslintrc.cjs` ),
             this.destinationPath( '.eslintrc.cjs' ),
         );
-        this.fs.copy(
-            this.templatePath(`${ path.dirname( this.options.templateChoice ) }/app/.github`),
-            this.destinationPath('.github')
-        )
-        this.fs.copyTpl(
-            this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/${ path.basename( this.options.templateChoice ) == 'node-jet' ? 'index-proxied' : 'index' }.cjs` ),
-            this.destinationPath( 'server/index.cjs' ),
-            this.options
-        );
-        this.fs.copy(
-            this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/routes/${this.options.apiConfiguration}.cjs` ),
-            this.destinationPath( `server/routes/${this.options.apiConfiguration}.cjs` ),
-        );
-        this.fs.copy(
-            this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/utils/db/**/*` ),
-            this.destinationPath( 'server/utils/db/' ),
-        );
-        this.fs.copy(
-            this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/utils/rest-services/${this.options.apiConfiguration}.cjs` ),
-            this.destinationPath( `server/utils/rest-services/${this.options.apiConfiguration}.cjs` ),
-        );
-        this.fs.copyTpl(
-            this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/.env.example` ),
-            this.destinationPath( '.env.example' ),
-            {
-                appName: '',
-                connectionPassword: '',
-                connectionString: '',
-                connectionUsername: '',
-                walletPassword: '',
-                walletPath: '',
-            }
-        );
-        this.fs.copyTpl(
-            this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/.env.example.${ ( 'walletPath' in this.options ) ? 'cloud-wallet' : 'basic' }` ),
-            this.destinationPath( '.env' ),
-            this.options
-        );
-        this.fs.copy(
-            this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/CONTRIBUTING.md` ),
-            this.destinationPath( 'CONTRIBUTING.md' ),
-        );
-
-        const readme_data = this.fs.read(this.templatePath(`${path.dirname(this.options.templateChoice)}/app/README.md`));
-
-        if(this.fs.exists((this.destinationPath('README.md')))){
-            this.fs.append(this.destinationPath('README.md'), readme_data);
-        }
-        else{
+        /**
+         * The ORDS Concert App template provides:
+         * A .gitignore file
+         * A markdown lint configuration file (.markdownlint.json)
+         * A .env.example file
+         * Additionally, the sample app expects that the user configures their development 
+         * environment on their own to provide a better understanding of ords and how the
+         * app is structured.
+         * The rest of the files, like utils/* and db/* are also not needed since the sample 
+         * app contains their own mechanisms to talk with the db.
+         */
+        if( this.options.templateChoice.includes('ords-concert-app' )){
             this.fs.copy(
-                this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/README.md` ),
-                this.destinationPath( 'README.md' ),
+                this.templatePath( `${this.options.templateChoice}/.gitignore` ),
+                this.destinationPath( '.gitignore' ),
             );
+            this.fs.copy(
+                this.templatePath( `${this.options.templateChoice}/.markdownlint.jsonc` ),
+                this.destinationPath( '.markdownlint.jsonc' ),
+            );
+            this.fs.copy(
+                this.templatePath( `${this.options.templateChoice}/.env.example` ),
+                this.destinationPath( '.env.example' ),
+            );
+        } else {
+            this.fs.copy(
+                this.templatePath( `${this.options.templateChoice}/.gitignore.template` ),
+                this.destinationPath( '.gitignore' ),
+            );
+            
+            this.fs.copyTpl(
+                this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/${ path.basename( this.options.templateChoice ) == 'node-jet' ? 'index-proxied' : 'index' }.cjs` ),
+                this.destinationPath( 'server/index.cjs' ),
+                this.options
+            );
+            this.fs.copy(
+                this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/routes/${this.options.apiConfiguration}.cjs` ),
+                this.destinationPath( `server/routes/${this.options.apiConfiguration}.cjs` ),
+            );
+            this.fs.copy(
+                this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/utils/db/**/*` ),
+                this.destinationPath( 'server/utils/db/' ),
+            );
+            this.fs.copy(
+                this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/utils/rest-services/${this.options.apiConfiguration}.cjs` ),
+                this.destinationPath( `server/utils/rest-services/${this.options.apiConfiguration}.cjs` ),
+            );
+            this.fs.copyTpl(
+                this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/.env.example` ),
+                this.destinationPath( '.env.example' ),
+                {
+                    appName: '',
+                    connectionPassword: '',
+                    connectionString: '',
+                    connectionUsername: '',
+                    walletPassword: '',
+                    walletPath: '',
+                }
+            );
+            this.fs.copyTpl(
+                this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/.env.example.${ ( 'walletPath' in this.options ) ? 'cloud-wallet' : 'basic' }` ),
+                this.destinationPath( '.env' ),
+                this.options
+            );
+            this.fs.copy(
+                this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/CONTRIBUTING.md` ),
+                this.destinationPath( 'CONTRIBUTING.md' ),
+            );
+    
+            const readme_data = this.fs.read(this.templatePath(`${path.dirname(this.options.templateChoice)}/app/README.md`));
+    
+            if(this.fs.exists((this.destinationPath('README.md')))){
+                this.fs.append(this.destinationPath('README.md'), readme_data);
+            }
+            else{
+                this.fs.copy(
+                    this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/README.md` ),
+                    this.destinationPath( 'README.md' ),
+                );
+            }
         }
     }
 
     end() {
-        this.log( 'Application generated successfuly. Run the following command: \n\ncd ' + path.join( process.cwd(), this.options.appName ) + '\n');
+        this.log( 'Application generated successfully. Run the following command: \n\ncd ' + path.join( process.cwd(), this.options.appName ) + '\n');
+        if(!this.options.templateChoice.includes('ords-concert-app')){}
+        this.log('Please check out the README file to learn how to configurate the ORDS Concert App')
     }
 }

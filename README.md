@@ -49,7 +49,7 @@ Next, you will be able to open the project in your favorite IDE or Code Editor a
 
 ## Templates
 
-The package offers the following templates, which connect to the database using the [oracledb database driver](https://github.com/oracle/node-oracledb):
+The package offers the following templates, some of them connect to the database using the [oracledb database driver](https://github.com/oracle/node-oracledb) and other use [Oracle REST Data Services](https://www.oracle.com/database/technologies/appdev/rest.html) endpoints:
 
 - `node-vanilla`: A starter template that uses Node.js, vanilla JavaScript, HTML and CSS. It is built by [vite](https://vitejs.dev/).
 - `node-jet`: A starter template that uses Node.js and [Oracle JET](https://www.oracle.com/webfolder/technetwork/jet/index.html). It is built using the [ojet-cli](https://www.npmjs.com/package/@oracle/ojet-cli).
@@ -57,6 +57,7 @@ The package offers the following templates, which connect to the database using 
 - `node-vue`: A starter template that uses Node.js and [Vue.js](https://vuejs.org/). It is built by [vite](https://vitejs.dev/).
 - `node-angular`: A starter template that uses Node.js and [Angular](https://angular.dev/). It is built by [Angular CLI](https://github.com/angular/angular-cli). (New in `v1.2.0`)
 - `node-react-todo`: A simple task manager template that uses Node.js and [React](https://react.dev/). It demonstrates the use of the database for Create, Read, Update and Delete (CRUD) operations. It is built by [vite](https://vitejs.dev/).
+- `ords-concert-app`: A full stack Concert Application made with [Remix](https://remix.run/) that showcases the [Oracle REST Data Services](https://www.oracle.com/database/technologies/appdev/rest.html) functionalities. Some extra configuration is required, learn more about it in the `ords-concert-app` [Getting Started Guide](/templates/ords-concert-app/README.md#getting-started).
 
 Each of the templates include documentation for you to get started with them, as well as NPM scripts for you to use right after generating the application.
 
@@ -89,6 +90,7 @@ DB_USER=<my-username>
 DB_PASSWORD=<my-password>
 ...
 ```
+Note: For the `ords-concert-app` is expected that you will configurate your own `.env` file folowing the `ords-concert-app` [Getting Started Guide](/templates/ords-concert-app/README.md#getting-started).
 
 ## Examples
 

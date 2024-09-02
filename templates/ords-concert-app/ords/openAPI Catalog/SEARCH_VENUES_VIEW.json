@@ -1,0 +1,454 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "ORDS generated API for SEARCH_VENUES_VIEW",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/search_venues_view/"
+        }
+    ],
+    "paths": {
+        "/": {
+            "patch": {
+                "description": "SEARCH_VENUES_VIEW",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Patched successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "rowsUpdated": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "JSON QBE parameter."
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/merge-patch+json; charset=utf-8": {
+                            "schema": {
+                                "$ref": "#/components/schemas/search_venues_view_ITEM"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Remove a record from SEARCH_VENUES_VIEW",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted result."
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "JSON QBE parameter."
+                    }
+                ]
+            },
+            "get": {
+                "description": "Retrieve records from SEARCH_VENUES_VIEW",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The queried record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/search_venues_view_ITEM"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "JSON QBE parameter."
+                    }
+                ]
+            },
+            "post": {
+                "description": "Create a new record on SEARCH_VENUES_VIEW",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "The successfully created record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/search_venues_view_ITEM"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/search_venues_view_ITEM_2"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/batchload": {
+            "post": {
+                "description": "Create new records on SEARCH_VENUES_VIEW",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The status of the processed records.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "text/csv": {
+                            "schema": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/{id}": {
+            "patch": {
+                "description": "SEARCH_VENUES_VIEW",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Patched successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/search_venues_view_ITEM"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/]+$"
+                        },
+                        "description": "implicit"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/merge-patch+json; charset=utf-8": {
+                            "schema": {
+                                "$ref": "#/components/schemas/search_venues_view_ITEM_3"
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Create or update a record on SEARCH_VENUES_VIEW",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The successfully updated record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/search_venues_view_ITEM"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "The successfully created record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/search_venues_view_ITEM"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/]+$"
+                        },
+                        "description": "implicit"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/search_venues_view_ITEM_2"
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "Retrieve a record from SEARCH_VENUES_VIEW",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The queried record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/search_venues_view_ITEM"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/]+$"
+                        },
+                        "description": "implicit"
+                    }
+                ]
+            },
+            "delete": {
+                "description": "Remove a record from SEARCH_VENUES_VIEW",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted result."
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/]+$"
+                        },
+                        "description": "implicit"
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "BasicAuth": {
+                "type": "http",
+                "scheme": "basic"
+            },
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            },
+            "OAuth2": {
+                "type": "oauth2",
+                "flows": {
+                    "implicit": {
+                        "authorizationUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/auth",
+                        "scopes": {}
+                    },
+                    "authorizationCode": {
+                        "authorizationUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/auth",
+                        "tokenUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/token",
+                        "scopes": {}
+                    },
+                    "clientCredentials": {
+                        "tokenUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/token",
+                        "scopes": {}
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "NUMBER": {
+                "type": "number"
+            },
+            "STRING": {
+                "type": "string"
+            },
+            "VARCHAR2": {
+                "type": "string"
+            },
+            "search_venues_view_ITEM": {
+                "properties": {
+                    "q": {
+                        "type": "string"
+                    }
+                }
+            },
+            "search_venues_view_ITEM_2": {
+                "properties": {
+                    "city_id": {
+                        "$ref": "#/components/schemas/NUMBER"
+                    },
+                    "city_name": {
+                        "$ref": "#/components/schemas/VARCHAR2"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/VARCHAR2"
+                    },
+                    "name": {
+                        "$ref": "#/components/schemas/VARCHAR2"
+                    },
+                    "venue_id": {
+                        "$ref": "#/components/schemas/NUMBER"
+                    }
+                }
+            }
+        }
+    }
+}

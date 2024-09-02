@@ -1,0 +1,709 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "ORDS generated API for concert_app.adminuser.v1",
+        "version": "1.0.0",
+        "description": "admin user APIs Version 1"
+    },
+    "servers": [
+        {
+            "url": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/adminuser/v1/"
+        }
+    ],
+    "paths": {
+        "/artists": {
+            "post": {
+                "description": "Create a new record on concert_app.adminuser.v1",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "The successfully created record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "OBJECT_ID": {
+                                            "type": "integer"
+                                        },
+                                        "STATUS_CODE": {
+                                            "type": "string"
+                                        },
+                                        "RESULT_MESSAGE": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "BIO",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "artist bio"
+                    },
+                    {
+                        "name": "DESCRIPTION",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "artist bio"
+                    },
+                    {
+                        "name": "NAME",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "artist_name"
+                    }
+                ]
+            },
+            "put": {
+                "description": "Create or update a record on concert_app.adminuser.v1",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The successfully updated record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "STATUS_CODE": {
+                                            "type": "string"
+                                        },
+                                        "RESULT_MESSAGE": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "The successfully created record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "STATUS_CODE": {
+                                            "type": "string"
+                                        },
+                                        "RESULT_MESSAGE": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "ARTIST_ID",
+                        "in": "header",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "artist_id"
+                    },
+                    {
+                        "name": "ARTIST_NAME ",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "artist_name"
+                    },
+                    {
+                        "name": "BIO",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "artist bio"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/adminuser_v1_ITEM"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Remove a record from concert_app.adminuser.v1",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted result."
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "ARTIST_ID",
+                        "in": "header",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "artist_id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/adminuser_v1_ITEM_2"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/events": {
+            "post": {
+                "description": "Create a new record on concert_app.adminuser.v1",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "The successfully created record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "OBJECT_ID": {
+                                            "type": "integer"
+                                        },
+                                        "STATUS_CODE": {
+                                            "type": "string"
+                                        },
+                                        "RESULT_MESSAGE": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "ARTIST_ID ",
+                        "in": "header",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "artist id"
+                    },
+                    {
+                        "name": "EVENT_DATE ",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "date of event"
+                    },
+                    {
+                        "name": "EVENT_DETAILS",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "event_details"
+                    },
+                    {
+                        "name": "EVENT_STATUS_ID ",
+                        "in": "header",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "status of the event"
+                    },
+                    {
+                        "name": "VENUE_ID ",
+                        "in": "header",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "venue id"
+                    }
+                ]
+            },
+            "put": {
+                "description": "Create or update a record on concert_app.adminuser.v1",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The successfully updated record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "STATUS_CODE": {
+                                            "type": "string"
+                                        },
+                                        "RESULT_MESSAGE": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "The successfully created record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "STATUS_CODE": {
+                                            "type": "string"
+                                        },
+                                        "RESULT_MESSAGE": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "ARTIST_ID ",
+                        "in": "header",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "artist id"
+                    },
+                    {
+                        "name": "EVENT_DATE ",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "date of event"
+                    },
+                    {
+                        "name": "EVENT_DETAILS",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "event_details"
+                    },
+                    {
+                        "name": "EVENT_ID ",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "event id"
+                    },
+                    {
+                        "name": "EVENT_STATUS_ID ",
+                        "in": "header",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "status of the event"
+                    },
+                    {
+                        "name": "VENUE_ID ",
+                        "in": "header",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "venue id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/adminuser_v1_ITEM_3"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Remove a record from concert_app.adminuser.v1",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted result."
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "EVENT_ID ",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "event id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/adminuser_v1_ITEM_4"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/venues": {
+            "post": {
+                "description": "Create a new record on concert_app.adminuser.v1",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "The successfully created record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "STATUS_CODE": {
+                                            "type": "string"
+                                        },
+                                        "RESULT_MESSAGE": {
+                                            "type": "string"
+                                        },
+                                        "OBJECT_ID": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "CITY_ID ",
+                        "in": "header",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "City ID of the venue."
+                    },
+                    {
+                        "name": "VENUE_LOCATION ",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "venue location"
+                    },
+                    {
+                        "name": "VENUE_NAME ",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "name of the venue"
+                    }
+                ]
+            },
+            "put": {
+                "description": "Create or update a record on concert_app.adminuser.v1",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The successfully updated record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "STATUS_CODE": {
+                                            "type": "string"
+                                        },
+                                        "RESULT_MESSAGE": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "The successfully created record.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "STATUS_CODE": {
+                                            "type": "string"
+                                        },
+                                        "RESULT_MESSAGE": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "VENUE_ID ",
+                        "in": "header",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "venue id"
+                    },
+                    {
+                        "name": "VENUE_LOCATION ",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "venue location"
+                    },
+                    {
+                        "name": "VENUE_NAME ",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "name of the venue"
+                    }
+                ]
+            },
+            "delete": {
+                "description": "Remove a record from concert_app.adminuser.v1",
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "BearerAuth": []
+                    },
+                    {
+                        "OAuth2": []
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted result."
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "VENUE_ID ",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "venue_id"
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "BasicAuth": {
+                "type": "http",
+                "scheme": "basic"
+            },
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            },
+            "OAuth2": {
+                "type": "oauth2",
+                "flows": {
+                    "implicit": {
+                        "authorizationUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/auth",
+                        "scopes": {}
+                    },
+                    "authorizationCode": {
+                        "authorizationUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/auth",
+                        "tokenUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/token",
+                        "scopes": {}
+                    },
+                    "clientCredentials": {
+                        "tokenUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/token",
+                        "scopes": {}
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "INT": {
+                "type": "string"
+            },
+            "STRING": {
+                "type": "string"
+            },
+            "adminuser_v1_ITEM": {
+                "properties": {
+                    "ARTIST_ID": {
+                        "type": "integer"
+                    },
+                    "ARTIST_NAME ": {
+                        "type": "string"
+                    },
+                    "BIO": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "adminuser_v1_ITEM_2": {
+                "properties": {
+                    "ARTIST_ID": {
+                        "type": "integer"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "adminuser_v1_ITEM_3": {
+                "properties": {
+                    "ARTIST_ID ": {
+                        "type": "integer"
+                    },
+                    "EVENT_DATE ": {
+                        "type": "string"
+                    },
+                    "EVENT_DETAILS": {
+                        "type": "string"
+                    },
+                    "EVENT_ID ": {
+                        "type": "string"
+                    },
+                    "EVENT_STATUS_ID ": {
+                        "type": "integer"
+                    },
+                    "VENUE_ID ": {
+                        "type": "integer"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "adminuser_v1_ITEM_4": {
+                "properties": {
+                    "EVENT_ID ": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

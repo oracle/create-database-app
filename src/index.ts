@@ -207,7 +207,7 @@ export default class Generate extends Command {
         'template': Flags.string({ 
             char: 't', 
             description: 'Template to use',
-            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular'],
+            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular', 'ords-concert-app'],
             multiple: false
         }),
         
@@ -368,13 +368,24 @@ export default class Generate extends Command {
                         value: 'node-react-todo',
                         description: 'This creates a simple Todo app made with ExpressJS as the backend, React as the frontend, and an Oracle Database connection that will be created from the details you provide later...',
                     },
+                    {
+                        name: 'ords-concert-app',
+                        value: 'ords-concert-app',
+                        description: 'This creates a fullstack Concert Application made with Remix that leverages the Oracle REST Data Services functionalities. You will need to configurate the application yourself following the getting started guide.',
+                    },
                 ],
                 default: 'node-vanilla'
             },
         ) : template;
+        
+        // This represents the config object that will hold all the information that the user has inputted and selected.
+        let configObject = {
+            appName,
+            templateChoice: path.resolve( path.join( __dirname, '..', '..', 'templates', templateChoice ) ),
+        };
 
         // Ask the user for the database connection type (Either basic connection or a connection using a cloud wallet).
-        const databaseConnectionType = connectionType === '' ? await select(
+        const databaseConnectionType = connectionType === '' && templateChoice !== 'ords-concert-app' ? await select(
             {
                 message: 'Which database connection type would you like to choose?',
                 choices: [
@@ -390,9 +401,6 @@ export default class Generate extends Command {
                 default: 'walletPath'
             }
         ) : connectionType;
-
-        // This represents the config object that will hold all the information that the user has inputted and selected.
-        let configObject;
 
         // If the user has chosen the basic connection type, then we ask for the protocol, hostname, port and service name / SID.
         if ( databaseConnectionType === 'basic' ) {
@@ -458,13 +466,12 @@ export default class Generate extends Command {
                     }
                 ) : databaseServiceName;
             }
+            
             // This will be config object for the basic connection type.
-            configObject = {
-                appName,
-                templateChoice: path.resolve( path.join( __dirname, '..', '..', 'templates', templateChoice ) ),
+            Object.assign(configObject, {
                 connectionString: generateConnectionString( protocol, hostname, port, serviceValue )
-            };
-        } else {
+            });
+        } else if( databaseConnectionType === 'walletPath' ) {
             let walletPath = '';
 
             if(walletPathValidationResult === true){
@@ -493,38 +500,38 @@ export default class Generate extends Command {
 
 
             // This is the config object that represents the wallet connection type.
-            configObject = {
-                appName,
-                templateChoice: path.resolve( path.join( __dirname, '..', '..', 'templates', templateChoice ) ),
-                walletPath,
-                walletPassword,
-            };
+            Object.assign(configObject, {
+                walletPath: walletPath,
+                walletPassword: walletPassword
+            });
         }
 
-        // Ask the user for the database connection username.
-        Object.assign( configObject, {
-            connectionUsername: databaseUsername === '' ? await input(
-                {
-                    message: 'What\'s your database username?',
-                    validate ( input ) {
-                        return input.trim().length === 0 ? 'This field cannot be empty!' : true;
-                    }
-                },
-            ) : databaseUsername
-        } );
+        if(templateChoice !== 'ords-concert-app'){
+            // Ask the user for the database connection username.
+            Object.assign( configObject, {
+                connectionUsername: databaseUsername === '' ? await input(
+                    {
+                        message: 'What\'s your database username?',
+                        validate ( input ) {
+                            return input.trim().length === 0 ? 'This field cannot be empty!' : true;
+                        }
+                    },
+                ) : databaseUsername
+            } );
 
-        // Ask the user for the database connection password.
-        Object.assign( configObject, {
-            connectionPassword: await password(
-                {
-                    mask: true,
-                    message: 'What\'s your database password?',
-                    validate ( input ) {
-                        return input.trim().length === 0 ? 'This field cannot be empty!' : true;
-                    }
-                },
-            )
-        } );
+            // Ask the user for the database connection password.
+            Object.assign( configObject, {
+                connectionPassword: await password(
+                    {
+                        mask: true,
+                        message: 'What\'s your database password?',
+                        validate ( input ) {
+                            return input.trim().length === 0 ? 'This field cannot be empty!' : true;
+                        }
+                    },
+                )
+            } );
+        }
 
         generateDatabaseApp( configObject );
         // TODO: This is the object that holds the application name, template choice, connection details depending on the chosen connection type.
