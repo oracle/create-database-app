@@ -104,9 +104,20 @@ export default class extends Generator {
             this.templatePath(`${ path.dirname( this.options.templateChoice ) }/app/.github`),
             this.destinationPath('.github')
         )
+        // This copy of `eslintrc.cjs` should be removed once all templates support eslint v9
         this.fs.copy(
             this.templatePath( `${this.options.templateChoice}/.eslintrc.cjs` ),
             this.destinationPath( '.eslintrc.cjs' ),
+            {
+                ignoreNoMatch: true
+            }
+        );
+        this.fs.copy(
+            this.templatePath( `${this.options.templateChoice}/eslint.config.mjs` ),
+            this.destinationPath( 'eslint.config.mjs' ),
+            {
+                ignoreNoMatch: true
+            }
         );
         /**
          * The ORDS Concert App template provides:
