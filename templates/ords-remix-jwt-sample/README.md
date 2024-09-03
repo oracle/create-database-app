@@ -1,8 +1,5 @@
 # ORDS Concert App
 
-<!---
-TODO: Replace with a screenshot of the Concert App up and running, once we have the images. 
--->
 ![ORDS Logo](./images/ORDS.png)
 
 ## What's in the project
@@ -49,11 +46,11 @@ You can create a `.env` file or rename the `.env.example` file to `.env` and use
 # We refer to some variables as Autonomous Database specific but you can use whichever ORDS URL you want/have as well as the user, as long as this user is capable of creating and REST Enabling other schemas.
 ADB_ORDS_URL=https://example.com:8080/ords/ 
 ADB_ADMIN_USER=username
-ADB_ADMIN_PASSWORD=password
+ADB_ADMIN_PASSWORD=
 
 # The name of the schema that will be created to host all of the ORDS Concert App database objects.
 SCHEMA_NAME=ORDS_CONCERT_APP
-SCHEMA_PASSWORD=<STRONG_PASSWORD>
+SCHEMA_PASSWORD=
 
 # Your Auth0 tenant JWT credentials, used by ORDS to validate request to protected endpoints.
 JWT_ISSUER=https://my-domain.auth0.com
