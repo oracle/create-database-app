@@ -11,7 +11,6 @@ import reggaeIcon from '../../assets/musicGenresIcons/reggae_icon.png';
 import steamPunkIcon from '../../assets/musicGenresIcons/steampunk_icon.png';
 import metalIcon from '../../assets/musicGenresIcons/metal_icon.png';
 
-/** TODO: Replace with db images once they are ready */
 const artistImages : Record<string, string> = {
   Jazz: jazzIcon,
   Metal: metalIcon,
