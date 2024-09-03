@@ -207,7 +207,7 @@ export default class Generate extends Command {
         'template': Flags.string({ 
             char: 't', 
             description: 'Template to use',
-            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular', 'ords-concert-app'],
+            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular', 'ords-remix-jwt-sample'],
             multiple: false
         }),
         
@@ -369,8 +369,8 @@ export default class Generate extends Command {
                         description: 'This creates a simple Todo app made with ExpressJS as the backend, React as the frontend, and an Oracle Database connection that will be created from the details you provide later...',
                     },
                     {
-                        name: 'ords-concert-app',
-                        value: 'ords-concert-app',
+                        name: 'ords-remix-jwt-sample',
+                        value: 'ords-remix-jwt-sample',
                         description: 'This creates a fullstack Concert Application made with Remix that leverages the Oracle REST Data Services functionalities. You will need to configurate the application yourself following the getting started guide.',
                     },
                 ],
@@ -385,7 +385,7 @@ export default class Generate extends Command {
         };
 
         // Ask the user for the database connection type (Either basic connection or a connection using a cloud wallet).
-        const databaseConnectionType = connectionType === '' && templateChoice !== 'ords-concert-app' ? await select(
+        const databaseConnectionType = connectionType === '' && templateChoice !== 'ords-remix-jwt-sample' ? await select(
             {
                 message: 'Which database connection type would you like to choose?',
                 choices: [
@@ -506,7 +506,7 @@ export default class Generate extends Command {
             });
         }
 
-        if(templateChoice !== 'ords-concert-app'){
+        if(templateChoice !== 'ords-remix-jwt-sample'){
             // Ask the user for the database connection username.
             Object.assign( configObject, {
                 connectionUsername: databaseUsername === '' ? await input(

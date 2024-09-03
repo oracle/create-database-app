@@ -130,7 +130,7 @@ export default class extends Generator {
          * The rest of the files, like utils/* and db/* are also not needed since the sample 
          * app contains their own mechanisms to talk with the db.
          */
-        if( this.options.templateChoice.includes('ords-concert-app' )){
+        if( this.options.templateChoice.includes('ords-remix-jwt-sample' )){
             this.fs.copy(
                 this.templatePath( `${this.options.templateChoice}/.gitignore` ),
                 this.destinationPath( '.gitignore' ),
@@ -204,7 +204,7 @@ export default class extends Generator {
 
     end() {
         this.log( 'Application generated successfully. Run the following command: \n\ncd ' + path.join( process.cwd(), this.options.appName ) + '\n');
-        if(!this.options.templateChoice.includes('ords-concert-app')){}
+        if(!this.options.templateChoice.includes('ords-remix-jwt-sample')){}
         this.log('Please check out the README file to learn how to configurate the ORDS Concert App')
     }
 }

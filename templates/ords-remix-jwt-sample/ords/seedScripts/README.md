@@ -63,7 +63,7 @@ You can learn more About batch load parameters in the Accessing [Objects Using R
 bash
 npm run seed
 
-> ords-concert-application@1.0.0 seed
+> ords-remix-jwt-sample@1.0.0 seed
 > node ./ords/seed.js
 
 #INFO Number of rows processed: 256

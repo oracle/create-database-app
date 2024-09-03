@@ -72,10 +72,10 @@ This statement drops the specified user schema and all associated objects (table
 
 ## Running the Script
 
-```sql
+```bash
 npm run drop
 
-> ords-concert-application@1.0.0 drop
+> ords-remix-jwt-sample@1.0.0 drop
 > node ./ords/drop.js
 
 id : 1

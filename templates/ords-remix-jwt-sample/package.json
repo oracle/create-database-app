@@ -1,5 +1,5 @@
 {
-  "name": "ords-concert-application",
+  "name": "ords-remix-jwt-sample",
   "version": "1.0.0",
   "description": "ORDS sample application",
   "main": "index.js",

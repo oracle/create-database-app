@@ -114,7 +114,7 @@ npm run migrate
 Once the command is run you will asked if you want to use the credentials provided in the `.env` (type `n`) file or if you want to provide each one of those via the command line (type `y`).
 
 ```bash
-> ords-concert-application@1.0.0 migrate
+> ords-remix-jwt-sample@1.0.0 migrate
 > node ./ords/migrate.js
 
 Do you want to set your config with the CLI? (y/n): 
@@ -142,7 +142,7 @@ npm run seed
 Once the script has finished, it will display a resume of all of the rows that were inserted during execution and it will also report if there was during any of the batchload operations.
 
 ```bash
-> ords-concert-application@1.0.0 seed
+> ords-remix-jwt-sample@1.0.0 seed
 > node ./ords/seed.js
 
 #INFO Number of rows processed: 50
@@ -182,7 +182,7 @@ This starts the ORDS Concert App in development mode, rebuilding assets on file 
 Once the server is up you will see the following output on your console:
 
 ```bash
-> ords-concert-application@1.0.0 dev
+> ords-remix-jwt-sample@1.0.0 dev
 > remix dev --manual
 
 
