@@ -7,7 +7,7 @@
 import React, {
   useRef, useEffect, UIEvent,
 } from 'react';
-import { RiArrowDropDownLine } from 'react-icons/ri';
+import { ArrowDropDown } from '@mui/icons-material';
 import { Link } from '@remix-run/react';
 import CustomCircularProgress from '../utils/CircularProgress';
 
@@ -81,7 +81,7 @@ function Dropdown(props: DropDownProps) {
         className="inline-flex items-center rounded px-4 py-2 text-xs text-white hover:bg-gray-700"
       >
         {selectedCity}
-        <RiArrowDropDownLine />
+        <ArrowDropDown />
       </button>
       {
         open
