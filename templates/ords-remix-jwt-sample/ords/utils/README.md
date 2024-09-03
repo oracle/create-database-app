@@ -12,10 +12,10 @@ Before running the drop script, make sure the following prerequisites are met:
 
 ```bash
 ADB_ADMIN_USERNAME=username
-ADB_ADMIN_PASSWORD=password
+ADB_ADMIN_PASSWORD=
 ADB_ORDS_URL=example.com:8080/ords/
 SCHEMA_NAME=test
-SCHEMA_PASSWORD=password
+SCHEMA_PASSWORD=
 ```
 
 ## The Drop Script Explained

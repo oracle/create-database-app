@@ -53,7 +53,7 @@ ADB_ADMIN_USERNAME=username
 ADB_ADMIN_PASSWORD=password
 
 SCHEMA_NAME=CONCERT_SAMPLE_APP
-SCHEMA_PASSWORD=SuperS3curePsswd
+SCHEMA_PASSWORD=
 
 JWT_ISSUER=https://my-domain.auth0.com/
 JWT_VERIFICATION_KEY=https://my-domain.auth0.com/oauth/token/.well-known/jwks.json
