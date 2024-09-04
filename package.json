@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^3.3.2",
-    "@oclif/core": "^3.27.0",
+    "@oclif/core": "^4.0.19",
     "@oclif/plugin-help": "^5.2.20",
     "@oclif/plugin-plugins": "^5.3.7",
     "extract-zip": "^2.0.1",
