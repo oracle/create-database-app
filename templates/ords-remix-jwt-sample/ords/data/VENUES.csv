@@ -1,0 +1,98 @@
+VENUE_ID, NAME, LOCATION, CITY_ID
+100,Nebula Lounge,"Main St, NeoNexus",100
+101,Celestial Plaza,"Ocean Dr, Aquapolis",103
+102,Blue Moon Stage,"Park Blvd, Solara Prime",101
+103,Rift Pavilion,"Sunset Rd, Aetheris",106
+104,Aurora Falls Amphitheater,"2nd Ave, Mirage Vortex",107
+105,Aurora Amphitheater,"Sunset Rd, Aquapolis",103
+106,Radiant Gardens,"Park Blvd, Luminara",102
+107,Nebula Plaza,"2nd Ave, TerraNova",105
+108,Ether Dome,"Sunset Rd, Virelia",104
+109,Sonic Waves Theater,"Park Blvd, Solara Prime",101
+110,Aurora Amphitheater,"Park Blvd, Aetheris",106
+111,Aurora Pavilion,"2nd Ave, NeoNexus",100
+112,Glimmer Amphitheater,"Sunset Rd, Lyra’s End",110
+113,Chroma Stage,"Park Blvd, Mirage Vortex",107
+114,Zephyr Lounge,"Ocean Dr, NeoNexus",100
+115,Celestial Shores Amphitheater,"2nd Ave, Luminara",102
+116,Celestial Stage,"2nd Ave, Virelia",104
+117,Galactic Theater,"2nd Ave, Virelia",104
+118,Starlight Ballroom,"Sunset Rd, Aetheris",106
+119,Mystic Springs Theater,"Main St, Mirage Vortex",107
+120,Prism Point,"Main St, TerraNova",105
+121,Velocity Hall,"Sunset Rd, Mirage Vortex",107
+122,Celestial Stage,"Main St, Nocturne",108
+123,Radiant Peak,"2nd Ave, Aurora Nova",109
+124,Harmonic Haven,"Main St, TerraNova",105
+125,Blue Moon Gardens,"Park Blvd, Nocturne",108
+126,Elysium Stage,"Ocean Dr, Virelia",104
+127,Solstice Pavilion,"2nd Ave, Aurora Nova",109
+128,Horizon Stage,"Park Blvd, Virelia",104
+129,Quantum Gardens,"Ocean Dr, Solara Prime",101
+130,Nebula Lounge,"Main St, Solara Prime",101
+131,Celestial Plaza,"Main St, Aetheris",106
+132,Aurora Pavilion,"2nd Ave, Virelia",104
+133,Neon Haven,"Sunset Rd, Lyra’s End",110
+134,Zephyr Peak,"Main St, Lyra’s End",110
+135,Rift Pavilion,"Ocean Dr, TerraNova",105
+136,Midnight Mirage,"Ocean Dr, Lyra’s End",110
+137,Starlight Ballroom,"Main St, Mirage Vortex",107
+138,Blue Moon Stage,"2nd Ave, Aurora Nova",109
+139,Solstice Pavilion,"Park Blvd, Aetheris",106
+140,Ember Pavilion,"Ocean Dr, Luminara",102
+141,Echo Heights,"Main St, Aurora Nova",109
+142,Galactic Theater,"Main St, Solara Prime",101
+143,Spectrum Theater,"Park Blvd, Virelia",104
+144,Elysium Stage,"2nd Ave, Aetheris",106
+145,Aurora Falls Amphitheater,"Sunset Rd, Mirage Vortex",107
+146,Radiant Falls,"Park Blvd, Mirage Vortex",107
+147,Echo Plaza,"Sunset Rd, Mirage Vortex",107
+148,Zephyr Peak,"Main St, TerraNova",105
+149,Chroma Cove,"Main St, Mirage Vortex",107
+150,Aurora Point,"Main St, Luminara",102
+151,Prism Palace,"Sunset Rd, Luminara",102
+152,Velocity Plaza,"2nd Ave, Nocturne",108
+153,Ember Hall,"Sunset Rd, NeoNexus",100
+154,Dawn Sanctuary,"Main St, Solara Prime",101
+155,Aurora Amphitheater,"Sunset Rd, NeoNexus",100
+156,Ethereal Pavilion,"2nd Ave, NeoNexus",100
+157,Aurora Peak,"Sunset Rd, Mirage Vortex",107
+158,Velocity Hall,"2nd Ave, Aurora Nova",109
+159,Whispering Pines Theater,"Park Blvd, Aquapolis",103
+160,Harmony Cove,"Park Blvd, Solara Prime",101
+161,Vortex Plaza,"Ocean Dr, Aetheris",106
+162,Solar Flare Arena,"Sunset Rd, Aquapolis",103
+163,Serenity Gardens,"Sunset Rd, Luminara",102
+164,Harmony Cove,"2nd Ave, Nocturne",108
+165,Phoenix Hall,"Park Blvd, Aquapolis",103
+166,Harmony Cove,"Park Blvd, Virelia",104
+167,Nova Stage,"Ocean Dr, Nocturne",108
+168,Twilight Grove,"Sunset Rd, Aetheris",106
+169,Nova Plaza,"2nd Ave, NeoNexus",100
+170,Celestial Stage,"Ocean Dr, Aurora Nova",109
+171,Radiant Falls,"Sunset Rd, Aquapolis",103
+172,Dawn Sanctuary,"Ocean Dr, Aetheris",106
+173,Twilight Grove,"Sunset Rd, Mirage Vortex",107
+174,Zephyr Theater,"Ocean Dr, Aetheris",106
+175,Spectrum Theater,"Main St, Virelia",104
+176,Starlight Ballroom,"Main St, Solara Prime",101
+177,Harmony Cove,"Ocean Dr, Mirage Vortex",107
+178,Ethereal Pavilion,"Ocean Dr, Luminara",102
+179,Ethereal Pavilion,"2nd Ave, TerraNova",105
+180,Eclipse Pavilion,"Ocean Dr, Luminara",102
+181,Crimson Plaza,"Main St, Aurora Nova",109
+182,Dawn Sanctuary,"Sunset Rd, Mirage Vortex",107
+183,Serenity Gardens,"Sunset Rd, Solara Prime",101
+184,Pulse Point,"Ocean Dr, Virelia",104
+185,Gravity Point,"Park Blvd, Aetheris",106
+186,Velocity Hall,"Sunset Rd, Aetheris",106
+187,Solstice Pavilion,"Sunset Rd, Solara Prime",101
+188,Glimmer Amphitheater,"Park Blvd, Solara Prime",101
+189,Mystic Springs Theater,"Park Blvd, Aetheris",106
+190,Harmonic Haven,"Park Blvd, Aurora Nova",109
+191,Ethereal Pavilion,"2nd Ave, Aquapolis",103
+192,Mystic Springs Theater,"Ocean Dr, TerraNova",105
+193,Titanium Heights,"2nd Ave, Mirage Vortex",107
+194,Aurora Pavilion,"Main St, NeoNexus",100
+195,Spectrum Point,"2nd Ave, Aurora Nova",109
+196,Phoenix Stage,"Main St, Aurora Nova",109

@@ -1,0 +1,25 @@
+<svg id="Icon_Art" data-name="Icon Art" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28.8 28.8">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #312d2a;
+        stroke-miterlimit: 10;
+        stroke-width: 0.8px;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-1" points="20.6 21.72 14.4 23.92 8.2 21.72 6 8.32 14.4 5.52 22.8 8.32 20.6 21.72"/>
+  <g>
+    <ellipse class="cls-1" cx="14.4" cy="14.5" rx="3.2" ry="0.78"/>
+    <path class="cls-1" d="M17.6,16.38c0,.43-1.43.77-3.2.77s-3.2-.34-3.2-.77"/>
+    <path class="cls-1" d="M17.6,18.26c0,.43-1.43.78-3.2.78s-3.2-.35-3.2-.78"/>
+    <path class="cls-1" d="M11.2,14.5v5.65c0,.42,1.43.77,3.2.77s3.2-.35,3.2-.77V14.5"/>
+  </g>
+  <line class="cls-1" x1="14.4" y1="8.12" x2="14.4" y2="11.92"/>
+  <polyline class="cls-1" points="12.8 9.72 14.4 8.12 16 9.72"/>
+  <line class="cls-1" x1="10.8" y1="12.32" x2="8.4" y2="9.92"/>
+  <polyline class="cls-1" points="10.8 10.12 10.8 12.32 8.6 12.32"/>
+  <line class="cls-1" x1="18" y1="12.32" x2="20.4" y2="9.92"/>
+  <polyline class="cls-1" points="18 10.12 18 12.32 20.2 12.32"/>
+</svg>

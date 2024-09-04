@@ -1,0 +1,920 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "ORDS generated API for concert_app.authuser.v1",
+      "version": "1.0.0",
+      "description": "authenticated user APIs Version 1"
+    },
+    "servers": [
+      {
+        "url": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/authuser/v1/"
+      }
+    ],
+    "paths": {
+      "/event/{event_id}": {
+        "get": {
+          "description": "Retrieve records from concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_date": {
+                              "$ref": "#/components/schemas/DATE"
+                            },
+                            "event_details": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "venue_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "event_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/events/": {
+        "get": {
+          "description": "Retrieve records from concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_date": {
+                              "$ref": "#/components/schemas/DATE"
+                            },
+                            "event_details": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "venue_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": []
+        }
+      },
+      "/liked_artist": {
+        "post": {
+          "description": "Create a new record on concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "The successfully created record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "STATUS_CODE": {
+                        "type": "string"
+                      },
+                      "RESULT_MESSAGE": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "ARTIST_ID ",
+              "in": "header",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "id of artists"
+            },
+            {
+              "name": "USER_ID ",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "description": "user id, provided by auth0"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authuser_v1_ITEM"
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "description": "Remove a record from concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Deleted result."
+            }
+          },
+          "parameters": [
+            {
+              "name": "ARTIST_ID ",
+              "in": "header",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "id of artists"
+            },
+            {
+              "name": "USER_ID ",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "description": "user id, provided by auth0"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authuser_v1_ITEM"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/liked_artist/{user_id}/{artist_id}": {
+        "get": {
+          "description": "Retrieve a record from concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "likedartist": {
+                        "$ref": "#/components/schemas/NUMBER"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "artist_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            },
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/liked_artists/{user_id}": {
+        "get": {
+          "description": "Retrieve records from concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "bio": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "description": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/liked_event": {
+        "post": {
+          "description": "Create a new record on concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "The successfully created record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "STATUS_CODE": {
+                        "type": "string"
+                      },
+                      "RESULT_MESSAGE": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "USER_ID ",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "description": "user id, provided by auth0"
+            },
+            {
+              "name": "VENUE_ID ",
+              "in": "header",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "id of artists"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authuser_v1_ITEM_2"
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "description": "Remove a record from concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Deleted result."
+            }
+          },
+          "parameters": [
+            {
+              "name": "USER_ID ",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "description": "user id, provided by auth0"
+            },
+            {
+              "name": "VENUE_ID ",
+              "in": "header",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "id of artists"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authuser_v1_ITEM_2"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/liked_event/{user_id}/{event_id}": {
+        "get": {
+          "description": "Retrieve a record from concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "likedevent": {
+                        "$ref": "#/components/schemas/NUMBER"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "event_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            },
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/liked_events/{user_id}": {
+        "get": {
+          "description": "Retrieve records from concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_date": {
+                              "$ref": "#/components/schemas/DATE"
+                            },
+                            "event_details": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/liked_venue": {
+        "delete": {
+          "description": "Remove a record from concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Deleted result."
+            }
+          },
+          "parameters": [
+            {
+              "name": "USER_ID ",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "description": "user id, provided by auth0"
+            },
+            {
+              "name": "VENUE_ID ",
+              "in": "header",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "id of artists"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authuser_v1_ITEM_3"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "description": "Create a new record on concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "The successfully created record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "STATUS_CODE": {
+                        "type": "string"
+                      },
+                      "RESULT_MESSAGE": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "USER_ID ",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "description": "user id, provided by auth0"
+            },
+            {
+              "name": "VENUE_ID ",
+              "in": "header",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "id of artists"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authuser_v1_ITEM_3"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/liked_venue/{user_id}/{venue_id}": {
+        "get": {
+          "description": "Retrieve a record from concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "likedvenue": {
+                        "$ref": "#/components/schemas/NUMBER"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            },
+            {
+              "name": "venue_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/liked_venues/{user_id}": {
+        "get": {
+          "description": "Retrieve records from concert_app.authuser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "BasicAuth": {
+          "type": "http",
+          "scheme": "basic"
+        },
+        "BearerAuth": {
+          "type": "http",
+          "scheme": "bearer"
+        },
+        "OAuth2": {
+          "type": "oauth2",
+          "flows": {
+            "implicit": {
+              "authorizationUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/auth",
+              "scopes": {}
+            },
+            "authorizationCode": {
+              "authorizationUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/auth",
+              "tokenUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/token",
+              "scopes": {}
+            },
+            "clientCredentials": {
+              "tokenUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/token",
+              "scopes": {}
+            }
+          }
+        }
+      },
+      "schemas": {
+        "DATE": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-[01]\\d-[0123]\\dT[012]\\d:[0-5]\\d:[0-5]\\d(.\\d+)?(Z|([-+][012]\\d:[0-5]\\d))$"
+        },
+        "INT": {
+          "type": "string"
+        },
+        "NUMBER": {
+          "type": "number"
+        },
+        "STRING": {
+          "type": "string"
+        },
+        "VARCHAR2": {
+          "type": "string"
+        },
+        "authuser_v1_ITEM": {
+          "properties": {
+            "ARTIST_ID ": {
+              "type": "integer"
+            },
+            "ARTIST_ID": {
+              "type": "string"
+            },
+            "USER_ID ": {
+              "type": "string"
+            },
+            "USER_ID": {
+              "type": "string"
+            }
+          }
+        },
+        "authuser_v1_ITEM_2": {
+          "properties": {
+            "EVENT_ID": {
+              "type": "string"
+            },
+            "USER_ID ": {
+              "type": "string"
+            },
+            "USER_ID": {
+              "type": "string"
+            },
+            "VENUE_ID ": {
+              "type": "integer"
+            }
+          }
+        },
+        "authuser_v1_ITEM_3": {
+          "properties": {
+            "USER_ID ": {
+              "type": "string"
+            },
+            "USER_ID": {
+              "type": "string"
+            },
+            "VENUE_ID ": {
+              "type": "integer"
+            },
+            "VENUE_ID": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,332 @@
+/*
+**
+** Copyright (c) 2024, Oracle and/or its affiliates.
+** All rights reserved
+** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
+*/
+import {
+  postRequest,
+  printResponse,
+} from '../utils/ORDSRequests.js';
+
+/**
+ * Creates the schema objects (tables, views, etc).
+ * Use the schema owner credentials.
+ * @param {string} endpoint the ADB-S admin endpoint.
+ * @param {string} basicAuth the authentication string for the admin user.
+ */
+async function createObjects(endpoint, basicAuth) {
+  const artistStatements = `
+    CREATE TABLE ARTISTS(
+        ARTIST_ID NUMBER(10) NOT NULL CONSTRAINT ARTISTS_PK PRIMARY KEY,
+        NAME VARCHAR(100) NOT NULL,
+        DESCRIPTION VARCHAR(300) NOT NULL,
+        BIO VARCHAR(2000) NOT NULL
+        
+    );
+    
+    CREATE SEQUENCE ARTIST_SEQ 
+        START WITH 200
+        INCREMENT BY 1
+        NOMAXVALUE
+        NOMINVALUE
+        NOCYCLE
+        CACHE 10;
+
+    CREATE OR REPLACE TRIGGER ARTIST_TRIG
+      BEFORE INSERT ON ARTISTS
+      FOR EACH ROW
+      BEGIN
+          SELECT ARTIST_SEQ.NEXTVAL
+          INTO   :NEW.ARTIST_ID
+          FROM   DUAL;
+      END;
+      /
+    `;
+  const musicGenreStatements = `
+    CREATE TABLE MUSIC_GENRES(
+        MUSIC_GENRE_ID NUMBER(10) NOT NULL CONSTRAINT MUSIC_GENRES_MUSIC_GENRE_ID_PK PRIMARY KEY,
+        NAME VARCHAR(100) NOT NULL,
+        DESCRIPTION VARCHAR(500) NOT NULL
+    );
+    
+    CREATE SEQUENCE MUSIC_GENRES_SEQ
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE
+    NOMINVALUE
+    NOCYCLE
+    CACHE 10;
+        
+    CREATE OR REPLACE TRIGGER MUSIC_GENRE_TRIG
+    BEFORE INSERT ON MUSIC_GENRES
+    FOR EACH ROW
+    
+    BEGIN
+        SELECT MUSIC_GENRES_SEQ.NEXTVAL
+        INTO   :NEW.MUSIC_GENRE_ID
+        FROM   DUAL;
+    END;
+    /
+    `;
+  const citiesStatements = `
+    CREATE TABLE CITIES(
+        CITY_ID NUMBER(10) NOT NULL CONSTRAINT CITIES_CITY_ID_PK PRIMARY KEY,
+        NAME VARCHAR(100) NOT NULL,
+        DESCRIPTION VARCHAR(500) NOT NULL
+    );
+    
+    CREATE SEQUENCE CITIES_SEQ
+    START WITH 100
+    INCREMENT BY 1
+    NOMAXVALUE
+    NOMINVALUE
+    NOCYCLE
+    CACHE 10;
+        
+    CREATE OR REPLACE TRIGGER CITIES_TRIG
+    BEFORE INSERT ON CITIES
+    FOR EACH ROW
+    
+    BEGIN
+        SELECT CITIES_SEQ.NEXTVAL
+        INTO   :NEW.CITY_ID
+        FROM   DUAL;
+    END;
+    /
+    `;
+  const venueStatements = `
+    CREATE TABLE VENUES(
+        VENUE_ID NUMBER(10) NOT NULL CONSTRAINT VENUES_VENUE_ID_PK PRIMARY KEY,
+        NAME VARCHAR(100) NOT NULL,
+        LOCATION VARCHAR(200) NOT NULL,
+        CITY_ID NUMBER(10) NOT NULL,
+        CONSTRAINT VENUES_CITY_ID_FK FOREIGN KEY(CITY_ID)
+        REFERENCES CITIES(CITY_ID)
+
+    );
+    CREATE SEQUENCE VENUES_SEQ 
+      START WITH 100
+      INCREMENT BY 1
+      NOMAXVALUE
+      NOMINVALUE
+      NOCYCLE
+      CACHE 10;
+
+    CREATE OR REPLACE TRIGGER VENUES_TRIG
+      BEFORE INSERT ON VENUES
+      FOR EACH ROW
+      BEGIN
+        SELECT VENUES_SEQ.NEXTVAL
+        INTO   :NEW.VENUE_ID
+        FROM   DUAL;
+      END;
+      /
+    `;
+
+  const eventStatusStatements = `
+    CREATE TABLE EVENT_STATUS(
+        EVENT_STATUS_ID NUMBER(10) CONSTRAINT EVENT_STATUS_PK PRIMARY KEY,
+        EVENT_STATUS_NAME VARCHAR2(40) NOT NULL,
+        EVENT_STATUS_DESCRIPTION VARCHAR2(100) NOT NULL 
+    );
+    `;
+
+  const eventStatements = `
+    CREATE TABLE EVENTS(
+        EVENT_ID NUMBER(10) NOT NULL CONSTRAINT EVENTS_EVENT_ID_PK PRIMARY KEY,
+        EVENT_DATE DATE NOT NULL,
+        ARTIST_ID NUMBER(10) NOT NULL,
+        VENUE_ID NUMBER(10) NOT NULL,
+        EVENT_STATUS_ID NUMBER(10) NOT NULL,
+        EVENT_DETAILS VARCHAR2(400) NOT NULL,
+        CONSTRAINT EVENTS_ARTIST_ID_FK FOREIGN KEY(ARTIST_ID)
+        REFERENCES ARTISTS(ARTIST_ID),
+        CONSTRAINT EVENTS_VENUE_ID_FK FOREIGN KEY(VENUE_ID)
+        REFERENCES VENUES(VENUE_ID),
+        CONSTRAINT EVENTS_EVENT_STATUS_ID_FK FOREIGN KEY(EVENT_STATUS_ID)
+        REFERENCES EVENT_STATUS(EVENT_STATUS_ID)
+    );
+
+    CREATE SEQUENCE EVENTS_SEQ 
+      START WITH 1
+      INCREMENT BY 1
+      NOMAXVALUE
+      NOMINVALUE
+      NOCYCLE
+      CACHE 10;
+
+    CREATE OR REPLACE TRIGGER EVENTS_TRIG
+      BEFORE INSERT ON EVENTS
+      FOR EACH ROW
+      BEGIN
+        SELECT EVENTS_SEQ.NEXTVAL
+        INTO   :NEW.EVENT_ID
+        FROM   DUAL;
+      END;
+      /
+    `;
+
+  const classificationStatements = `
+    CREATE TABLE ARTIST_CLASSIFICATIONS(
+        ARTIST_ID NUMBER(10) NOT NULL,
+        MUSIC_GENRE_ID NUMBER(10) NOT NULL,
+        CONSTRAINT ARTIST_CLASSIFICATIONS_ARTIST_ID_FK FOREIGN KEY(ARTIST_ID)
+        REFERENCES ARTISTS(ARTIST_ID),
+        CONSTRAINT ARTIST_CLASSIFICATIONS_MUSIC_GENRE_ID_FK FOREIGN KEY(MUSIC_GENRE_ID)
+        REFERENCES MUSIC_GENRES(MUSIC_GENRE_ID)
+    );
+    `;
+  const likedArtistStatements = `
+    CREATE TABLE LIKED_ARTIST(
+        USER_ID VARCHAR2(60) NOT NULL,
+        ARTIST_ID NUMBER(10) NOT NULL,
+        CONSTRAINT LIKED_ARTIST_ARTIST_ID_FK FOREIGN KEY(ARTIST_ID)
+        REFERENCES ARTISTS(ARTIST_ID),
+        CONSTRAINT LIKED_ARTISTS_PK PRIMARY KEY(USER_ID, ARTIST_ID)
+    );
+    `;
+  const likedMusicGenresStatements = `
+    CREATE TABLE LIKED_MUSIC_GENRES(
+        USER_ID VARCHAR2(60) NOT NULL,
+        MUSIC_GENRE_ID NUMBER(10) NOT NULL,
+        CONSTRAINT LIKED_MUSIC_GENRE_ARTIST_ID_FK FOREIGN KEY(MUSIC_GENRE_ID)
+        REFERENCES MUSIC_GENRES(MUSIC_GENRE_ID),
+        CONSTRAINT LIKED_MUSIC_GENRES_PK PRIMARY KEY(USER_ID, MUSIC_GENRE_ID)
+    );    
+    `;
+  const likedVenueStatements = `
+    CREATE TABLE LIKED_VENUE(
+        USER_ID VARCHAR2(60) NOT NULL,
+        VENUE_ID NUMBER(10) NOT NULL,
+        CONSTRAINT LIKED_VENUE_VENUE_ID_FK FOREIGN KEY(VENUE_ID)
+        REFERENCES VENUES(VENUE_ID),
+        CONSTRAINT LIKED_VENUE_PK PRIMARY KEY(USER_ID, VENUE_ID)
+    );
+    
+    `;
+  const likedEventStatements = `
+    CREATE TABLE LIKED_EVENT(
+        USER_ID VARCHAR2(60) NOT NULL,
+        EVENT_ID NUMBER(10) NOT NULL,
+        CONSTRAINT LIKED_EVENT_EVENT_ID_FK FOREIGN KEY(EVENT_ID)
+        REFERENCES EVENTS(EVENT_ID),
+        CONSTRAINT LIKED_EVENT_PK PRIMARY KEY(USER_ID, EVENT_ID)
+    );
+    `;
+  const ticketStatements = `
+    CREATE TABLE TICKET(
+        EVENT_ID NUMBER(10) NOT NULL,
+        USER_ID VARCHAR2(60) NOT NULL,
+        CONSTRAINT TICKET_EVENT_ID_FK FOREIGN KEY(EVENT_ID)
+        REFERENCES EVENTS(EVENT_ID),
+        CONSTRAINT TICKET_PK PRIMARY KEY(EVENT_ID, USER_ID)
+    );
+    `;
+  const statsStatement = `CREATE VIEW BANNER_VIEW AS
+    SELECT
+        (SELECT COUNT(*) FROM events) AS events_count,
+        (SELECT COUNT(*) FROM artists) AS artists_count,
+        (SELECT COUNT(*) FROM venues) AS venues_count
+    FROM DUAL;`;
+
+  const eventsViewStatement = `CREATE VIEW EVENTS_VIEW AS
+    SELECT 
+        A.NAME AS ARTIST_NAME,
+        A.ARTIST_ID AS ARTIST_ID,
+        E.EVENT_ID AS EVENT_ID,
+        E.EVENT_DATE AS EVENT_DATE,
+        E.EVENT_DETAILS AS EVENT_DETAILS,
+        ES.EVENT_STATUS_NAME AS EVENT_STATUS_NAME,
+        ES.EVENT_STATUS_ID AS EVENT_STATUS_ID,
+        V.VENUE_ID AS VENUE_ID,
+        V.NAME AS VENUE_NAME,
+        C.NAME AS CITY_NAME,
+        AGG.MUSIC_GENRES
+
+    FROM 
+        EVENTS E
+        INNER JOIN ARTISTS A ON E.ARTIST_ID = A.ARTIST_ID
+        INNER JOIN EVENT_STATUS ES ON E.EVENT_STATUS_ID = ES.EVENT_STATUS_ID
+        INNER JOIN VENUES V ON E.VENUE_ID = V.VENUE_ID
+        INNER JOIN CITIES C ON V.CITY_ID = C.CITY_ID
+        LEFT JOIN (
+          SELECT 
+              AA.ARTIST_ID,
+              LISTAGG(MG.NAME, ', ') WITHIN GROUP (ORDER BY MG.NAME) AS MUSIC_GENRES
+          FROM 
+              ARTIST_CLASSIFICATIONS AA
+              INNER JOIN MUSIC_GENRES MG ON AA.MUSIC_GENRE_ID = MG.MUSIC_GENRE_ID
+          GROUP BY 
+              AA.ARTIST_ID
+      ) AGG ON A.ARTIST_ID = AGG.ARTIST_ID
+        ORDER BY E.EVENT_DATE DESC;`;
+
+  const searchViewStatement = `CREATE VIEW SEARCH_VIEW AS
+    SELECT 
+      A.NAME || ' at ' || V.NAME || ', ' || C.NAME as EVENT_NAME,
+      A.NAME AS ARTIST_NAME,
+      A.ARTIST_ID AS ARTIST_ID,
+      E.EVENT_ID AS EVENT_ID,
+      E.EVENT_DATE AS EVENT_DATE,
+      E.EVENT_DETAILS AS EVENT_DETAILS,
+      ES.EVENT_STATUS_NAME AS EVENT_STATUS_NAME,
+      ES.EVENT_STATUS_ID AS EVENT_STATUS_ID,
+      V.VENUE_ID AS VENUE_ID,
+      V.NAME AS VENUE_NAME,
+      C.NAME AS CITY_NAME,
+      AGG.MUSIC_GENRES
+  FROM 
+      EVENTS E
+      INNER JOIN ARTISTS A ON E.ARTIST_ID = A.ARTIST_ID
+      INNER JOIN EVENT_STATUS ES ON E.EVENT_STATUS_ID = ES.EVENT_STATUS_ID
+      INNER JOIN VENUES V ON E.VENUE_ID = V.VENUE_ID
+      INNER JOIN CITIES C ON V.CITY_ID = C.CITY_ID
+      LEFT JOIN (
+          SELECT 
+              AA.ARTIST_ID,
+              LISTAGG(MG.NAME, ', ') WITHIN GROUP (ORDER BY MG.NAME) AS MUSIC_GENRES
+          FROM 
+              ARTIST_CLASSIFICATIONS AA
+              INNER JOIN MUSIC_GENRES MG ON AA.MUSIC_GENRE_ID = MG.MUSIC_GENRE_ID
+          GROUP BY 
+              AA.ARTIST_ID
+      ) AGG ON A.ARTIST_ID = AGG.ARTIST_ID
+      ORDER BY 
+        E.EVENT_DATE;`;
+
+  const searchArtistViewStatement = `CREATE VIEW SEARCH_ARTIST_VIEW AS
+    SELECT
+      A.ARTIST_ID,
+      A.NAME,
+      A.DESCRIPTION,
+      LISTAGG(MG.NAME, ', ') WITHIN GROUP(
+      ORDER BY
+          MG.NAME
+      ) AS MUSIC_GENRES
+    FROM
+      ARTISTS A
+      LEFT JOIN ARTIST_CLASSIFICATIONS AA ON A.ARTIST_ID = AA.ARTIST_ID
+      LEFT JOIN MUSIC_GENRES           MG ON AA.MUSIC_GENRE_ID = MG.MUSIC_GENRE_ID
+    GROUP BY
+      A.ARTIST_ID,
+      A.NAME,
+      A.DESCRIPTION
+    ORDER BY
+      A.ARTIST_ID;`;
+
+  const searchVenuesViewStatement = `CREATE VIEW SEARCH_VENUES_VIEW AS
+    SELECT V.*, C.NAME AS CITY_NAME
+    FROM VENUES V JOIN CITIES C
+    ON V.CITY_ID = C.CITY_ID;`;
+
+  const statements = [artistStatements, musicGenreStatements, citiesStatements,
+    venueStatements, eventStatusStatements, eventStatements, classificationStatements,
+    likedArtistStatements, likedMusicGenresStatements,
+    likedVenueStatements, likedEventStatements, ticketStatements, statsStatement,
+    eventsViewStatement, searchViewStatement, searchArtistViewStatement, searchVenuesViewStatement].join(' ');
+  const statementsResponse = await postRequest(endpoint, statements, basicAuth);
+  printResponse(statementsResponse);
+}
+
+export default createObjects;

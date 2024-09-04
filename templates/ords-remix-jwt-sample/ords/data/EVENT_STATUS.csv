@@ -1,0 +1,6 @@
+event_status_id,event_status_name,event_status_description
+10,Scheduled,The event is scheduled and set to take place.
+20,Cancelled,The event has been cancelled.
+30,Postponed,The event has been postponed to a later date.
+40,Sold Out,The event is sold out and no more tickets are available.
+50,Completed,The event has successfully taken place.
