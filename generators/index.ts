@@ -119,9 +119,12 @@ export default class extends Generator {
                 ignoreNoMatch: true
             }
         );
+        this.fs.copy(
+            this.templatePath( `${this.options.templateChoice}/.gitignore.template` ),
+            this.destinationPath( '.gitignore' ),
+        );
         /**
          * The ORDS Concert App template provides:
-         * A .gitignore file
          * A markdown lint configuration file (.markdownlint.json)
          * A .env.example file
          * Additionally, the sample app expects that the user configures their development 
@@ -132,10 +135,6 @@ export default class extends Generator {
          */
         if( this.options.templateChoice.includes('ords-remix-jwt-sample' )){
             this.fs.copy(
-                this.templatePath( `${this.options.templateChoice}/.gitignore` ),
-                this.destinationPath( '.gitignore' ),
-            );
-            this.fs.copy(
                 this.templatePath( `${this.options.templateChoice}/.markdownlint.jsonc` ),
                 this.destinationPath( '.markdownlint.jsonc' ),
             );
@@ -144,11 +143,6 @@ export default class extends Generator {
                 this.destinationPath( '.env.example' ),
             );
         } else {
-            this.fs.copy(
-                this.templatePath( `${this.options.templateChoice}/.gitignore.template` ),
-                this.destinationPath( '.gitignore' ),
-            );
-            
             this.fs.copyTpl(
                 this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/${ path.basename( this.options.templateChoice ) == 'node-jet' ? 'index-proxied' : 'index' }.cjs` ),
                 this.destinationPath( 'server/index.cjs' ),
