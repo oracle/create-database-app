@@ -1,6 +1,6 @@
 # ORDS Concert App - Project  Configuration
 
-![ORDS Logo](../../images/ORDS.png)
+![ORDS Logo](../images/ORDS.png)
 
 ## Table of Contents
 
