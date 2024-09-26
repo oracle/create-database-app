@@ -141,3 +141,50 @@ updates:
       - "templates-vue"
     commit-message:
       prefix: fix(deps)
+
+  - package-ecosystem: "npm" 
+    directory: "/templates/ords-remix-jwt-sample/"
+    schedule:
+      interval: "monthly"
+    groups:
+      ords-remix-dependencies:
+        patterns:
+          - "@remix*"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
+      ords-mui-dependencies:
+        patterns:
+          - "@mui*"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
+      ords-react-dependencies:
+        patterns:
+          - "react"
+          - "react-dom"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
+      ords-emotion-dependencies:
+        patterns:
+          - "@emotion*"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
+      ords-embla-dependencies:
+        patterns:
+          - "embla*"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
+    labels:
+      - "dependencies"
+      - "templates-ords-remix"
+    commit-message:
+      prefix: fix(deps)
