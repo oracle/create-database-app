@@ -21,7 +21,7 @@
     "@angular/router": "^18.2.2",
     "rxjs": "~7.8.1",
     "tslib": "^2.7.0",
-    "zone.js": "~0.14.10",
+    "zone.js": "~0.15.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -44,6 +44,6 @@
     "concurrently": "^8.2.2",
     "eslint": "^9.9.1",
     "@eslint/js": "^9.9.1",
-    "typescript-eslint": "8.3.0"
+    "typescript-eslint": "8.8.0"
   }
 }
