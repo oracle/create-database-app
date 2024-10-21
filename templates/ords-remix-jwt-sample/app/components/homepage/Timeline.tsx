@@ -128,9 +128,9 @@ function Timeline(props: TimelineProps) {
                   },
                 }}
               >
-                <StyledTab className="w-1/3" label={today.toDateString()} {...a11yProps(0)} />
-                <StyledTab className="w-1/3" label={tomorrow.toDateString()} {...a11yProps(1)} />
-                <StyledTab className="w-1/3" label={dayAfterTomorrow.toDateString()} {...a11yProps(LAST_TAB)} />
+                <StyledTab className="w-1/3" label={today.toDateString()} {...a11yProps(0)} suppressHydrationWarning />
+                <StyledTab className="w-1/3" label={tomorrow.toDateString()} {...a11yProps(1)} suppressHydrationWarning />
+                <StyledTab className="w-1/3" label={dayAfterTomorrow.toDateString()} {...a11yProps(LAST_TAB)} suppressHydrationWarning />
               </Tabs>
             </div>
           </Box>
