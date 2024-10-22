@@ -147,15 +147,18 @@ This is the audience that both the ORDS Sample App and the ORDS JWT Client will 
 
 Now that we have created our API, go to the `Permissions` tab and grant it the following permissions/privileges.
 
+> [!IMPORTANT]
+> Replace <SCHEMA_NAME> with the `SCHEMA_NAME` variable specified on your `.env` file. 
+
 | Permission | Description | What it does in the ORDS Sample App |
 | ---------- | ----------- | ----------- |
 |read:general_user_content | Read all of the general user endpoints |  Allows the Sample App to read user information like first name, last name, email and Auth0 ID |
 | concert_app_authuser | Provides access to the user specific endpoints |  Allows authenticated users to interact with user specific ORDS Endpoints, like subscribing to a concert and more. |
 | concert_app_euser | Provides limited access to the concert app endpoints | Allows unauthenticated users to interact with limited ORDS Endpoints. |
 | concert_app_admin | Provides access to the concert app admin endpoints | Allows authenticated admin users to interact with user specific ORDS Endpoints, like the create or delete Artist Endpoints. |
-| oracle.dbtools.autorest.privilege.CONCERT_SAMPLE_APP.SEARCH_VIEW | Provides access to the AutoREST search view. | Allows every user of the ORDS Concert App to access the search/discover functionality. |
-oracle.dbtools.autorest.privilege.CONCERT_SAMPLE_APP.SEARCH_ARTIST_VIEW | Provides access to the AutoREST artists search view. | Allows every user of the ORDS Concert App to access the search/discover functionality. |
-| oracle.dbtools.autorest.privilege.CONCERT_SAMPLE_APP.SEARCH_VENUES_VIEW | Provides access to the AutoREST venues search view. | Allows every user of the ORDS Concert App to access the search/discover functionality. |
+| oracle.dbtools.autorest.privilege.`<SCHEMA_NAME>`.SEARCH_VIEW | Provides access to the AutoREST search view. | Allows every user of the ORDS Concert App to access the search/discover functionality. |
+oracle.dbtools.autorest.privilege.`<SCHEMA_NAME>`.SEARCH_ARTIST_VIEW | Provides access to the AutoREST artists search view. | Allows every user of the ORDS Concert App to access the search/discover functionality. |
+| oracle.dbtools.autorest.privilege.`<SCHEMA_NAME>`.SEARCH_VENUES_VIEW | Provides access to the AutoREST venues search view. | Allows every user of the ORDS Concert App to access the search/discover functionality. |
 
 Once you have added all of the permissions described above your list of permissions should look like this. 
 
