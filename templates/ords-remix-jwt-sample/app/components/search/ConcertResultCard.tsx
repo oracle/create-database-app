@@ -49,7 +49,7 @@ function ConcertResultCard(props: ConcertResultCardProps) {
               </h1>
               <div className="flex items-center">
                 <CalendarMonth />
-                <p className="font-sans font-extralight">
+                <p className="font-sans font-extralight" suppressHydrationWarning>
                   { concertDateString }
                 </p>
               </div>

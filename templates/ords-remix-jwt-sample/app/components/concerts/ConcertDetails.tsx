@@ -50,7 +50,7 @@ function ConcertDetails(props: ConcertDetailsProps) {
           <h1 className="mb-5 text-justify text-xl font-bold">
             Additional Details
           </h1>
-          <p className="mb-2 text-justify font-normal">
+          <p className="mb-2 text-justify font-normal" suppressHydrationWarning>
             {`Get ready for an unforgettable evening with ${concert.items[0].artist_name}!
                     Join us at ${concert.items[0].venue_name} on ${concertDateString} for a night of incredible
                     music and electrifying performances.

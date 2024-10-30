@@ -59,7 +59,7 @@ function ConcertCard(props: ConcertCardProps) {
             </div>
             <div className="flex items-center">
               <CalendarMonth />
-              <p className="font-sans font-extralight">
+              <p className="font-sans font-extralight" suppressHydrationWarning>
                 { concertDateString }
               </p>
             </div>
