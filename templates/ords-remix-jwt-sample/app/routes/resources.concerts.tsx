@@ -15,7 +15,6 @@ import {
 } from '~/utils/auth.server';
 import {
   EVENTS_ENDPOINT,
-  BASIC_SCHEMA_AUTH,
   CONCERTS_BY_CITY_ENDPOINT,
 } from './constants/index.server';
 import ORDSFetcher from '../utils/ORDSFetcher';
@@ -33,7 +32,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   eventsURL.searchParams.append('limit', limit.toString());
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? ''
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;

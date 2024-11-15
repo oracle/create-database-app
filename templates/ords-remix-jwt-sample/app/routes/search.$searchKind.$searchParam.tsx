@@ -11,7 +11,6 @@ import type {
 import { json } from '@remix-run/node';
 import { auth } from '~/utils/auth.server';
 import {
-  BASIC_SCHEMA_AUTH,
   ARTISTS_ENDPOINT,
   VENUES_ENDPOINT,
   EVENTS_BY_NAME_ENDPOINT,
@@ -30,7 +29,7 @@ export const loader = async ({
   const { searchKind, searchParam } = params;
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? ''
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   // eslint-disable-next-line no-magic-numbers
   const FOLLOWERS = [69420, 99876, 45632, 32496, 98765, 12776, 100000, 88999, 99999];

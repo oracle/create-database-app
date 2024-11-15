@@ -22,7 +22,6 @@ import {
   ARTISTS_ENDPOINT,
   ARTIST_ENDPOINT,
   ARTIST_EVENT_ENDPOINT,
-  BASIC_SCHEMA_AUTH,
   CITIES_ENDPOINT,
   LIKED_ARTIST_ENDPOINT,
 } from './constants/index.server';
@@ -87,7 +86,7 @@ export const loader = async ({
   const userProfile = await auth.isAuthenticated(request);
   const profile = userProfile?.profile || null;
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? ''
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
