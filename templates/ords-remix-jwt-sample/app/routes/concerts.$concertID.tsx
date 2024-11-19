@@ -29,7 +29,6 @@ import ConcertDetails from '../components/concerts/ConcertDetails';
 import {
   EVENT_ENDPOINT,
   LIKED_EVENT_ENDPOINT,
-  BASIC_SCHEMA_AUTH,
 } from './constants/index.server';
 import { UserActions } from '../utils/UserActions';
 import ORDSFetcher from '../utils/ORDSFetcher';
@@ -93,7 +92,7 @@ export const loader = async ({
   const userProfile = await auth.isAuthenticated(request);
   const profile = userProfile?.profile || null;
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? ''
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;

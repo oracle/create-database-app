@@ -30,7 +30,6 @@ import {
 } from './utils/auth.server';
 import NavBar from './components/navbar/NavBar';
 import {
-  BASIC_SCHEMA_AUTH,
   CITIES_ENDPOINT,
 } from './routes/constants/index.server';
 import TooltipButton from './components/tooltips/TooltipButton';
@@ -42,7 +41,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userProfile = await auth.isAuthenticated(request);
   const profile = userProfile?.profile || null;
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? ''
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;

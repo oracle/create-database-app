@@ -20,7 +20,6 @@ import {
   auth, getSession,
 } from '../utils/auth.server';
 import {
-  BASIC_SCHEMA_AUTH,
   AUTO_REST_SEARCH_ENDPOINT,
   CITIES_ENDPOINT,
   ARTISTS_ENDPOINT,
@@ -38,7 +37,7 @@ import Artist from '../models/Artist';
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? ''
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;

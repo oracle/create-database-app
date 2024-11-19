@@ -15,7 +15,6 @@ import {
 } from '~/utils/auth.server';
 import {
   VENUES_ENDPOINT,
-  BASIC_SCHEMA_AUTH,
 } from './constants/index.server';
 import ORDSFetcher from '../utils/ORDSFetcher';
 import ORDSResponse from '../models/ORDSResponse';
@@ -31,7 +30,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   venuesURL.searchParams.append('limit', limit.toString());
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? ''
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;

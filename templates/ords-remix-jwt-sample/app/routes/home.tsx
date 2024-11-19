@@ -23,7 +23,6 @@ import {
 } from '../utils/auth.server';
 import {
   STATS_ENDPOINT,
-  BASIC_SCHEMA_AUTH,
   EVENTS_ENDPOINT,
   ARTISTS_ENDPOINT,
   CONCERTS_BY_CITY_ENDPOINT,
@@ -43,7 +42,7 @@ import featureDescriptions from '../utils/ORDSFeaturesDescription';
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? ''
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
