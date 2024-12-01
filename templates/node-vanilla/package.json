@@ -22,6 +22,6 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "eslint-plugin-node": "^11.1.0",
-    "vite": "^5.0.8"
+    "vite": "^6.0.1"
   }
 }
