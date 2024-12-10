@@ -20,7 +20,6 @@ import {
   auth, getSession,
 } from '../utils/auth.server';
 import {
-  BASIC_SCHEMA_AUTH,
   AUTO_REST_SEARCH_VENUES_ENDPOINT,
   CITIES_ENDPOINT,
 } from './constants/index.server';
@@ -34,7 +33,7 @@ import ORDSResponse from '../models/ORDSResponse';
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
@@ -51,9 +50,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   searchURL.searchParams.append('offset', offset.toString());
   const searchResult = await ORDSFetcher(
     searchURL,
-    USER_CREDENTIALS,
+    USER_CREDENTIALS!,
   ) as ORDSResponse<VenueResult>;
-  const cities = await ORDSFetcher(CITIES_ENDPOINT, USER_CREDENTIALS) as ORDSResponse<City>;
+  const cities = await ORDSFetcher(CITIES_ENDPOINT, USER_CREDENTIALS!) as ORDSResponse<City>;
 
   return json({
     error,

@@ -50,13 +50,6 @@ async function protectEndpoints(
     'concert_app.adminuser.v1',
   )}
 
-  ${definePrivilege(
-    'concert_app_euser',
-    'Non authenticated end user privilege',
-    'Provides limited access to the concert app endpoints',
-    'concert_app.euser.v1',
-  )}
-
         COMMIT;
     END;
     /

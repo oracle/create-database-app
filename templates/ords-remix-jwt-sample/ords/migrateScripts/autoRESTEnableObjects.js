@@ -72,24 +72,24 @@ async function autoRESTEnableObjects(schemaName, endpoint, basicAuth) {
       objectName: 'SEARCH_VIEW',
       objectType: VIEW_OBJECT_TYPE,
       objectAlias: 'search_view',
-      isAutoRestAuth: true,
+      isAutoRestAuth: false,
     },
     {
       objectName: 'SEARCH_ARTIST_VIEW',
       objectType: VIEW_OBJECT_TYPE,
       objectAlias: 'search_artist_view',
-      isAutoRestAuth: true,
+      isAutoRestAuth: false,
     },
     {
       objectName: 'SEARCH_VENUES_VIEW',
       objectType: VIEW_OBJECT_TYPE,
       objectAlias: 'search_venues_view',
-      isAutoRestAuth: true,
+      isAutoRestAuth: false,
     },
   ];
   const autoRESTenableStatements = `
     BEGIN
-        ${objectsToRESTEnable.filter((object) => object.isAutoRestAuth).map((object) => enableObject(schemaName, object.objectName, object.objectType, object.objectAlias, object.isAutoRestAuth)).join(' ')}
+        ${objectsToRESTEnable.map((object) => enableObject(schemaName, object.objectName, object.objectType, object.objectAlias, object.isAutoRestAuth)).join(' ')}
         COMMIT;
     END;
     /
@@ -97,7 +97,7 @@ async function autoRESTEnableObjects(schemaName, endpoint, basicAuth) {
   const statementsResponse = await postRequest(endpoint, autoRESTenableStatements, basicAuth);
   printResponse(statementsResponse);
   // Add the SQL Developer role to the objects that where autoREST Enabled.
-  objectsToRESTEnable.map(async (object) => {
+  objectsToRESTEnable.filter((object) => object.isAutoRestAuth).map(async (object) => {
     const grantSQLDevStmt = grantSQLDeveloperRole(
       schemaName,
       object.objectName,
