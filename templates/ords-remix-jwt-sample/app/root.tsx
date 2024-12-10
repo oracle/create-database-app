@@ -41,12 +41,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userProfile = await auth.isAuthenticated(request);
   const profile = userProfile?.profile || null;
   const USER_CREDENTIALS = userProfile === null
-    ? ''
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
 
-  const cities = await ORDSFetcher(CITIES_ENDPOINT, USER_CREDENTIALS);
+  const cities = await ORDSFetcher(CITIES_ENDPOINT, USER_CREDENTIALS!);
   if (cities.items.length === 0) {
     const errorMessage = 'The cities endpoint has no elements. Review your database configuration and try again.';
     throw new Response(errorMessage, {

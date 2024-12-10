@@ -29,14 +29,14 @@ export const loader = async ({
   const { searchKind, searchParam } = params;
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? ''
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   // eslint-disable-next-line no-magic-numbers
   const FOLLOWERS = [69420, 99876, 45632, 32496, 98765, 12776, 100000, 88999, 99999];
 
   switch (searchKind) {
     case 'Artists': {
-      const artists = await ORDSFetcher(`${ARTISTS_ENDPOINT}/${searchParam}`, USER_CREDENTIALS);
+      const artists = await ORDSFetcher(`${ARTISTS_ENDPOINT}/${searchParam}`, USER_CREDENTIALS!);
       const SearchResult = artists.items.map((artist: Artist, index : number) => ({
         id: artist.artist_id,
         kind: 'artists',
@@ -49,7 +49,7 @@ export const loader = async ({
       });
     }
     case 'Events': {
-      const events = await ORDSFetcher(`${EVENTS_BY_NAME_ENDPOINT}/${searchParam}`, USER_CREDENTIALS);
+      const events = await ORDSFetcher(`${EVENTS_BY_NAME_ENDPOINT}/${searchParam}`, USER_CREDENTIALS!);
       const SearchResult = events.items.map((event: Concert) => ({
         id: event.event_id,
         kind: 'concerts',
@@ -62,7 +62,7 @@ export const loader = async ({
       });
     }
     case 'Venues': {
-      const venues = await ORDSFetcher(`${VENUES_ENDPOINT}/${searchParam}`, USER_CREDENTIALS);
+      const venues = await ORDSFetcher(`${VENUES_ENDPOINT}/${searchParam}`, USER_CREDENTIALS!);
       const SearchResult = venues.items.map((venue: Venue) => ({
         id: venue.venue_id,
         kind: 'venues',
@@ -78,7 +78,7 @@ export const loader = async ({
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          Authorization: USER_CREDENTIALS,
+          Authorization: USER_CREDENTIALS!,
         },
       });
       const artists = await getArtist.json();

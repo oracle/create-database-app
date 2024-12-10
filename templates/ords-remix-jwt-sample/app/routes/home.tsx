@@ -42,7 +42,7 @@ import featureDescriptions from '../utils/ORDSFeaturesDescription';
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? ''
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
@@ -50,9 +50,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const hasCityName = searchParams.has('cityName');
   const cityName = searchParams.get('cityName');
   const eventsQuery = hasCityName ? `${CONCERTS_BY_CITY_ENDPOINT}/${cityName}` : EVENTS_ENDPOINT;
-  const stats = await ORDSFetcher(STATS_ENDPOINT, USER_CREDENTIALS);
-  const events = await ORDSFetcher(eventsQuery, USER_CREDENTIALS);
-  const artists = await ORDSFetcher(ARTISTS_ENDPOINT, USER_CREDENTIALS);
+  const stats = await ORDSFetcher(STATS_ENDPOINT, USER_CREDENTIALS!);
+  const events = await ORDSFetcher(eventsQuery, USER_CREDENTIALS!);
+  const artists = await ORDSFetcher(ARTISTS_ENDPOINT, USER_CREDENTIALS!);
   return json({
     error,
     stats,

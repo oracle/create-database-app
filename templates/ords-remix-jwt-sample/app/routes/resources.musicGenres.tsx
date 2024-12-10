@@ -30,13 +30,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   musicGenresURL.searchParams.append('limit', limit.toString());
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? ''
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
   const musicGenres = await ORDSFetcher(
     musicGenresURL,
-    USER_CREDENTIALS,
+    USER_CREDENTIALS!,
   ) as ORDSResponse<MusicGenre>;
   return json({
     error,

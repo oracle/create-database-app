@@ -28,11 +28,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   citiesURL.searchParams.append('limit', limit.toString());
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? ''
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
-  const cities = await ORDSFetcher(citiesURL, USER_CREDENTIALS);
+  const cities = await ORDSFetcher(citiesURL, USER_CREDENTIALS!);
   return json({
     error,
     cities,

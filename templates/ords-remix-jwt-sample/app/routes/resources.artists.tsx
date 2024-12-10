@@ -28,11 +28,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   artistsURL.searchParams.append('limit', limit.toString());
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? ''
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
-  const artists = await ORDSFetcher(artistsURL, USER_CREDENTIALS);
+  const artists = await ORDSFetcher(artistsURL, USER_CREDENTIALS!);
   return json({
     error,
     artists,

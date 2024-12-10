@@ -22,11 +22,11 @@ export const loader = async ({
 }: LoaderFunctionArgs) => {
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? ''
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
-  const venues = await ORDSFetcher(`${VENUES_ENDPOINT}`, USER_CREDENTIALS) as ORDSResponse<Venue>;
+  const venues = await ORDSFetcher(`${VENUES_ENDPOINT}`, USER_CREDENTIALS!) as ORDSResponse<Venue>;
   return json({
     venues,
     error,

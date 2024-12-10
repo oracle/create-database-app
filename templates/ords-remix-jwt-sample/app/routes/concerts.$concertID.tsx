@@ -92,12 +92,12 @@ export const loader = async ({
   const userProfile = await auth.isAuthenticated(request);
   const profile = userProfile?.profile || null;
   const USER_CREDENTIALS = userProfile === null
-    ? ''
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
   const { concertID } = params;
-  const concert = await ORDSFetcher(`${EVENT_ENDPOINT}/${concertID}`, USER_CREDENTIALS) as ORDSResponse<Concert>;
+  const concert = await ORDSFetcher(`${EVENT_ENDPOINT}/${concertID}`, USER_CREDENTIALS!) as ORDSResponse<Concert>;
   if (concert.items.length === 0) {
     const errorMessage = 'The Concert you were looking for does not exist, might have been removed or had its id changed.';
     throw new Response(errorMessage, {
@@ -108,7 +108,7 @@ export const loader = async ({
   let likedConcert = false;
   if (profile !== null) {
     const userID = profile.id;
-    const userLikedConcert = await ORDSFetcher(`${LIKED_EVENT_ENDPOINT}/${userID}/${concertID}`, USER_CREDENTIALS);
+    const userLikedConcert = await ORDSFetcher(`${LIKED_EVENT_ENDPOINT}/${userID}/${concertID}`, USER_CREDENTIALS!);
     likedConcert = userLikedConcert.likedevent === 1;
   }
 

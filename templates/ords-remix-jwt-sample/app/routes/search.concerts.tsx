@@ -37,7 +37,7 @@ import Artist from '../models/Artist';
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? ''
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
@@ -54,11 +54,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   searchURL.searchParams.append('offset', offset.toString());
   const searchResult = await ORDSFetcher(
     searchURL,
-    USER_CREDENTIALS,
+    USER_CREDENTIALS!,
   ) as ORDSResponse<SearchResult>;
-  const cities = await ORDSFetcher(CITIES_ENDPOINT, USER_CREDENTIALS) as ORDSResponse<City>;
-  const venues = await ORDSFetcher(VENUES_ENDPOINT, USER_CREDENTIALS) as ORDSResponse<Venue>;
-  const artists = await ORDSFetcher(ARTISTS_ENDPOINT, USER_CREDENTIALS) as ORDSResponse<Artist>;
+  const cities = await ORDSFetcher(CITIES_ENDPOINT, USER_CREDENTIALS!) as ORDSResponse<City>;
+  const venues = await ORDSFetcher(VENUES_ENDPOINT, USER_CREDENTIALS!) as ORDSResponse<Venue>;
+  const artists = await ORDSFetcher(ARTISTS_ENDPOINT, USER_CREDENTIALS!) as ORDSResponse<Artist>;
 
   return json({
     error,

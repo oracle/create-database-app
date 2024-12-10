@@ -30,11 +30,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   venuesURL.searchParams.append('limit', limit.toString());
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? ''
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
-  const venues = await ORDSFetcher(venuesURL, USER_CREDENTIALS) as ORDSResponse<Venue>;
+  const venues = await ORDSFetcher(venuesURL, USER_CREDENTIALS!) as ORDSResponse<Venue>;
   return json({
     error,
     venues,
