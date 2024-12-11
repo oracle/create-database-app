@@ -19,6 +19,11 @@ import { isServletError } from '../models/ServletError';
  */
 async function ORDSFetcher(endpoint : string | URL, authCredentials: string) {
   let url;
+  const headers = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  };
+  Object.assign(headers, authCredentials && { Authorization: authCredentials });
   if (typeof endpoint === 'string') {
     try {
       url = new URL(endpoint);
@@ -35,11 +40,7 @@ async function ORDSFetcher(endpoint : string | URL, authCredentials: string) {
     url = endpoint;
   }
   const getItems = await fetch(url!, {
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: authCredentials,
-    },
+    headers,
   });
   if (!getItems.ok) {
     const errorMessage = 'Something went wrong while trying to query one of our ORDS endpoints.';
