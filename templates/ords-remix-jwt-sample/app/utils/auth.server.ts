@@ -45,7 +45,7 @@ const auth0Strategy = new Auth0Strategy(
     clientSecret: AUTH0_CLIENT_SECRET,
     domain: AUTH0_DOMAIN,
     audience: AUTH0_AUDIENCE,
-    scope: ['openid', 'email', 'profile', 'concert_app_authuser', 'concert_app_admin', 'oracle.dbtools.autorest.privilege.CONCERT_SAMPLE_APP.SEARCH_VIEW', 'oracle.dbtools.autorest.privilege.CONCERT_SAMPLE_APP.SEARCH_ARTIST_VIEW', 'oracle.dbtools.autorest.privilege.CONCERT_SAMPLE_APP.SEARCH_VENUES_VIEW'],
+    scope: ['openid', 'email', 'profile', 'concert_app_authuser', 'concert_app_admin'],
   },
   async ({
     accessToken, profile,

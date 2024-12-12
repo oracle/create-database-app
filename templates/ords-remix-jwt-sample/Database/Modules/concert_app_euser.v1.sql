@@ -10,7 +10,7 @@ DECLARE
   l_roles     OWA.VC_ARR;
   l_modules   OWA.VC_ARR;
   l_patterns  OWA.VC_ARR;
-        
+
 BEGIN
   ORDS.ENABLE_SCHEMA(
       p_enabled             => TRUE,
@@ -399,8 +399,18 @@ BEGIN
       p_source         => 
 'SELECT * FROM MUSIC_GENRES');
 
+    
+    
   l_modules(1) := 'concert_app.euser.v1';
 
+  ORDS.DEFINE_PRIVILEGE(
+      p_privilege_name => 'concert_app_euser',
+      p_roles          => l_roles,
+      p_patterns       => l_patterns,
+      p_modules        => l_modules,
+      p_label          => 'Non authenticated end user privilege',
+      p_description    => 'Provides limited access to the concert app endpoints',
+      p_comments       => NULL);
 
   l_roles.DELETE;
   l_modules.DELETE;

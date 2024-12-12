@@ -1,1124 +1,1124 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "ORDS generated API for concert_app.euser.v1",
-        "version": "1.0.0",
-        "description": "end user APIs Version 1"
+      "title": "ORDS generated API for concert_app.euser.v1",
+      "version": "1.0.0",
+      "description": "end user APIs Version 1"
     },
     "servers": [
-        {
-            "url": "https://g389fa1f14b6c7b-ckhclwyq6qtbgq3a.adb.ca-toronto-1.oraclecloudapps.com/ords/frank/euser/v1/"
-        }
+      {
+        "url": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/euser/v1/"
+      }
     ],
     "paths": {
-        "/artist/{id}": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "artist_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "bio": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "description": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "music_genres": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "^[^/]+$"
-                        },
-                        "description": "implicit"
-                    }
-                ]
+      "/artist/{id}": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
             }
-        },
-        "/artistEvents/{id}": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "artist_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "artist_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "city_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_date": {
-                                                        "$ref": "#/components/schemas/DATE"
-                                                    },
-                                                    "event_details": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "music_genres": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "venue_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "venue_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "bio": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "description": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "music_genres": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
                             }
+                          }
                         }
+                      }
                     }
-                },
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "^[^/]+$"
-                        },
-                        "description": "implicit"
-                    }
-                ]
+                  }
+                }
+              }
             }
-        },
-        "/artists/": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "artist_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "description": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "music_genres": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": []
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
             }
-        },
-        "/artists/{artist_name}": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "artist_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "bio": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "description": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "artist_name",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "^[^/]+$"
-                        },
-                        "description": "implicit"
-                    }
-                ]
-            }
-        },
-        "/cities/": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "city_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "description": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_count": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": []
-            }
-        },
-        "/cityEvents/{cityName}": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "artist_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "artist_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "city_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_date": {
-                                                        "$ref": "#/components/schemas/DATE"
-                                                    },
-                                                    "event_details": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "music_genres": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "venue_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "venue_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "cityName",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "^[^/]+$"
-                        },
-                        "description": "implicit"
-                    }
-                ]
-            }
-        },
-        "/event/{event_id}": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "artist_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "artist_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "city_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_date": {
-                                                        "$ref": "#/components/schemas/DATE"
-                                                    },
-                                                    "event_details": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "music_genres": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "venue_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "venue_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "event_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "^[^/]+$"
-                        },
-                        "description": "implicit"
-                    }
-                ]
-            }
-        },
-        "/eventStatus/": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "event_status_description": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_status_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": []
-            }
-        },
-        "/events/": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "artist_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_date": {
-                                                        "$ref": "#/components/schemas/DATE"
-                                                    },
-                                                    "event_details": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "venue_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": []
-            }
-        },
-        "/events/{event_name}": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "artist_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "artist_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "city_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_date": {
-                                                        "$ref": "#/components/schemas/DATE"
-                                                    },
-                                                    "event_details": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "music_genres": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "venue_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "venue_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "event_name",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "^[^/]+$"
-                        },
-                        "description": "implicit"
-                    }
-                ]
-            }
-        },
-        "/eventsHome/": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "artist_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "artist_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "city_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_date": {
-                                                        "$ref": "#/components/schemas/DATE"
-                                                    },
-                                                    "event_details": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "event_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "event_status_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "music_genres": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "venue_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "venue_name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": []
-            }
-        },
-        "/landing_page_global_stats/": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "artists_count": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "events_count": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "venues_count": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": []
-            }
-        },
-        "/musicGenres/": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "description": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "music_genre_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": []
-            }
-        },
-        "/venue/{venue_id}": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "city_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "location": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "venue_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "venue_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "^[^/]+$"
-                        },
-                        "description": "implicit"
-                    }
-                ]
-            }
-        },
-        "/venues/": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "city_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "location": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "venue_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": []
-            }
-        },
-        "/venues/{venue_name}": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "city_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    },
-                                                    "location": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "name": {
-                                                        "$ref": "#/components/schemas/VARCHAR2"
-                                                    },
-                                                    "venue_id": {
-                                                        "$ref": "#/components/schemas/NUMBER"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "venue_name",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "^[^/]+$"
-                        },
-                        "description": "implicit"
-                    }
-                ]
-            }
-        },
-        "/venues_by_city/{city_name}": {
-            "get": {
-                "description": "Retrieve records from concert_app.euser.v1",
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "BearerAuth": []
-                    },
-                    {
-                        "OAuth2": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The queried record.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "items": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {}
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "CITY_NAME",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "Implicit parameter"
-                    },
-                    {
-                        "name": "city_name",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "^[^/]+$"
-                        },
-                        "description": "implicit"
-                    }
-                ]
-            }
+          ]
         }
+      },
+      "/artistEvents/{id}": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "artist_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "city_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_date": {
+                              "$ref": "#/components/schemas/DATE"
+                            },
+                            "event_details": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "music_genres": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "venue_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/artists/": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "description": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "music_genres": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": []
+        }
+      },
+      "/artists/{artist_name}": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "bio": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "description": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "artist_name",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/cities/": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "city_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "description": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_count": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": []
+        }
+      },
+      "/cityEvents/{cityName}": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "artist_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "city_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_date": {
+                              "$ref": "#/components/schemas/DATE"
+                            },
+                            "event_details": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "music_genres": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "venue_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "cityName",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/event/{event_id}": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "artist_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "city_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_date": {
+                              "$ref": "#/components/schemas/DATE"
+                            },
+                            "event_details": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "music_genres": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "venue_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "event_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/eventStatus/": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "event_status_description": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_status_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": []
+        }
+      },
+      "/events/": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_date": {
+                              "$ref": "#/components/schemas/DATE"
+                            },
+                            "event_details": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": []
+        }
+      },
+      "/events/{event_name}": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "artist_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "city_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_date": {
+                              "$ref": "#/components/schemas/DATE"
+                            },
+                            "event_details": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "music_genres": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "venue_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "event_name",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/eventsHome/": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artist_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "artist_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "city_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_date": {
+                              "$ref": "#/components/schemas/DATE"
+                            },
+                            "event_details": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "event_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "event_status_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "music_genres": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "venue_name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": []
+        }
+      },
+      "/landing_page_global_stats/": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "artists_count": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "events_count": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "venues_count": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": []
+        }
+      },
+      "/musicGenres/": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "description": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "music_genre_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": []
+        }
+      },
+      "/venue/{venue_id}": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "city_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "location": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "venue_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/venues/": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "city_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "location": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": []
+        }
+      },
+      "/venues/{venue_name}": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "city_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            },
+                            "location": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "name": {
+                              "$ref": "#/components/schemas/VARCHAR2"
+                            },
+                            "venue_id": {
+                              "$ref": "#/components/schemas/NUMBER"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "venue_name",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      },
+      "/venues_by_city/{city_name}": {
+        "get": {
+          "description": "Retrieve records from concert_app.euser.v1",
+          "security": [
+            {
+              "BasicAuth": []
+            },
+            {
+              "BearerAuth": []
+            },
+            {
+              "OAuth2": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "The queried record.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "CITY_NAME",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              },
+              "description": "Implicit parameter"
+            },
+            {
+              "name": "city_name",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "pattern": "^[^/]+$"
+              },
+              "description": "implicit"
+            }
+          ]
+        }
+      }
     },
     "components": {
-        "securitySchemes": {
-            "BasicAuth": {
-                "type": "http",
-                "scheme": "basic"
-            },
-            "BearerAuth": {
-                "type": "http",
-                "scheme": "bearer"
-            },
-            "OAuth2": {
-                "type": "oauth2",
-                "flows": {
-                    "implicit": {
-                        "authorizationUrl": "https://g389fa1f14b6c7b-ckhclwyq6qtbgq3a.adb.ca-toronto-1.oraclecloudapps.com/ords/frank/oauth/auth",
-                        "scopes": {}
-                    },
-                    "authorizationCode": {
-                        "authorizationUrl": "https://g389fa1f14b6c7b-ckhclwyq6qtbgq3a.adb.ca-toronto-1.oraclecloudapps.com/ords/frank/oauth/auth",
-                        "tokenUrl": "https://g389fa1f14b6c7b-ckhclwyq6qtbgq3a.adb.ca-toronto-1.oraclecloudapps.com/ords/frank/oauth/token",
-                        "scopes": {}
-                    },
-                    "clientCredentials": {
-                        "tokenUrl": "https://g389fa1f14b6c7b-ckhclwyq6qtbgq3a.adb.ca-toronto-1.oraclecloudapps.com/ords/frank/oauth/token",
-                        "scopes": {}
-                    }
-                }
-            }
+      "securitySchemes": {
+        "BasicAuth": {
+          "type": "http",
+          "scheme": "basic"
         },
-        "schemas": {
-            "DATE": {
-                "type": "string",
-                "format": "date-time",
-                "pattern": "^\\d{4}-[01]\\d-[0123]\\dT[012]\\d:[0-5]\\d:[0-5]\\d(.\\d+)?(Z|([-+][012]\\d:[0-5]\\d))$"
+        "BearerAuth": {
+          "type": "http",
+          "scheme": "bearer"
+        },
+        "OAuth2": {
+          "type": "oauth2",
+          "flows": {
+            "implicit": {
+              "authorizationUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/auth",
+              "scopes": {}
             },
-            "NUMBER": {
-                "type": "number"
+            "authorizationCode": {
+              "authorizationUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/auth",
+              "tokenUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/token",
+              "scopes": {}
             },
-            "VARCHAR2": {
-                "type": "string"
+            "clientCredentials": {
+              "tokenUrl": "https://g0ceab9035f2a02-adboiram.adb.ca-toronto-1.oraclecloudapps.com/ords/concert_sample_app/oauth/token",
+              "scopes": {}
             }
+          }
         }
+      },
+      "schemas": {
+        "DATE": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-[01]\\d-[0123]\\dT[012]\\d:[0-5]\\d:[0-5]\\d(.\\d+)?(Z|([-+][012]\\d:[0-5]\\d))$"
+        },
+        "NUMBER": {
+          "type": "number"
+        },
+        "VARCHAR2": {
+          "type": "string"
+        }
+      }
     }
-}
+  }
