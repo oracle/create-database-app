@@ -22,7 +22,6 @@ import {
   ARTISTS_ENDPOINT,
   ARTIST_ENDPOINT,
   ARTIST_EVENT_ENDPOINT,
-  BASIC_SCHEMA_AUTH,
   CITIES_ENDPOINT,
   LIKED_ARTIST_ENDPOINT,
 } from './constants/index.server';
@@ -87,13 +86,13 @@ export const loader = async ({
   const userProfile = await auth.isAuthenticated(request);
   const profile = userProfile?.profile || null;
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
   const { id: artistID } = params;
   let likedArtist = false;
-  const artist = await ORDSFetcher(`${ARTIST_ENDPOINT}/${artistID}`, USER_CREDENTIALS) as ORDSResponse<Artist>;
+  const artist = await ORDSFetcher(`${ARTIST_ENDPOINT}/${artistID}`, USER_CREDENTIALS!) as ORDSResponse<Artist>;
   if (artist.items.length === 0) {
     const errorMessage = 'The Artist you were looking for does not exist, might have been removed or had its id changed.';
     throw new Response(errorMessage, {
@@ -101,12 +100,12 @@ export const loader = async ({
       statusText: 'Not Found',
     } as ErrorResponse);
   }
-  const artistEvents = await ORDSFetcher(`${ARTIST_EVENT_ENDPOINT}/${artistID}`, USER_CREDENTIALS);
-  const similarArtists = await ORDSFetcher(ARTISTS_ENDPOINT, USER_CREDENTIALS);
-  const cities = await ORDSFetcher(CITIES_ENDPOINT, USER_CREDENTIALS);
+  const artistEvents = await ORDSFetcher(`${ARTIST_EVENT_ENDPOINT}/${artistID}`, USER_CREDENTIALS!);
+  const similarArtists = await ORDSFetcher(ARTISTS_ENDPOINT, USER_CREDENTIALS!);
+  const cities = await ORDSFetcher(CITIES_ENDPOINT, USER_CREDENTIALS!);
   if (profile) {
     const userID = profile.id;
-    const userLikedArtist = await ORDSFetcher(`${LIKED_ARTIST_ENDPOINT}/${userID}/${artistID}`, USER_CREDENTIALS);
+    const userLikedArtist = await ORDSFetcher(`${LIKED_ARTIST_ENDPOINT}/${userID}/${artistID}`, USER_CREDENTIALS!);
     likedArtist = userLikedArtist.likedartist === 1;
   }
   return json({

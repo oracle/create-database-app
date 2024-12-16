@@ -20,7 +20,6 @@ import {
   auth, getSession,
 } from '../utils/auth.server';
 import {
-  BASIC_SCHEMA_AUTH,
   MUSIC_GENRES_ENDPOINT,
   AUTO_REST_SEARCH_ARTISTS_ENDPOINT,
 } from './constants/index.server';
@@ -34,7 +33,7 @@ import DiscoverArtists from '../components/search/DiscoverArtists';
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
@@ -51,11 +50,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   searchURL.searchParams.append('offset', offset.toString());
   const searchResult = await ORDSFetcher(
     searchURL,
-    USER_CREDENTIALS,
+    USER_CREDENTIALS!,
   ) as ORDSResponse<ArtistResult>;
   const musicGenres = await ORDSFetcher(
     MUSIC_GENRES_ENDPOINT,
-    USER_CREDENTIALS,
+    USER_CREDENTIALS!,
   ) as ORDSResponse<MusicGenre>;
 
   return json({

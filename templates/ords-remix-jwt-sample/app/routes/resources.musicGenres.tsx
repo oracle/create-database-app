@@ -14,7 +14,6 @@ import {
   getSession,
 } from '~/utils/auth.server';
 import {
-  BASIC_SCHEMA_AUTH,
   MUSIC_GENRES_ENDPOINT,
 } from './constants/index.server';
 import ORDSFetcher from '../utils/ORDSFetcher';
@@ -31,13 +30,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   musicGenresURL.searchParams.append('limit', limit.toString());
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
   const musicGenres = await ORDSFetcher(
     musicGenresURL,
-    USER_CREDENTIALS,
+    USER_CREDENTIALS!,
   ) as ORDSResponse<MusicGenre>;
   return json({
     error,

@@ -15,7 +15,6 @@ import {
 } from '~/utils/auth.server';
 import {
   ARTISTS_ENDPOINT,
-  BASIC_SCHEMA_AUTH,
 } from './constants/index.server';
 import ORDSFetcher from '../utils/ORDSFetcher';
 
@@ -29,11 +28,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   artistsURL.searchParams.append('limit', limit.toString());
   const userProfile = await auth.isAuthenticated(request);
   const USER_CREDENTIALS = userProfile === null
-    ? BASIC_SCHEMA_AUTH
+    ? null
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
-  const artists = await ORDSFetcher(artistsURL, USER_CREDENTIALS);
+  const artists = await ORDSFetcher(artistsURL, USER_CREDENTIALS!);
   return json({
     error,
     artists,
