@@ -102,7 +102,7 @@ Here is a Diagram of how we will be structuring the API.
 
 Before we start modeling our endpoints we first need to understand who is going to use our API endpoints so we can take advantage of the ORDS Module feature to aggregate our API endpoints. For the sample app we have three possible users: 
 
-- **End User**: An End User should have limited access to our API endpoints and by limited access we mean READ ONLY access. End users can only access publicly available resources within our application. This means that all endpoints within the `euser` pattern are public and don't need authentication to be accessed.
+- **End User**: An End User should have limited access to our API endpoints and by limited access we mean READ ONLY access. End users can only access publicly available resources within the application. This means that all endpoints within the `euser` (the end user) pattern are public and don't need authentication to be accessed.
 - **Authenticated User**: An Authenticated User should have access to all of the End User Endpoints plus endpoints that allow the user to interact with the ORDS Concert App (like subscribing to an artist a venue a concert, etc). So an Authenticated User should be able to modify resources in the Database. 
 - **Admin User**: An Admin User should have full access to API endpoints that allows an Application Administrator to fully mange the Application (like performing CRUD operations over Artists, Venues, Events and more).
 
