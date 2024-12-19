@@ -34,7 +34,7 @@ The key part here is the Module Pattern and how it can be used to define an ORDS
 
 ORDS allows us to define [Privileges](https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/24.2/orddg/oracle-rest-data-services-administration-pl-sql-package-reference.html#GUID-460E2355-A25A-4BE8-BF1F-3221A91147F7). Privileges are used to control access to specific endpoints. A privilege pattern allows us to define which users or roles can access certain URLs, ensuring that only authorized users can perform specific actions on the ORDS Concert App API Endpoints.
 
-Now, we need to define three privileges, one for each kind of user the ORDS Sample App has:
+Now, we need to define two privileges, one for each kind of user the ORDS Sample App has:
 
 ```sql
     DECLARE
@@ -72,25 +72,11 @@ Now, we need to define three privileges, one for each kind of user the ORDS Samp
         l_modules.DELETE;
         l_patterns.DELETE;
 
-        l_modules(1) := 'concert_app.euser.v1';
-
-        ORDS.DEFINE_PRIVILEGE(
-            p_privilege_name => 'concert_app_euser',
-            p_roles          => l_roles,
-            p_patterns       => l_patterns,
-            p_modules        => l_modules,
-            p_label          => 'Non authenticated end user privilege',
-            p_description    => 'Provides limited access to the concert app endpoints',
-            p_comments       => NULL);
-
-        l_roles.DELETE;
-        l_modules.DELETE;
-        l_patterns.DELETE;
         COMMIT;
     END;
 ```
 
-Note that by defining a the `/euser/*`, `/adminuser/*` `/authuser/*` we are protecting every single one of the handlers that belong to that Module, even modules that are part of specific versions of out API. This is because those patterns will always match the beginning of the API endpoint which coincides with the Module Section of the API Endpoint.
+Note that by defining a the `/adminuser/*` `/authuser/*` we are protecting every single one of the handlers that belong to that Module, even modules that are part of specific versions of out API. This is because those patterns will always match the beginning of the API endpoint which coincides with the Module Section of the API Endpoint.
 
 At this stage, our API Endpoints are secured and this is great, however, now we need a way to grant users access to such resources and for that we will need to define an application capable of issuing JWT Tokens and tell ORDS to consume and validate tokens coming from that application.
 
@@ -154,11 +140,7 @@ Now that we have created our API, go to the `Permissions` tab and grant it the f
 | ---------- | ----------- | ----------- |
 |read:general_user_content | Read all of the general user endpoints |  Allows the Sample App to read user information like first name, last name, email and Auth0 ID |
 | concert_app_authuser | Provides access to the user specific endpoints |  Allows authenticated users to interact with user specific ORDS Endpoints, like subscribing to a concert and more. |
-| concert_app_euser | Provides limited access to the concert app endpoints | Allows unauthenticated users to interact with limited ORDS Endpoints. |
 | concert_app_admin | Provides access to the concert app admin endpoints | Allows authenticated admin users to interact with user specific ORDS Endpoints, like the create or delete Artist Endpoints. |
-| oracle.dbtools.autorest.privilege.`<SCHEMA_NAME>`.SEARCH_VIEW | Provides access to the AutoREST search view. | Allows every user of the ORDS Concert App to access the search/discover functionality. |
-oracle.dbtools.autorest.privilege.`<SCHEMA_NAME>`.SEARCH_ARTIST_VIEW | Provides access to the AutoREST artists search view. | Allows every user of the ORDS Concert App to access the search/discover functionality. |
-| oracle.dbtools.autorest.privilege.`<SCHEMA_NAME>`.SEARCH_VENUES_VIEW | Provides access to the AutoREST venues search view. | Allows every user of the ORDS Concert App to access the search/discover functionality. |
 
 Once you have added all of the permissions described above your list of permissions should look like this. 
 
