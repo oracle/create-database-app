@@ -82,13 +82,13 @@ export default function Screen() : ReactElement {
       </div>
       <div className="flex h-4/5 flex-row justify-center p-8">
         <div className="flex w-1/5 flex-col items-start">
-          <Link to="/private/profile" onClick={() => { handleTabSelect(Tabs.PROFILE); }} className={`w-full py-4 text-xl ${selectedTab === Tabs.PROFILE ? 'bg-slate-100' : ''}`}>
+          <Link to="../private/profile" onClick={() => { handleTabSelect(Tabs.PROFILE); }} className={`w-full py-4 text-xl ${selectedTab === Tabs.PROFILE ? 'bg-slate-100' : ''}`}>
             Profile
           </Link>
-          <Link to="/private/followed-artists" onClick={() => { handleTabSelect(Tabs.FOLLOWED_ARTISTS); }} className={`w-full py-4 text-xl ${selectedTab === Tabs.FOLLOWED_ARTISTS ? 'bg-slate-100' : ''}`}>
+          <Link to="../private/followed-artists" onClick={() => { handleTabSelect(Tabs.FOLLOWED_ARTISTS); }} className={`w-full py-4 text-xl ${selectedTab === Tabs.FOLLOWED_ARTISTS ? 'bg-slate-100' : ''}`}>
             Followed Artists
           </Link>
-          <Link to="/private/followed-events" onClick={() => { handleTabSelect(Tabs.UPCOMING_SHOWS); }} className={`w-full py-4 text-xl ${selectedTab === Tabs.UPCOMING_SHOWS ? 'bg-slate-100' : ''}`}>
+          <Link to="../private/followed-events" onClick={() => { handleTabSelect(Tabs.UPCOMING_SHOWS); }} className={`w-full py-4 text-xl ${selectedTab === Tabs.UPCOMING_SHOWS ? 'bg-slate-100' : ''}`}>
             Followed Events
           </Link>
         </div>
