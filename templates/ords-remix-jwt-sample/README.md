@@ -40,7 +40,7 @@ To set up your Auth0 tenant and application follow the steps outlined in [The Au
 
 #### 3. configure your `.env` file as it follows
 
-You can create a `.env` file or rename the `.env.example` file to `.env` and use it to fill the following environment variables: 
+You can create a `.env` file or rename the `.env.example` file to `.env` and use it to fill the following environment variables:
 
 ```bash
 # We refer to some variables as Autonomous Database specific but you can use whichever ORDS URL you want/have as well as the user, as long as this user is capable of creating and REST Enabling other schemas.
@@ -180,14 +180,11 @@ Once the server is up you will see the following output on your console:
 
 ```bash
 > ords-remix-jwt-sample@1.0.0 dev
-> remix dev --manual
+> remix vite:dev
 
-
- 💿  remix dev
-
- info  building...
- info  built (3.1s)
-[remix-serve] http://localhost:3000 (http://<IP_HERE>:3000)
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
 ```
 
 Now you can go to `http://localhost:3000` and see the ORDS Concert App in action fell free to explore the Discover Functionalities and don't forget to Enable the Tooltips functionality to learn more about Oracle REST Data Services!
@@ -212,4 +209,4 @@ All names, characters, organizations, places, events and portrayals are entirely
 
 Copyright (c) 2024 Oracle and/or its affiliates.
 
-Released under the Universal Permissive License v1.0 as shown at https://oss.oracle.com/licenses/upl/.
+Released under the Universal Permissive License v1.0 as shown at <https://oss.oracle.com/licenses/upl/>.
