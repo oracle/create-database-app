@@ -10,8 +10,8 @@ declare module '@remix-run/node' {
 }
 
 export default defineConfig({
-  ssr: {
-    noExternal: process.env.NODE_ENV === 'production' ? [/^@mui\//] : [],
+  server: {
+    port: 3000,
   },
   plugins: [remix(
     {
