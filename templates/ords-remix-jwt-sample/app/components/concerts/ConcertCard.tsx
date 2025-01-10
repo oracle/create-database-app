@@ -88,7 +88,7 @@ function ConcertCard(props: ConcertCardProps) {
               </AccordionComponent>
               )
             }
-            <Link to={`/concerts/${concert.event_id}`}>
+            <Link to={`../concerts/${concert.event_id}`}>
               <h1 className="font-sans font-bold hover:underline">
                 {concertTitle}
               </h1>

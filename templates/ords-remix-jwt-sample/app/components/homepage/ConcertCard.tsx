@@ -44,7 +44,7 @@ function ConcertCard(props: ConcertCardProps) {
         <CardContent sx={{ maxWidth: '500px' }}>
           <div className="mx-4">
             <div className="flex items-center">
-              <Link to={`/concerts/${concert.event_id}?${enableTooltips ? 'tooltips' : ''}`}>
+              <Link to={`../concerts/${concert.event_id}?${enableTooltips ? 'tooltips' : ''}`}>
                 <h1 className="font-sans font-bold hover:underline">
                   {`${concert.artist_name} at ${concert.venue_name}, ${concert.city_name}`}
                 </h1>

@@ -4,7 +4,8 @@
 ** All rights reserved
 ** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
-import ReactDatePicker from 'react-datepicker';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css?url';
 
 interface DateRangePickerProps {
   startDate: null | Date;
@@ -22,7 +23,6 @@ function DateRangePicker(props : DateRangePickerProps) {
     startDate, endDate, handleSetEndDate, handleSetStartDate,
   } = props;
 
-  const DatePicker = ReactDatePicker.default;
   return (
     <div className="flex flex-col items-center justify-center space-y-4">
       <DatePicker

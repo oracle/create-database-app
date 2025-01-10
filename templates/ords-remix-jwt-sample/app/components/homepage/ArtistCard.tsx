@@ -40,7 +40,7 @@ function ArtistCard(props: ArtistCardProps) {
           <CardContent>
             <div className="flex flex-row justify-center">
               <div className="flex flex-col items-center">
-                <Link to={`/artists/${artist.artist_id}${enableTooltips ? '?tooltips' : ''}`}>
+                <Link to={`../artists/${artist.artist_id}${enableTooltips ? '?tooltips' : ''}`}>
                   <h3 className="my-2 text-xl font-medium hover:underline">
                     { artist.name }
                   </h3>

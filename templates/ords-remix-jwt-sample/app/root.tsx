@@ -5,13 +5,11 @@
 ** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
 import type {
-  LinksFunction,
   LoaderFunctionArgs,
 } from '@remix-run/node';
 import { json, ErrorResponse } from '@remix-run/node';
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -22,7 +20,6 @@ import {
 } from '@remix-run/react';
 import { ReactElement } from 'react';
 import { StyledEngineProvider } from '@mui/material';
-import datepicker from 'react-datepicker/dist/react-datepicker.css';
 import stylesheet from './tailwind.css?url';
 import type { LoaderError } from './models/LoaderError';
 import {
@@ -83,7 +80,6 @@ export function ErrorBoundary() : ReactElement {
             <TooltipButton />
             <ScrollRestoration />
             <Scripts />
-            <LiveReload />
           </StyledEngineProvider>
         </body>
       </html>
@@ -108,7 +104,6 @@ export function ErrorBoundary() : ReactElement {
             <TooltipButton />
             <ScrollRestoration />
             <Scripts />
-            <LiveReload />
           </StyledEngineProvider>
         </body>
       </html>
@@ -117,15 +112,8 @@ export function ErrorBoundary() : ReactElement {
   return <h1 className="text-3xl font-semibold">Unknown Error</h1>;
 }
 
-export const links: LinksFunction = () => [
-  {
-    rel: 'stylesheet',
-    href: stylesheet,
-  },
-  {
-    rel: 'stylesheet',
-    href: datepicker,
-  },
+export const links = () => [
+  { rel: 'stylesheet', href: stylesheet },
 ];
 
 /**
@@ -153,7 +141,6 @@ export default function App() : ReactElement {
           <Footer />
           <ScrollRestoration />
           <Scripts />
-          <LiveReload />
         </StyledEngineProvider>
       </body>
     </html>
