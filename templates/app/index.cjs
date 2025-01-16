@@ -11,7 +11,7 @@ const app = express();
 const cors = require('cors')
 const port = 3000;
 
-app.use(cors())
+app.use(cors());
 
 app.use(morgan('tiny'))
 app.use(bodyParser.json());
@@ -23,7 +23,7 @@ app.use( '/api/<%= apiConfiguration %>', routes );
 
 app.use(express.static('public'));
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
     console.log(err.message);
     res.status(500).send({
         errorCode: err.code,

@@ -47,10 +47,10 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://www.oracle.com/uk/database/" target="_blank">
-          <img src={OracleLogo} className="logo" alt="Vite logo" />
+        <a href="https://www.oracle.com/database/" target="_blank" rel="noreferrer">
+          <img src={OracleLogo} className="logo" alt="Oracle logo" />
         </a>
-        <a href="https://react.dev" target="_blank">
+        <a href="https://react.dev" target="_blank" rel="noreferrer">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
