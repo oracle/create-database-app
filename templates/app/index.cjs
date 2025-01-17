@@ -23,7 +23,8 @@ app.use( '/api/<%= apiConfiguration %>', routes );
 
 app.use(express.static('public'));
 
-app.use((err, req, res) => {
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
     console.log(err.message);
     res.status(500).send({
         errorCode: err.code,
