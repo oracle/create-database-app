@@ -39,7 +39,9 @@ export default [
       ...reactPlugin.configs.flat.recommended.rules,
       ...reactPlugin.configs.flat["jsx-runtime"].rules,
       ...reactHooksPlugin.configs.recommended.rules,
-      ...reactRefreshPlugin.configs.vite.rules
+      ...reactRefreshPlugin.configs.vite.rules,
+      // The rule recommends migrating to TS or using propTypes (deprecated in React v15.5.0 https://react.dev/blog/2024/04/25/react-19-upgrade-guide#removed-proptypes-and-defaultprops)
+      "react/prop-types": "off"
     }
   },
   {

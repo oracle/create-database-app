@@ -9,7 +9,7 @@ export const convertBooleansToChars = (data) => {
         return data.map(item => {
             const convertedItem = {};
             for (const key in item) {
-                if (item.hasOwnProperty(key) && typeof item[key] === 'boolean') {
+                if (Object.prototype.hasOwnProperty.call(item, key) && typeof item[key] === 'boolean') {
                     if (typeof item[key] === 'boolean') {
                         convertedItem[key] = item[key] === true ? 'Y' : 'N';
                     } else {
@@ -22,7 +22,7 @@ export const convertBooleansToChars = (data) => {
     } else {
         const convertedItem = {};
         for (const key in data) {
-            if (data.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(data, key)) {
                 if (typeof data[key] === 'boolean') {
                     convertedItem[key] = data[key] === true ? 'Y' : 'N';
                 } else {
@@ -41,7 +41,7 @@ export const convertCharsToBooleans = (data) => {
         return data.map(item => {
             const convertedItem = {};
             for (const key in item) {
-                if (item.hasOwnProperty(key)) {
+                if (Object.prototype.hasOwnProperty.call(item, key)) {
                     if (item[key] === 'Y') convertedItem[key] = true;
                     else if (item[key] === 'N') convertedItem[key] = false;
                     else convertedItem[key] = item[key];
@@ -54,7 +54,7 @@ export const convertCharsToBooleans = (data) => {
     else {
         const convertedItem = {};
         for (const key in data) {
-            if (data.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(data, key)) {
                 if (data[key] === 'Y') convertedItem[key] = true;
                 else if (data[key] === 'N') convertedItem[key] = false;
                 else convertedItem[key] = data[key];

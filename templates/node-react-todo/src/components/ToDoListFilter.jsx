@@ -1,5 +1,3 @@
-import React from 'react';
-import { toast } from 'react-toastify';
 import completed from '../images/completed.png'
 import uncompleted from '../images/uncompleted.png'
 import all from '../images/all.png'
