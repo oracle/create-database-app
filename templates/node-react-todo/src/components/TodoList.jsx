@@ -4,12 +4,12 @@
 ** All rights reserved
 ** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './style.css';
-import { convertCharsToBooleans, convertBooleansToChars } from '../utils/utils';
-import { getTasks, createTask, updateTask, deleteTask } from '../api/rest-service';
+import { convertCharsToBooleans } from '../utils/utils';
+import { getTasks } from '../api/rest-service';
 import { TodoListInput } from './ToDoListInput';
 import { TodoListFilter } from './ToDoListFilter';
 import { TodoListItems } from './TodoListItems';
