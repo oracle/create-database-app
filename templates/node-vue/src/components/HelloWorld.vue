@@ -30,7 +30,9 @@ const props = defineProps({
     </p>
   </div>
  
-  <p class="read-the-docs">Click on the Oracle and Vue logos to learn more</p>
+  <p class="read-the-docs">
+    Click on the Oracle and Vue logos to learn more
+  </p>
 </template>
 
 <style scoped>
