@@ -1,12 +1,12 @@
-import globals from 'globals';
-import js from '@eslint/js';
-import nodePlugin from 'eslint-plugin-n';
-import tseslintPlugin from '@typescript-eslint/eslint-plugin';
-import tseslintParser from '@typescript-eslint/parser';
+import globals from "globals";
+import js from "@eslint/js";
+import nodePlugin from "eslint-plugin-n";
+import tseslintPlugin from "@typescript-eslint/eslint-plugin";
+import tseslintParser from "@typescript-eslint/parser";
 
 export default [
   {
-    files: ['src/**/*.js','src/**/*.ts'],
+    files: ["src/**/*.js","src/**/*.ts"],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "module",
@@ -15,20 +15,20 @@ export default [
         ecmaFeatures: {
           modules: true
         },
-        ecmaVersion: '2022',
-        project: './tsconfig.json',  
+        ecmaVersion: "2022",
+        project: "./tsconfig.json",  
       },
       globals: {
         ...globals.browser,
       }
     },
     plugins: {
-      '@typescript-eslint': tseslintPlugin
+      "@typescript-eslint": tseslintPlugin
     },
     rules: {
       ...js.configs.recommended.rules,
-      ...tseslintPlugin.configs['eslint-recommended'].overrides[0].rules,
-      ...tseslintPlugin.configs['recommended'].rules,
+      ...tseslintPlugin.configs["eslint-recommended"].overrides[0].rules,
+      ...tseslintPlugin.configs["recommended"].rules,
     }
   },
   {
