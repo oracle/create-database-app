@@ -17,7 +17,6 @@ async function updateDatabaseStatus() {
 
       return 'Database is working!';
   } catch ( error ) {
-      // eslint-disable-next-line no-console
       console.error( 'Error fetching connection status:', error );
       return 'Something is wrong with the database!';
   }
