@@ -1,19 +1,15 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
 /dist
 /tmp
 /out-tsc
 /bazel-out
-/dist-ssr
 
 # Node
 /node_modules
 npm-debug.log
 yarn-error.log
-yarn-debug.log*
-pnpm-debug.log*
-lerna-debug.log*
 
 # IDEs and editors
 .idea/
@@ -23,7 +19,6 @@ lerna-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
-*.local
 
 # Visual Studio Code
 .vscode/*
@@ -31,6 +26,7 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.history/*
 
 # Miscellaneous
 /.angular/cache
@@ -42,19 +38,12 @@ testem.log
 /typings
 /server/utils/db/wallet
 
-# System files
-.DS_Store
-Thumbs.db
-
-# Logs
-logs
-*.log
-
 # Environment variables
 /.env
 /.env.*
 !/.env.example
 !/.env.*.example
 
-# Editor directories and files
-.history/*
+# System files
+.DS_Store
+Thumbs.db
