@@ -4,7 +4,7 @@
   "description": "An Oracle JavaScript Extension Toolkit(JET) web app",
   "scripts": {
     "dev": "concurrently --names server,client --prefix-colors blue,yellow --success all --kill-others 'node ./server/index.cjs' 'ojet serve --server-only'",
-    "lint": "eslint src/ --max-warnings 0"
+    "lint": "eslint --report-unused-disable-directives"
   },
   "dependencies": {
     "@oracle/oraclejet": "~17.1.0",
@@ -28,7 +28,10 @@
     "concurrently": "^9.1.2",
     "eslint": "^9.18.0",
     "@eslint/js": "^9.18.0",
-    "typescript-eslint": "8.20.0"
+    "eslint-plugin-n": "^17.15.1",
+    "@typescript-eslint/eslint-plugin": "^8.21.0",
+    "@typescript-eslint/parser": "^8.21.0",
+    "globals": "15.14.0"
   },
   "engines": {
     "node": ">=16.0.0"
