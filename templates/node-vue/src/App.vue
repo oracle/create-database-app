@@ -24,11 +24,25 @@ onMounted(async () => {
 
 <template>
   <div>
-    <a href="https://www.oracle.com/uk/database/" target="_blank">
-      <img src="./assets/ORCL.svg" class="logo" alt="Oracle logo" />
+    <a 
+      href="https://www.oracle.com/database/"
+      target="_blank"
+    >
+      <img
+        src="./assets/ORCL.svg"
+        class="logo"
+        alt="Oracle logo"
+      >
     </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
+    <a
+      href="https://vuejs.org/"
+      target="_blank"
+    >
+      <img
+        src="./assets/vue.svg"
+        class="logo vue"
+        alt="Vue logo"
+      >
     </a>
   </div>
   <HelloWorld :status="isConnected" />
