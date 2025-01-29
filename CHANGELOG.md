@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2025-01-28
+
+### Changed
+
+- General update of dependencies.
+- Templates migrated to use ESLint v9 with flat config.
+- #204 `node-vue` template migrated fron `v5.0` to `v6.0`.
+- #203 `node-angular` template migrated from `v18.2` to `v19.1`.
+- #200 `node-react` and #201 `node-react-todo` templates migrated from `v18.2` to `v19.0`.
+- #199 `node-jet` template migrated to `v17.1`, and fixed incorrect references to the CDN pointing to an outdated version.
+- #197 `ords-remix-jwt-sample` adopted use of Vite instead of the Remix Classic Compiler.
+
+### Removed
+
+- #156 Removed Basic authentication from the `ords-remix-jwt-sample` template.
+
+### Security
+
+- #198 Addressed [CVE GHSA-3xgq-45jj-v275](https://osv.dev/vulnerability/GHSA-3xgq-45jj-v275) by updating `cross-spawn` to `v7.0.6`
+
 ## [1.3.1] - 2024-09-05
 
 ### Fixed
