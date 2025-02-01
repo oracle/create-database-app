@@ -22,7 +22,7 @@
     "extract-zip": "^1.7.0",
     "fs-extra": "^8.1.0",
     "glob": "10.4.5",
-    "typescript": "5.4.5",
+    "typescript": "5.7.3",
     "underscore": "^1.10.2",
     "yargs-parser": "13.1.2",
     "concurrently": "^9.1.2",
