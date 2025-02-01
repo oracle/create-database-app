@@ -20,7 +20,7 @@
   "devDependencies": {
     "@oracle/ojet-cli": "~17.1.0",
     "extract-zip": "^1.7.0",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^11.3.0",
     "glob": "10.4.5",
     "typescript": "5.4.5",
     "underscore": "^1.10.2",
