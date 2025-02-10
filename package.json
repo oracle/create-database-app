@@ -59,7 +59,8 @@
     "prepare:husky": "husky install",
     "prepare": "npm run --silent prepare:build && npm run --silent prepare:husky",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "oclif readme && git add README.md && npm run build"
+    "version": "oclif readme && git add README.md && npm run build",
+    "test:e2e": "npm run build && npx vitest --run ./test/e2e/"
   },
   "dependencies": {
     "@inquirer/prompts": "^3.3.2",
@@ -100,13 +101,15 @@
     "eslint-config-oclif-typescript": "^3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.0",
+    "execa": "^9.5.2",
     "husky": "^8.0.3",
     "mocha": "^10",
     "nodemon": "^3.0.3",
     "oclif": "4.11.3",
     "shx": "^0.3.4",
     "ts-node": "^10.9.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.0.4"
   },
   "overrides": {
     "whatwg-url": "^14.1.0"

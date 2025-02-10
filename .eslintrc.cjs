@@ -205,6 +205,7 @@ const gEslintConfig = {
         'no-ternary': 'off',
         'multiline-ternary': [ 'error', 'always-multiline' ],
         'no-nested-ternary': 'error',
+        'unicorn/prefer-ternary': 'off',
         'no-multiple-empty-lines': [
             'error',
             { 'max': 2 }
