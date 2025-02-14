@@ -104,9 +104,9 @@ async function autoRESTEnableObjects(schemaName, endpoint, basicAuth) {
       object.objectAlias,
     ));
   // Run the statements sequentially to avoid rate limiting errors from the DB
-  await sqlDevObjects.reduce(async (previousPromise, dev) => {
+  await sqlDevObjects.reduce(async (previousPromise, sqlDevObject) => {
     await previousPromise;
-    const statementResponse = await postRequest(endpoint, dev, basicAuth);
+    const statementResponse = await postRequest(endpoint, sqlDevObject, basicAuth);
     printResponse(statementResponse);
     return Promise.resolve();
   }, Promise.resolve());
