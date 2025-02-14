@@ -97,15 +97,19 @@ async function autoRESTEnableObjects(schemaName, endpoint, basicAuth) {
   const statementsResponse = await postRequest(endpoint, autoRESTenableStatements, basicAuth);
   printResponse(statementsResponse);
   // Add the SQL Developer role to the objects that where autoREST Enabled.
-  objectsToRESTEnable.filter((object) => object.isAutoRestAuth).map(async (object) => {
-    const grantSQLDevStmt = grantSQLDeveloperRole(
+  const sqlDevObjects = objectsToRESTEnable.filter((object) => object.isAutoRestAuth)
+    .map((object) => grantSQLDeveloperRole(
       schemaName,
       object.objectName,
       object.objectAlias,
-    );
-    const statementResponse = await postRequest(endpoint, grantSQLDevStmt, basicAuth);
+    ));
+  // Run the statements sequentially to avoid rate limiting errors from the DB
+  await sqlDevObjects.reduce(async (previousPromise, dev) => {
+    await previousPromise;
+    const statementResponse = await postRequest(endpoint, dev, basicAuth);
     printResponse(statementResponse);
-  });
+    return Promise.resolve();
+  }, Promise.resolve());
 }
 
 export default autoRESTEnableObjects;
