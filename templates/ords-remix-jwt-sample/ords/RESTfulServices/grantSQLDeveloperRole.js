@@ -28,6 +28,9 @@ function grantSQLDeveloperRole(schema, object, objectAlias) {
         P_DESCRIPTION => 'allow access to autoREST API',
         P_COMMENTS=> ''
     );
+    L_PRIV_ROLES.DELETE;
+    L_PRIV_PATTERNS.DELETE;
+    L_PRIV_MODULES.DELETE;  
     END;
     `;
 }
