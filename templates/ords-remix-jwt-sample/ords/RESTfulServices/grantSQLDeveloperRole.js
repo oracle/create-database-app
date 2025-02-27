@@ -13,10 +13,6 @@
  */
 function grantSQLDeveloperRole(schema, object, objectAlias) {
   return `
-    DECLARE
-    L_PRIV_ROLES owa.vc_arr;
-    L_PRIV_PATTERNS owa.vc_arr;
-    L_PRIV_MODULES owa.vc_arr;
     BEGIN
     L_PRIV_ROLES( 1 ) := 'oracle.dbtools.autorest.any.schema';
     L_PRIV_ROLES( 2 ) := 'oracle.dbtools.role.autorest.${schema}.${object}';
@@ -32,9 +28,7 @@ function grantSQLDeveloperRole(schema, object, objectAlias) {
         P_DESCRIPTION => 'allow access to autoREST API',
         P_COMMENTS=> ''
     );
-    COMMIT;
     END;
-    /
     `;
 }
 
