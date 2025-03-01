@@ -15,14 +15,14 @@
     "express": "4.21.2",
     "http-proxy-middleware": "3.0.3",
     "morgan": "1.10.0",
-    "oracledb": "6.7.1"
+    "oracledb": "6.8.0"
   },
   "devDependencies": {
     "@oracle/ojet-cli": "~17.1.0",
     "extract-zip": "^1.7.0",
     "fs-extra": "^8.1.0",
     "glob": "10.4.5",
-    "typescript": "5.4.5",
+    "typescript": "5.8.2",
     "underscore": "^1.10.2",
     "yargs-parser": "13.1.2",
     "concurrently": "^9.1.2",
