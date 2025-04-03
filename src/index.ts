@@ -207,7 +207,7 @@ export default class Generate extends Command {
         'template': Flags.string({ 
             char: 't', 
             description: 'Template to use',
-            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular', 'ords-remix-jwt-sample'],
+            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular', 'ords-remix-jwt-sample', 'mle-app'],
             multiple: false
         }),
         
@@ -313,6 +313,7 @@ export default class Generate extends Command {
         const databaseSID = flags['db-sid'] ?? '';
         const databaseServiceName = flags['db-service-name'] ?? '';
         const databaseUsername = flags['db-username'] ?? '';
+        const sqlclPath = flags['sql-cl'] ?? '';
 
         // TODO: Validate and use wallet path
         const walletPathDirectory = flags['wallet-path'] ? flags['wallet-path'] : '';
@@ -372,6 +373,11 @@ export default class Generate extends Command {
                         name: 'ords-remix-jwt-sample',
                         value: 'ords-remix-jwt-sample',
                         description: 'This creates a fullstack Concert Application made with Remix that leverages the Oracle REST Data Services functionalities. You will need to configurate the application yourself following the getting started guide.',
+                    },
+                    {
+                        name: 'mle-app',
+                        value: 'mle-app',
+                        description: 'This creates an empty project with MLE and Oracle database connection starter code.'
                     },
                 ],
                 default: 'node-vanilla'
@@ -531,6 +537,20 @@ export default class Generate extends Command {
                     },
                 )
             } );
+        }
+
+        if(templateChoice == 'mle-app'){
+            // Ask the user for the path to SQLcl
+            Object.assign( configObject, {
+                sqlclPath: sqlclPath === '' ? await input(
+                    {
+                        message: 'Please provide full path to your SQLcl installation: ',
+                        validate ( input ) {
+                            return input.trim().length === 0 ? 'This field cannot be empty!' : true;
+                        }
+                    },
+                ) : sqlclPath
+            });
         }
 
         generateDatabaseApp( configObject );

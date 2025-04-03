@@ -69,6 +69,7 @@
     "@oclif/plugin-plugins": "^5.3.7",
     "extract-zip": "^2.0.1",
     "inquirer": "^9.3.6",
+    "mle-js": "^23.7.0",
     "untildify": "^5.0.0",
     "yeoman-environment": "^3.19.3",
     "yeoman-generator": "^5.10.0"
@@ -96,7 +97,7 @@
     "@types/yeoman-generator": "^5.2.14",
     "chai": "^4",
     "dotenv-cli": "^8.0.0",
-    "eslint": "^8",
+    "eslint": "^9",
     "eslint-config-oclif": "^5",
     "eslint-config-oclif-typescript": "^3",
     "eslint-config-prettier": "^9.1.0",
@@ -113,5 +114,16 @@
   },
   "overrides": {
     "whatwg-url": "^14.1.0"
-  }
+  },
+  "bundleDependencies": [
+    "@inquirer/prompts",
+    "@oclif/core",
+    "@oclif/plugin-help",
+    "@oclif/plugin-plugins",
+    "extract-zip",
+    "inquirer",
+    "untildify",
+    "yeoman-environment",
+    "yeoman-generator"
+  ]
 }

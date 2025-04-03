@@ -170,6 +170,7 @@ export default class extends Generator {
                     connectionUsername: '',
                     walletPassword: '',
                     walletPath: '',
+                    sqlclPath: '',
                 }
             );
             this.fs.copyTpl(
