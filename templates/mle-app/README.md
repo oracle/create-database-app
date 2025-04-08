@@ -1,6 +1,53 @@
-## Overview
+# MLE Template Application
+## Description
 
-Run in dev mode to generate MLE application:
+The purpose of the project is to demonstrate how backend applications can be developed using [MLE](https://docs.oracle.com/en/database/oracle/oracle-database/23/mlejs/introduction-to-mle.html). Example application allows to perform CRUD operations on TODO list. TODO list item can belong to different category and user. Categories and Users can be created separately.
+
+## Content
+- SQL scripts that create and cleanup database tables to store TODO list, Users, Categories (see src/database/initdb.sql and src/database/cleanup.sql)
+- Demo Typescript code (see src/index.ts). The code uses MLE SQL api to execute INSERT, UPDATE, DELETE, SELECT statements to interract with datatables.
+- SQL scripts to test functionality (see test-sql folder).
+
+
+## Requirements
+
+- [SQLcl](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl). Example application uses SQLcl to deploy generated JS code as MLE module. Path to SQLcl installation must be provided during the application creation process.
+
+## Getting Started
+
+### Setup your environment
+
+#### Install SQLcl
+
+#### Install project dependencies
+
+```
+npm install
+```
+
+#### Create required database objects
+
+```
+npm run initdb
+```
+
+Creates all necessary test tables and indexes.
+
+### Build, bundle and deploy source code (index.ts)
+
+```
+npm run build
+```
+
+Compiles and bundles typescript code (index.ts). Bundled code is located in dist/index.js and deployed as MLE module to the database using SQLcl (see deploy.js). Result MLE module name is **mleapp**.
+
+### Run your code
+
+Deployed module code functions can be executed via MLE call specification procedures or functions. Example of call specifications organized in packages is located in test-sql/call-specs.sql. 
+
+## MLE Application creation process
+
+MLE Application can be created using dev. mode:
 
 ```sh
 npm run dev
@@ -23,12 +70,3 @@ Answer all questions:
 ```
 
 The project will be created in generated/<PROJECT NAME> folder.
-
-Run in the project folder:
-
-    - `npm install`: To install all required dependencies.
-    - `npm run cleandb`: To clean up database. Removes all created tables and modules. See src/database/creanup.sql.
-    - `npm run initdb`: Creates all necessary test tables and indexes.
-    - `npm run build`: Compiles and bundles typescript code (index.ts). Bundled code is located in dist/index.js and deployed as MLE module to the database using SQLcl (see deploy.js). Result MLE module name is **mleapp**.
-
-There are manual test scripts can be used to test created MLE module. They are located in test-sql folder.
