@@ -188,3 +188,8 @@ updates:
       - "templates-ords-remix"
     commit-message:
       prefix: fix(deps)
+
+  - package-ecosystem: "npm" 
+    directory: "/templates/mle-app/"
+    schedule:
+      interval: "monthly"

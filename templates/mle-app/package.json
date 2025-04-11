@@ -7,8 +7,9 @@
     "esbuild": "0.25.1"
   },
   "scripts": {
-    "build": "node deploy.js",
-    "initdb": "node src/database/db.js initdb.sql",
-    "cleandb": "node src/database/db.js cleanup.sql"
+    "build": "esbuild src/index.ts --bundle --minify=false --platform=neutral --format=esm --outfile=dist/index.js",
+    "deploy": "node deploy.js",
+    "initdb": "node src/database/db.js src/database/initdb.sql",
+    "cleandb": "node src/database/db.js src/database/cleanup.sql"
   }
 }

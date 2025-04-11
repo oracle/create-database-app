@@ -1,72 +1,197 @@
 # MLE Template Application
+
 ## Description
 
-The purpose of the project is to demonstrate how backend applications can be developed using [MLE](https://docs.oracle.com/en/database/oracle/oracle-database/23/mlejs/introduction-to-mle.html). Example application allows to perform CRUD operations on TODO list. TODO list item can belong to different category and user. Categories and Users can be created separately.
+This project demonstrates how backend applications can be developed using [Oracle Database Multilingual Engine (MLE)](https://docs.oracle.com/en/database/oracle/oracle-database/23/mlejs/introduction-to-mle.html).
 
-## Content
-- SQL scripts that create and cleanup database tables to store TODO list, Users, Categories (see src/database/initdb.sql and src/database/cleanup.sql)
-- Demo Typescript code (see src/index.ts). The code uses MLE SQL api to execute INSERT, UPDATE, DELETE, SELECT statements to interract with datatables.
-- SQL scripts to test functionality (see test-sql folder).
+It implements a simple **TODO list** with full **CRUD** functionality. Each TODO item can be associated with a **User** and a **Category**. Users and Categories can be created independently.
 
+---
+
+## Project Structure
+
+- `src/index.ts`  
+  Main TypeScript file. It uses MLE SQL API to perform database operations (`INSERT`, `SELECT`, `UPDATE`, `DELETE`).
+
+- `src/database/initdb.sql`  
+  SQL script to initialize the required database tables (TODOs, Users, Categories).
+
+- `src/database/cleanup.sql`  
+  SQL script to drop all created database tables.
+
+- `test-sql/call-specs.sql`  
+  SQL file that defines PL/SQL **call specifications** to wrap MLE module functions, allowing them to be invoked from SQL. It uses `MLEAPP` as default MLE module name. The purpose of the script is to demonstrate how MLE module functions can be executed.
+
+---
 
 ## Requirements
 
-- [SQLcl](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl). Example application uses SQLcl to deploy generated JS code as MLE module. Path to SQLcl installation must be provided during the application creation process.
+- [Oracle Database 23c](https://www.oracle.com/database/) or later (with MLE support).
+- [SQLcl](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl): used to deploy the bundled JS code as an MLE module.
+- [Node.js](https://nodejs.org/) (v16+ recommended).
+
+---
 
 ## Getting Started
 
-### Setup your environment
+### 1. Install SQLcl
 
-#### Install SQLcl
+Download and install SQLcl from Oracle:
 
-#### Install project dependencies
+🔗 https://www.oracle.com/database/sqldeveloper/technologies/sqlcl
 
-```
+Make sure it is unzipped and accessible via its full path (e.g. `/Users/yourname/sqlcl`).
+
+---
+
+### 2. Install Project Dependencies
+
+```bash
 npm install
 ```
 
-#### Create required database objects
+Installs all necessary Node.js dependencies including [esbuild](https://esbuild.github.io/).
 
-```
+### 3. Initialize the Database
+
+```bash
 npm run initdb
 ```
 
-Creates all necessary test tables and indexes.
+This creates the required tables and indexes:
+- `todo_list`
+- `users`
+- `categories`
 
-### Build, bundle and deploy source code (index.ts)
+Make sure your environment variables or `.env` file provides connection details:
+- `DB_USER`
+- `DB_PASSWORD`
+- `CONNECT_STRING`
+- `SQL_CL_PATH`
 
-```
+### 4. Build the Source Code
+
+```bash
 npm run build
 ```
 
-Compiles and bundles typescript code (index.ts). Bundled code is located in dist/index.js and deployed as MLE module to the database using SQLcl (see deploy.js). Result MLE module name is **mleapp**.
+This compiles and bundles src/index.ts using esbuild. The output file is written to:
 
-### Run your code
-
-Deployed module code functions can be executed via MLE call specification procedures or functions. Example of call specifications organized in packages is located in test-sql/call-specs.sql. 
-
-## MLE Application creation process
-
-MLE Application can be created using dev. mode:
-
-```sh
-npm run dev
+```
+dist/index.js
 ```
 
-Answer all questions:
+The bundled file is compatible with Oracle's MLE module format.
 
-```sh
-? What would you like your application's name to be? <PROJECT NAME>
-? Which template would you like to use for your project? mle-app
-? Which database connection type would you like to choose? Basic Connection (Protocol, Hostname, Port, Service Name / SID)
-? What is your database protocol? tcp
-? What is your database hostname? <DB host name e.g. localhost>
-? What is your database port? <DB port>
-? Which service type would you like to use? Service name
-? Please enter your database service name:  <DB service name e.g. FREE>
-? What's your database username? <YOUR DATABASE USER>
-? What's your database password? <PASSWORD>
-? Please provide full path to your SQLcl installation:  <Full path to you SQLcl installation ..../sqlcl>
+### 5. Deploy the MLE Module
+
+```bash
+npm run deploy
+```
+This uses SQLcl to upload and register the bundled JS code as an MLE module in the database.
+By default, the module is named `mleapp`. To specify a custom module name:
+
+```bash
+npm run deploy -- <your-module-name>
 ```
 
-The project will be created in generated/<PROJECT NAME> folder.
+Example:
+```bash
+npm run deploy -- my-custom-module
+```
+
+### 6. Test MLE Module Functions
+
+Once your MLE module is deployed, you can test its functionality using **call specifications** defined in the `test-sql/call-specs.sql` file.
+
+Call specifications allow you to invoke MLE module functions as PL/SQL procedures or functions.
+
+#### Example: Testing User Package
+
+The following SQL code demonstrates how to invoke the MLE module function `newUser` and other functions via the `user_package` package.
+
+```sql
+-- Create the user_package package (wraps MLE functions)
+CREATE OR REPLACE PACKAGE user_package AS
+    PROCEDURE newUserFunc(name IN VARCHAR2);
+    FUNCTION getUser(id IN NUMBER) RETURN VARCHAR2;
+    PROCEDURE updateUser(id IN NUMBER, name IN VARCHAR2);
+    PROCEDURE deleteUser(id IN NUMBER);
+END user_package;
+/
+CREATE OR REPLACE PACKAGE BODY user_package AS
+    PROCEDURE newUserFunc(name IN VARCHAR2)
+    AS MLE MODULE MLEAPP SIGNATURE 'newUser(string)';
+
+    FUNCTION getUser(id IN NUMBER) RETURN VARCHAR2
+    AS MLE MODULE MLEAPP SIGNATURE 'getUser(number)';
+
+    PROCEDURE updateUser(id IN NUMBER, name IN VARCHAR2)
+    AS MLE MODULE MLEAPP SIGNATURE 'updateUser(number, string)';
+
+    PROCEDURE deleteUser(id IN NUMBER)
+    AS MLE MODULE MLEAPP SIGNATURE 'deleteUser(number)';
+END user_package;
+/
+
+-- Call MLE functions via the user_package
+EXECUTE USER_PACKAGE.NEWUSERFUNC('BLABLA');
+
+SELECT USER_PACKAGE.GETUSER(5);
+
+EXECUTE USER_PACKAGE.UPDATEUSER(5,'BLABLA');
+
+SELECT USER_PACKAGE.GETUSER(5);
+
+EXECUTE USER_PACKAGE.DELETEUSER(5);
+
+SELECT USER_PACKAGE.GETUSER(5);
+```
+
+You can use tools like **SQLcl** or **SQL Developer** to execute these SQL commands.
+
+#### **Test via Oracle APEX (Application Express)**:  
+Oracle APEX allows you to create web applications that interact with MLE functions. You can create an APEX page that allows users to test CRUD operations, such as adding or displaying TODO items.
+
+**Link**:  
+[Oracle APEX](https://apex.oracle.com)
+
+#### **Test via Oracle REST Data Services (ORDS)**:  
+If you’ve exposed your MLE functions as RESTful services using ORDS, you can test them via HTTP requests. For instance, you might have a REST endpoint for creating a TODO item.
+
+**Example**:
+
+```bash
+curl -X POST "https://yourserver.com/ords/mle/todo/create"   -H "Content-Type: application/json"   -d '{"todo_text": "Buy groceries", "user_id": "user123", "category": "personal"}'
+```
+
+**Links**:
+- [Less-well-known features of Multilingual Engine: Document API](https://blogs.oracle.com/developers/post/lesswellknown-features-of-multilingual-engine-document-api)
+- [ORDS Documentation](https://www.oracle.com/database/technologies/appdev/rest.html)
+---
+
+### 7. Clean Up the Database
+
+```bash
+npm run cleandb
+```
+
+This will drop all objects (tables, types, etc.) created by the `initdb` script.
+
+---
+
+## Links for Further Reading
+
+- [Oracle MLE Documentation](https://docs.oracle.com/en/database/oracle/oracle-database/23/mlejs/introduction-to-mle.html)
+- [SQLcl Documentation](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl.html)
+- [PL/SQL User Guide](https://docs.oracle.com/en/database/oracle/oracle-database/)
+- [Oracle APEX Documentation](https://docs.oracle.com/en/database/oracle/application-express/)
+- [ORDS Documentation](https://docs.oracle.com/en/database/oracle/application-express/)
+- [SQL Developer](https://www.oracle.com/database/sqldeveloper/)
+- [SQL Developer for VSCode](https://www.oracle.com/database/sqldeveloper/vscode/)
+---
+
+
+## Feedback
+
+Feel free to open issues or suggestions if you want to improve this template. Contributions are welcome!

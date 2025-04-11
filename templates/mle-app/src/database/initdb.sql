@@ -30,3 +30,5 @@ create index i_todo_list_users on todo_list (u_id);
 
 alter table todo_list add constraint fk_todo_list_categories foreign key (c_id) references categories;
 create index i_todo_list_categories on todo_list (c_id);
+
+EXIT;

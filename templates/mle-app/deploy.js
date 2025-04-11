@@ -1,30 +1,19 @@
-const esbuild = require('esbuild');
 const { execSync } = require("child_process");
-const dotenv = require("dotenv");
-
-dotenv.config();
-const { DB_USER, DB_PASSWORD, CONNECT_STRING, SQL_CL_PATH } = process.env;
+const path = require("path");
+const fs = require("fs");
+const os = require("os");
 
 const bundlePath = 'dist/index.js';
-esbuild.build({
-    entryPoints: ['src/index.ts'],
-    bundle: true,
-    minify: false, 
-    platform: 'neutral',
-    format: 'esm', 
-    outfile: bundlePath,
-}).then(() => {
-    const sqlclCommand = `"${SQL_CL_PATH}/bin/sql" ${DB_USER}/${DB_PASSWORD}@${CONNECT_STRING} <<EOF
-    mle create-module -filename ${bundlePath} -module-name mleapp;
-    EXIT;
-    EOF`;
-    try {
-        console.log("Deploying MLE module...");
-        execSync(sqlclCommand, { stdio: "inherit", shell: "/bin/bash" });
-    } catch (error) {
-        console.error("Deployment failed:", error.message);
-    }
-}).catch((e) => {
-    console.log(e);
-    process.exit(1)
-});
+let moduleName = process.argv[2];
+
+if (!moduleName) {
+    moduleName = "mleapp";
+}
+
+const tempSqlPath = path.join(os.tmpdir(), `create_module_${Date.now()}.sql`);
+fs.writeFileSync(tempSqlPath, `
+mle create-module -filename ${bundlePath} -module-name ${moduleName};
+EXIT;
+`);
+
+execSync(`node src/database/db.js ${tempSqlPath}`, { stdio: 'inherit' });
