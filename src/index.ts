@@ -391,8 +391,7 @@ export default class Generate extends Command {
         };
 
         // Ask the user for the database connection type (Either basic connection or a connection using a cloud wallet).
-        const databaseConnectionType = templateChoice === 'mle-app' ? 'basic' 
-        : (connectionType === '' && templateChoice !== 'ords-remix-jwt-sample' ? await select(
+        const databaseConnectionType = connectionType === '' && templateChoice !== 'ords-remix-jwt-sample' ? await select(
             {
                 message: 'Which database connection type would you like to choose?',
                 choices: [
@@ -407,7 +406,7 @@ export default class Generate extends Command {
                 ],
                 default: 'walletPath'
             }
-        ) : connectionType);
+        ) : connectionType;
 
         // If the user has chosen the basic connection type, then we ask for the protocol, hostname, port and service name / SID.
         if ( databaseConnectionType === 'basic' ) {
