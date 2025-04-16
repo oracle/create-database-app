@@ -56,19 +56,17 @@
     "pre_dev": "npm run --silent build",
     "predebug": "npm run --silent build",
     "prepare:build": "npm run build",
-    "prepare:husky": "husky install",
-    "prepare": "npm run --silent prepare:build && npm run --silent prepare:husky",
+    "prepare": "husky && npm run --silent prepare:build",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md && npm run build",
     "test:e2e": "npm run build && npx vitest --run ./test/e2e/"
   },
   "dependencies": {
-    "@inquirer/prompts": "^3.3.2",
+    "@inquirer/prompts": "^7.4.1",
     "@oclif/core": "^3.27.0",
     "@oclif/plugin-help": "^5.2.20",
     "@oclif/plugin-plugins": "^5.3.7",
     "extract-zip": "^2.0.1",
-    "inquirer": "^9.3.6",
     "untildify": "^5.0.0",
     "yeoman-environment": "^3.19.3",
     "yeoman-generator": "^5.10.0"
@@ -79,7 +77,6 @@
     "@oclif/plugin-help",
     "@oclif/plugin-plugins",
     "extract-zip",
-    "inquirer",
     "untildify",
     "yeoman-environment",
     "yeoman-generator"
