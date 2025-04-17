@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2014, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2014, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  * @ignore
@@ -60,7 +60,7 @@ export function Footer({ links = _DEFAULT_LINKS } : Props ) {
         </ul>
       </div>
       <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-color-secondary oj-typography-body-sm">
-        Copyright © 2014, 2024 Oracle and/or its affiliates All rights reserved.
+        Copyright © 2014, 2025 Oracle and/or its affiliates All rights reserved.
       </div>
     </footer>
   );
