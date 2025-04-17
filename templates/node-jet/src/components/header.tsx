@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2014, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2014, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  * @ignore
@@ -43,11 +43,9 @@ export function Header({ appName, userLogin }: Props) {
     <header role="banner" class="oj-web-applayout-header">
       <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
         <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
-          <span
-            role="img"
-            class="oj-icon demo-oracle-icon"
-            title="Oracle Logo"
-            alt="Oracle Logo"></span>
+        <img class="oj-icon demo-oracle-icon"
+              title="Oracle Logo"
+              alt="Oracle Logo"/>
           <h1
             class="oj-sm-only-hide oj-web-applayout-header-title"
             title="Application Name">
