@@ -190,6 +190,6 @@ updates:
       prefix: fix(deps)
 
   - package-ecosystem: "npm" 
-    directory: "/templates/mle-app/"
+    directory: "/templates/mle-js-basic/"
     schedule:
       interval: "monthly"

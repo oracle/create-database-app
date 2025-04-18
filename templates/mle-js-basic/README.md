@@ -35,9 +35,11 @@ The project is structured as follows:
 | Source File | Used For |
 | -- | -- |
 | `src/index.ts` | This file is the main TypeScript file containing the application logic. It uses MLE SQL API to perform database operations (`INSERT`, `SELECT`, `UPDATE`, `DELETE`). |
-| `src/database/initdb.sql` | A short SQL script to initialize the required database tables (TODOs, Users, Categories). |
-| `src/database/cleanup.sql` | A SQL script to drop all created database tables. Use with care! |
-| `test-sql/call-specs.sql` | The final SQL file defines PL/SQL [call specifications](https://docs.oracle.com/en/database/oracle/oracle-database/23/mlejs/call-specifications-functions.html) to wrap MLE module functions, allowing them to be invoked from SQL. It uses `MLEAPP` as default MLE module name. The purpose of the script is to demonstrate how MLE module functions can be executed. |
+| `utils/database/initdb.sql` | A short SQL script to initialize the required database tables (TODOs, Users, Categories). |
+| `utils/database/cleanup.sql` | A SQL script to drop all created database tables. Use with care! |
+| `utils/db.mjs` | `db.mjs` is a wrapper around SQLcl. It is used to execute SQL scripts in the database using creadentials specified in `.env` file. See `package.json` for usage. |
+| `deploy.mjs` | The deployment logic is implemented in `deploy.mjs`. If modifications are needed, users can either update the script directly or configure a different deployment script by updating the deploy entry under the scripts section in `package.json`. |
+| `test/users.test.js` | A test that showcases the execution of MLE call specifications for the USERS table. |
 
 ### Requirements
 
@@ -49,6 +51,8 @@ You need the following components to use this application template.
 
 An Always Free Autonomous Database offers the quickest way to get started. If you would like to use {Docker,Podman} Compose to get up-and-running quickly, you can refer to [Server-Side JavaScript driven by node-express](https://blogs.oracle.com/developers/post/serverside-javascript-driven-by-nodeexpress) for reference.
 
+To execute JavaScript using Oracle Multilingual Engine (MLE), a database user typically needs the CREATE SESSION privilege to connect, and may require EXECUTE ON JAVASCRIPT depending on the database version (this requirement is being deprecated). If the JavaScript code imports MLE modules, the user must have EXECUTE privileges on those specific modules. Additional privileges like CREATE PROCEDURE or data access privileges (SELECT, INSERT, etc.) may be needed based on what the JS code does. For more information please read [System and Object Privileges Required for Working with JavaScript in MLE](https://docs.oracle.com/en/database/oracle/oracle-database/23/mlejs/system-and-object-privileges-required-working-javascript-mle.html).
+
 ## Getting Started
 
 If you haven't already, please download and install SQLcl from Oracle:
@@ -59,7 +63,7 @@ Make sure it is unzipped and accessible via its full path (e.g. `/Users/yourname
 
 ### 1. Create the application
 
-Use the `@create-database-app` command as described in the [top-level readme](https://github.com/oracle/create-database-app/blob/main/README.md) to set up your application. You will be prompted to make a number of choices. Make sure you select `mle-app` as shown here:
+Use the `@create-database-app` command as described in the [top-level readme](https://github.com/oracle/create-database-app/blob/main/README.md) to set up your application. You will be prompted to make a number of choices. Make sure you select `mle-js-basic` as shown here:
 
 ```
 ? What would you like your application's name to be? demo
@@ -67,7 +71,7 @@ Use the `@create-database-app` command as described in the [top-level readme](ht
   node-angular
   node-react-todo
   ords-remix-jwt-sample
-❯ mle-app
+❯ mle-js-basic
   node-vanilla
   node-react
   node-vue
@@ -108,6 +112,7 @@ Make sure your environment variables or `.env` file provides connection details:
 - `CONNECT_STRING`
 - `SQL_CL_PATH`
 - `WALLET_PATH` (optional)
+- `MLE_MODULE` (the value is set during deployment of module. See `deploy.mjs`)
 
 You should have been prompted for those values upon project initialisation.
 
@@ -123,7 +128,7 @@ This compiles and bundles `src/index.ts` using esbuild. The output file is writt
 
 ### 5. Deploy the MLE Module
 
-Finally you can deploy the transpiled JavaScript code using the `deploy` script:
+Finally, you can deploy the transpiled JavaScript code using the `deploy` script:
 
 ```bash
 npm run deploy
@@ -139,14 +144,20 @@ npm run deploy -- <your-module-name>
 Example:
 
 ```bash
-npm run deploy -- my-custom-module
+npm run deploy -- myCustomModule
 ```
+
+If you see `ORA-04102` error:
+
+```
+MLE Module mleapp not created: java.sql.SQLException: ORA-04102: An MLE module named MLEAPP already exists.
+```
+
+The module can be removed by running the `DROP MLE MODULE` command. This can be done using SQL Developer or any other tool that executes SQL commands.
 
 ## Application Testing
 
-Once your MLE module is deployed, you can test its functionality using [call specifications](https://docs.oracle.com/en/database/oracle/oracle-database/23/mlejs/call-specifications-functions.html) defined in `test-sql/call-specs.sql`.
-
-A call specification allows you to invoke JavaScript code from SQL and PL/SQL.
+Once your MLE module is deployed, you can test its functionality using [call specifications](https://docs.oracle.com/en/database/oracle/oracle-database/23/mlejs/call-specifications-functions.html). A call specification allows you to invoke JavaScript code from SQL and PL/SQL.
 
 ### Testing in SQL and PL/SQL
 
@@ -154,20 +165,30 @@ The following SQL code demonstrates how to invoke the MLE module function `newUs
 
 ```sql
 -- Create the user_package package
-CREATE OR REPLACE PACKAGE AS
-    PROCEDURE newUserFunc(name IN VARCHAR2)
-    AS MLE MODULE MLEAPP SIGNATURE 'newUser(string)';
-
-    FUNCTION getUser(id IN NUMBER) RETURN VARCHAR2
-    AS MLE MODULE MLEAPP SIGNATURE 'getUser(number)';
-
-    PROCEDURE updateUser(id IN NUMBER, name IN VARCHAR2)
-    AS MLE MODULE MLEAPP SIGNATURE 'updateUser(number, string)';
-
-    PROCEDURE deleteUser(id IN NUMBER)
-    AS MLE MODULE MLEAPP SIGNATURE 'deleteUser(number)';
+CREATE OR REPLACE PACKAGE user_package AS
+      FUNCTION newUserFunc(name IN VARCHAR2) RETURN NUMBER;
+      FUNCTION getUser(id IN NUMBER) RETURN VARCHAR2;
+      PROCEDURE updateUser(id IN NUMBER, name IN VARCHAR2);
+      PROCEDURE deleteUser(id IN NUMBER);
 END user_package;
-/
+
+CREATE OR REPLACE PACKAGE BODY user_package AS
+    FUNCTION newUserFunc(name IN VARCHAR2) RETURN NUMBER
+    AS MLE MODULE &mleModuleName
+    SIGNATURE 'newUser(string)';
+    
+    FUNCTION getUser(id IN NUMBER) RETURN VARCHAR2
+    AS MLE MODULE &mleModuleName
+    SIGNATURE 'getUser(number)';
+    
+    PROCEDURE updateUser(id IN NUMBER, name IN VARCHAR2)
+    AS MLE MODULE &mleModuleName
+    SIGNATURE 'updateUser(number, string)';
+    
+    PROCEDURE deleteUser(id IN NUMBER)
+    AS MLE MODULE &mleModuleName
+    SIGNATURE 'deleteUser(number)';
+END user_package;
 
 -- Call MLE functions via the user_package in SQL*Plus or SQLcl
 EXECUTE USER_PACKAGE.NEWUSERFUNC('EMILY');
@@ -185,9 +206,14 @@ SELECT USER_PACKAGE.GETUSER(5);
 
 Use any of your favourite tools to connect to the database schema and run these commands.
 
+Alternatively, you can run the `test/users.test.js` test, which shows how to use call specifications with the USERS table. To run the test, execute:
+```bash
+npm run test
+```
+
 ### Testing MLE Code in Oracle APEX
 
-Oracle [APEX](https://apex.oracle.com) was one of the first development environments supporting MLE/JavaScript. You can create an APEX page that allows users to test CRUD operations, such as adding or displaying TODO items.
+Oracle [APEX](https://apex.oracle.com) is one of the first development environments supporting MLE/JavaScript. You can create an APEX page that allows users to test CRUD operations, such as adding or displaying TODO items.
 
 You can integrate JavaScript in Page Designer to create:
 
