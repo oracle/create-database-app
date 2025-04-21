@@ -7,10 +7,7 @@
 */
 .demo-oracle-icon {
     width:137px;
-    height:18px
-}
-
-.demo-oracle-icon:before {
+    height:18px;
     content:url("images/oracle_logo.svg")
 }
 
