@@ -198,7 +198,8 @@ export default class extends Generator {
 
     end() {
         this.log( 'Application generated successfully. Run the following command: \n\ncd ' + path.join( process.cwd(), this.options.appName ) + '\n');
-        if(!this.options.templateChoice.includes('ords-remix-jwt-sample')){}
-        this.log('Please check out the README file to learn how to configurate the ORDS Concert App')
+        if(this.options.templateChoice.includes('ords-remix-jwt-sample')){
+            this.log('Please check out the README file to learn how to configurate the ORDS Concert App')
+        }
     }
 }
