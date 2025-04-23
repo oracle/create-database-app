@@ -1,5 +1,3 @@
-/// <reference types="mle-js" />
-
 enum priorities {
 	LOW = "low",
 	MEDIUM = "medium",

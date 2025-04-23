@@ -4,7 +4,7 @@
       "target": "ES2021",
       "outDir": "dist",
       "lib": ["es6", "es2017", "es2021"],
-      "types": [],
+      "types": ["mle-js"],
       "noImplicitAny": true,
       "strict": true
     },
