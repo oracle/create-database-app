@@ -5,13 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2025-04-23
+
+### Changed
+
+- General update of dependencies.
+- #225 Fixed 'Rate exceeded' errors in the npm run migrate command of the ords-remix-jwt-sample template.
+- #265 `node-jet` template migrated from `v17.1` to `18.0`.
+- #266 `node-angular` template migrated from `v19.1` to `v19.2`.
+
 ## [1.4.0] - 2025-01-28
 
 ### Changed
 
 - General update of dependencies.
 - Templates migrated to use ESLint v9 with flat config.
-- #204 `node-vue` template migrated fron `v5.0` to `v6.0`.
+- #204 `node-vue` template migrated from `v3.3` to `v3.5`.
 - #203 `node-angular` template migrated from `v18.2` to `v19.1`.
 - #200 `node-react` and #201 `node-react-todo` templates migrated from `v18.2` to `v19.0`.
 - #199 `node-jet` template migrated to `v17.1`, and fixed incorrect references to the CDN pointing to an outdated version.
