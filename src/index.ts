@@ -207,7 +207,7 @@ export default class Generate extends Command {
         'template': Flags.string({ 
             char: 't', 
             description: 'Template to use',
-            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular', 'ords-remix-jwt-sample', 'mle-js-basic'],
+            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular', 'ords-remix-jwt-sample', 'mle-ts-sample'],
             multiple: false
         }),
         
@@ -375,8 +375,8 @@ export default class Generate extends Command {
                         description: 'This creates a fullstack Concert Application made with Remix that leverages the Oracle REST Data Services functionalities. You will need to configurate the application yourself following the getting started guide.',
                     },
                     {
-                        name: 'mle-js-basic',
-                        value: 'mle-js-basic',
+                        name: 'mle-ts-sample',
+                        value: 'mle-ts-sample',
                         description: 'This creates an empty project with MLE and Oracle database connection starter code.'
                     },
                 ],
@@ -539,7 +539,7 @@ export default class Generate extends Command {
             } );
         }
 
-        if(templateChoice == 'mle-js-basic'){
+        if(templateChoice == 'mle-ts-sample'){
             // Ask the user for the path to SQLcl
             Object.assign( configObject, {
                 sqlclPath: sqlclPath === '' ? await input(

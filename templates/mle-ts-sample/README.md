@@ -63,7 +63,7 @@ Make sure it is unzipped and accessible via its full path (e.g. `/Users/yourname
 
 ### 1. Create the application
 
-Use the `@create-database-app` command as described in the [top-level readme](https://github.com/oracle/create-database-app/blob/main/README.md) to set up your application. You will be prompted to make a number of choices. Make sure you select `mle-js-basic` as shown here:
+Use the `@create-database-app` command as described in the [top-level readme](https://github.com/oracle/create-database-app/blob/main/README.md) to set up your application. You will be prompted to make a number of choices. Make sure you select `mle-ts-sample` as shown here:
 
 ```
 ? What would you like your application's name to be? demo
@@ -71,7 +71,7 @@ Use the `@create-database-app` command as described in the [top-level readme](ht
   node-angular
   node-react-todo
   ords-remix-jwt-sample
-❯ mle-js-basic
+❯ mle-ts-sample
   node-vanilla
   node-react
   node-vue

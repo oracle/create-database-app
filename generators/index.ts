@@ -142,7 +142,7 @@ export default class extends Generator {
                 this.templatePath( `${this.options.templateChoice}/.env.example` ),
                 this.destinationPath( '.env.example' ),
             );
-        } else if (this.options.templateChoice.includes('mle-js-basic' )) {
+        } else if (this.options.templateChoice.includes('mle-ts-sample')) {
             if( 'walletPath' in this.options ) {
                 this.fs.copyTpl(
                     this.templatePath( `${this.options.templateChoice}/.env.example.wallet` ),
