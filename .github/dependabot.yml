@@ -193,3 +193,6 @@ updates:
     directory: "/templates/mle-ts-sample/"
     schedule:
       interval: "monthly"
+    labels:
+      - "dependencies"
+      - "templates-mle"
