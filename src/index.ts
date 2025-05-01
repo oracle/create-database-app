@@ -544,7 +544,7 @@ export default class Generate extends Command {
             Object.assign( configObject, {
                 sqlclPath: sqlclPath === '' ? await input(
                     {
-                        message: 'Please provide full path to your SQLcl installation: ',
+                        message: 'Please provide full path to your SQLcl installation (SQLcl can be downloaded and installed from https://www.oracle.com/database/sqldeveloper/technologies/sqlcl): ',
                         validate ( input ) {
                             return input.trim().length === 0 ? 'This field cannot be empty!' : true;
                         }
