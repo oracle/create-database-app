@@ -22,18 +22,18 @@ const envFilePath = path.resolve(__dirname, '.env');
 function updateEnvVariable(key, value) {
     // Read the existing .env file
     const envData = fs.readFileSync(envFilePath, 'utf-8');
-  
+
     // Check if the variable already exists
     const regex = new RegExp(`^${key}=.*`, 'm');
     if (regex.test(envData)) {
-      // Update existing variable
-      const updatedData = envData.replace(regex, `${key}=${value}`);
-      fs.writeFileSync(envFilePath, updatedData, 'utf-8');
-      console.log(`Updated ${key} in .env file`);
+        // Update existing variable
+        const updatedData = envData.replace(regex, `${key}=${value}`);
+        fs.writeFileSync(envFilePath, updatedData, 'utf-8');
+        console.log(`Updated ${key} in .env file`);
     } else {
-      // Add new variable if not present
-      fs.appendFileSync(envFilePath, `\n${key}=${value}`, 'utf-8');
-      console.log(`Added new variable ${key} to .env file`);
+        // Add new variable if not present
+        fs.appendFileSync(envFilePath, `\n${key}=${value}`, 'utf-8');
+        console.log(`Added new variable ${key} to .env file`);
     }
 }
 

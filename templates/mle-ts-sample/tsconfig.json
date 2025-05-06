@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-      "module": "ESNext",
-      "target": "ES2021",
-      "outDir": "dist",
-      "lib": ["es6", "es2017", "es2021"],
-      "types": ["mle-js"],
-      "noImplicitAny": true,
-      "strict": true
+    "module": "ESNext",
+    "target": "ES2021",
+    "outDir": "dist",
+    "lib": ["es6", "es2017", "es2021"],
+    "types": ["mle-js"],
+    "noImplicitAny": true,
+    "strict": true
     },
     "include": ["src"],
     "exclude": ["node_modules"]
-  }
+}

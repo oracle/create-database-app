@@ -68,13 +68,13 @@ Use the `@create-database-app` command as described in the [top-level readme](ht
 ```
 ? What would you like your application's name to be? demo
 ? Which template would you like to use for your project?
-  node-angular
-  node-react-todo
-  ords-remix-jwt-sample
+node-angular
+node-react-todo
+ords-remix-jwt-sample
 ❯ mle-ts-sample
-  node-vanilla
-  node-react
-  node-vue
+node-vanilla
+node-react
+node-vue
 (Use arrow keys to reveal more choices)
 This creates an empty project with MLE and Oracle database connection starter code.
 ```
@@ -166,10 +166,10 @@ The following SQL code demonstrates how to invoke the MLE module function `newUs
 ```sql
 -- Create the user_package package
 CREATE OR REPLACE PACKAGE user_package AS
-      FUNCTION newUserFunc(name IN VARCHAR2) RETURN NUMBER;
-      FUNCTION getUser(id IN NUMBER) RETURN VARCHAR2;
-      PROCEDURE updateUser(id IN NUMBER, name IN VARCHAR2);
-      PROCEDURE deleteUser(id IN NUMBER);
+    FUNCTION newUserFunc(name IN VARCHAR2) RETURN NUMBER;
+    FUNCTION getUser(id IN NUMBER) RETURN VARCHAR2;
+    PROCEDURE updateUser(id IN NUMBER, name IN VARCHAR2);
+    PROCEDURE deleteUser(id IN NUMBER);
 END user_package;
 
 CREATE OR REPLACE PACKAGE BODY user_package AS
@@ -236,8 +236,8 @@ Assuming you REST-enabled your schema, and created an ORDS handler for MLE/JavaS
 
 ```bash
 curl -X POST "https://yourserver.com/ords/mle/todo/create" \
-  -H "Content-Type: application/json" \
-  -d '{"todo_text": "Buy groceries", "user_id": "user123", "category": "personal"}'
+-H "Content-Type: application/json" \
+-d '{"todo_text": "Buy groceries", "user_id": "user123", "category": "personal"}'
 ```
 
 ## Clean Up

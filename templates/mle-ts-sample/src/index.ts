@@ -1,7 +1,7 @@
 enum priorities {
-	LOW = "low",
-	MEDIUM = "medium",
-	HIGH = "high",
+    LOW = "low",
+    MEDIUM = "medium",
+    HIGH = "high",
 }
 
 /**
@@ -14,24 +14,22 @@ enum priorities {
  * @returns {number} The ID of the newly created user.
  */
 export function newUser(name: string): number {
-	const result = session.execute(
-		"insert into users (name) values (:name) returning id into :id",
-		{
-			name: {
-				dir: oracledb.BIND_IN,
-				val: name,
-				type: oracledb.STRING,
-			},
-			id: {
-				type: oracledb.NUMBER,
-				dir: oracledb.BIND_OUT,
-			},
-		},
-	);
-
-	const id = result.outBinds.id[0];
-
-	return id;
+    const result = session.execute(
+        "insert into users (name) values (:name) returning id into :id",
+        {
+            name: {
+                dir: oracledb.BIND_IN,
+                val: name,
+                type: oracledb.STRING,
+            },
+            id: {
+                type: oracledb.NUMBER,
+                dir: oracledb.BIND_OUT,
+            },
+        },
+    );
+    const id = result.outBinds.id[0];
+    return id;
 }
 
 /**
@@ -41,20 +39,20 @@ export function newUser(name: string): number {
  * @returns {any} An object containing the user's ID and name if found, or null if no user is found.
  */
 export function getUser(id: number): string | null {
-	const result = session.execute(
-		"select id, name from users where id = :id",
-		{
-			id: {
-				dir: oracledb.BIND_IN,
-				val: id,
-				type: oracledb.NUMBER,
-			},
-		},
-		{ outFormat: oracledb.OUT_FORMAT_OBJECT }
-	);
+    const result = session.execute(
+        "select id, name from users where id = :id",
+        {
+            id: {
+                dir: oracledb.BIND_IN,
+                val: id,
+                type: oracledb.NUMBER,
+            },
+        },
+        { outFormat: oracledb.OUT_FORMAT_OBJECT }
+    );
 
-	// Return the result as a JSON string so Oracle can handle it
-	return result.rows?.[0] ? result.rows[0].NAME : null;
+    // Return the result as a JSON string so Oracle can handle it
+    return result.rows?.[0] ? result.rows[0].NAME : null;
 }
 
 /**
@@ -63,25 +61,25 @@ export function getUser(id: number): string | null {
  * @param {number} id - The ID of the user to be updated.
  * @param {string} newName - The new name to be set for the user.
  * 
- * @returns {boolean} Returns true if the update was successful.
+ * @returns {number} Returns number of rows affected.
  */
-export function updateUser(id: number, newName: string): boolean {
-	const result = session.execute(
-		"update users set name = :name where id = :id",
-		{
-			id: {
-				dir: oracledb.BIND_IN,
-				val: id,
-				type: oracledb.NUMBER,
-			},
-			name: {
-				dir: oracledb.BIND_IN,
-				val: newName,
-				type: oracledb.STRING,
-			},
-		},
-	);
-	return true;
+export function updateUser(id: number, newName: string) {
+    const result = session.execute(
+        "update users set name = :name where id = :id",
+        {
+            id: {
+                dir: oracledb.BIND_IN,
+                val: id,
+                type: oracledb.NUMBER,
+            },
+            name: {
+                dir: oracledb.BIND_IN,
+                val: newName,
+                type: oracledb.STRING,
+            },
+        },
+    );
+    return result.rowsAffected;
 }
 
 /**
@@ -90,21 +88,20 @@ export function updateUser(id: number, newName: string): boolean {
  * Executes an SQL `delete` statement to remove the user from the `users` table.
  *
  * @param {number} id - The ID of the user to delete.
- * @returns {boolean} Returns true if the deletion was executed successfully.
+ * @returns {number} Returns number of rows affected.
  */
-export function deleteUser(id: number): boolean {
-	const result = session.execute(
-		"delete from users where id = :id",
-		{
-			id: {
-				dir: oracledb.BIND_IN,
-				val: id,
-				type: oracledb.NUMBER,
-			},
-		},
-	);
-
-	return true;
+export function deleteUser(id: number) {
+    const result = session.execute(
+        "delete from users where id = :id",
+        {
+            id: {
+                dir: oracledb.BIND_IN,
+                val: id,
+                type: oracledb.NUMBER,
+            },
+        },
+    );
+    return result.rowsAffected;
 }
 
 /**
@@ -118,29 +115,29 @@ export function deleteUser(id: number): boolean {
  * @returns {number} The ID of the newly created category.
  */
 export function newCategory(name: string, priority: priorities): number {
-	const result = session.execute(
-		"insert into categories (name, prio) values (:name, :prio) returning id into :id",
-		{
-			name: {
-				dir: oracledb.BIND_IN,
-				val: name,
-				type: oracledb.STRING,
-			},
-			prio: {
-				dir: oracledb.BIND_IN,
-				val: priority,
-				type: oracledb.STRING,
-			},
-			id: {
-				type: oracledb.NUMBER,
-				dir: oracledb.BIND_OUT,
-			},
-		},
-	);
+    const result = session.execute(
+        "insert into categories (name, prio) values (:name, :prio) returning id into :id",
+        {
+            name: {
+                dir: oracledb.BIND_IN,
+                val: name,
+                type: oracledb.STRING,
+            },
+            prio: {
+                dir: oracledb.BIND_IN,
+                val: priority,
+                type: oracledb.STRING,
+            },
+            id: {
+                type: oracledb.NUMBER,
+                dir: oracledb.BIND_OUT,
+            },
+        },
+    );
 
-	const id = result.outBinds.id[0];
+    const id = result.outBinds.id[0];
 
-	return id;
+    return id;
 }
 
 /**
@@ -151,20 +148,20 @@ export function newCategory(name: string, priority: priorities): number {
  * @param {number} id - The ID of the category to retrieve.
  * @returns {any} An object containing the category's ID, name, and priority if found, or null if no category is found.
  */
-export function getCategory(id: number): any {
-	const result = session.execute(
-		"select id, name, prio from categories where id = :id",
-		{
-			id: {
-				dir: oracledb.BIND_IN,
-				val: id,
-				type: oracledb.NUMBER,
-			},
-		},
-		{ outFormat: oracledb.OUT_FORMAT_OBJECT }
-	);
+export function getCategory(id: number) {
+    const result = session.execute(
+        "select id, name, prio from categories where id = :id",
+        {
+            id: {
+                dir: oracledb.BIND_IN,
+                val: id,
+                type: oracledb.NUMBER,
+            },
+        },
+        { outFormat: oracledb.OUT_FORMAT_OBJECT }
+    );
 
-	return result.rows?.[0] || null;
+    return result.rows?.[0] || null;
 }
 
 /**
@@ -175,31 +172,31 @@ export function getCategory(id: number): any {
  * @param {number} id - The ID of the category to be updated.
  * @param {string} newName - The new name to be set for the category.
  * @param {priorities} newPriority - The new priority level to be set for the category. It can be one of `priorities.LOW`, `priorities.MEDIUM`, or `priorities.HIGH`.
- * @returns {boolean} Returns true if the update was successful.
+ * @returns {number} Returns number of rows affected.
  */
-export function updateCategory(id: number, newName: string, newPriority: priorities): boolean {
-	const result = session.execute(
-		"update categories set name = :name, prio = :prio where id = :id",
-		{
-			id: {
-				dir: oracledb.BIND_IN,
-				val: id,
-				type: oracledb.NUMBER,
-			},
-			name: {
-				dir: oracledb.BIND_IN,
-				val: newName,
-				type: oracledb.STRING,
-			},
-			prio: {
-				dir: oracledb.BIND_IN,
-				val: newPriority,
-				type: oracledb.STRING,
-			},
-		},
-	);
+export function updateCategory(id: number, newName: string, newPriority: priorities) {
+    const result = session.execute(
+        "update categories set name = :name, prio = :prio where id = :id",
+        {
+            id: {
+                dir: oracledb.BIND_IN,
+                val: id,
+                type: oracledb.NUMBER,
+            },
+            name: {
+                dir: oracledb.BIND_IN,
+                val: newName,
+                type: oracledb.STRING,
+            },
+            prio: {
+                dir: oracledb.BIND_IN,
+                val: newPriority,
+                type: oracledb.STRING,
+            },
+        },
+    );
 
-	return true;
+    return result.rowsAffected;
 }
 
 /**
@@ -208,21 +205,21 @@ export function updateCategory(id: number, newName: string, newPriority: priorit
  * Executes an SQL `delete` statement to remove the category from the `categories` table.
  *
  * @param {number} id - The ID of the category to delete.
- * @returns {boolean} Returns true if the deletion was executed successfully.
+ * @returns {number} Returns number of rows affected.
  */
-export function deleteCategory(id: number): boolean {
-	const result = session.execute(
-		"delete from categories where id = :id",
-		{
-			id: {
-				dir: oracledb.BIND_IN,
-				val: id,
-				type: oracledb.NUMBER,
-			},
-		},
-	);
+export function deleteCategory(id: number) {
+    const result = session.execute(
+        "delete from categories where id = :id",
+        {
+            id: {
+                dir: oracledb.BIND_IN,
+                val: id,
+                type: oracledb.NUMBER,
+            },
+        },
+    );
 
-	return true;
+    return result.rowsAffected;
 }
 
 /**
@@ -238,40 +235,40 @@ export function deleteCategory(id: number): boolean {
  * @returns {number} The ID of the newly created to-do item.
  */
 export function newTodoItem(userId: number, categoryId: number, name: string, completed: boolean = false): number {
-	const result = session.execute(
-		`insert into todo_list (u_id, c_id, name, completed) 
-         values (:u_id, :c_id, :name, :completed) 
-         returning id into :id`,
-		{
-			u_id: {
-				dir: oracledb.BIND_IN,
-				val: userId,
-				type: oracledb.NUMBER,
-			},
-			c_id: {
-				dir: oracledb.BIND_IN,
-				val: categoryId,
-				type: oracledb.NUMBER,
-			},
-			name: {
-				dir: oracledb.BIND_IN,
-				val: name,
-				type: oracledb.STRING,
-			},
-			completed: {
-				dir: oracledb.BIND_IN,
-				val: completed ? 1 : 0,
-				type: oracledb.NUMBER,
-			},
-			id: {
-				type: oracledb.NUMBER,
-				dir: oracledb.BIND_OUT,
-			},
-		}
-	);
+    const result = session.execute(
+        `insert into todo_list (u_id, c_id, name, completed) 
+        values (:u_id, :c_id, :name, :completed) 
+        returning id into :id`,
+        {
+            u_id: {
+                dir: oracledb.BIND_IN,
+                val: userId,
+                type: oracledb.NUMBER,
+            },
+            c_id: {
+                dir: oracledb.BIND_IN,
+                val: categoryId,
+                type: oracledb.NUMBER,
+            },
+            name: {
+                dir: oracledb.BIND_IN,
+                val: name,
+                type: oracledb.STRING,
+            },
+            completed: {
+                dir: oracledb.BIND_IN,
+                val: completed ? 1 : 0,
+                type: oracledb.NUMBER,
+            },
+            id: {
+                type: oracledb.NUMBER,
+                dir: oracledb.BIND_OUT,
+            },
+        }
+    );
 
-	const id = result.outBinds.id[0];
-	return id;
+    const id = result.outBinds.id[0];
+    return id;
 }
 
 /**
@@ -282,20 +279,20 @@ export function newTodoItem(userId: number, categoryId: number, name: string, co
  * @param {number} id - The ID of the to-do item to retrieve.
  * @returns {any} An object containing the to-do item's ID, user ID (u_id), category ID (c_id), name, and completion status (completed) if found, or null if no to-do item is found.
  */
-export function getTodoItem(id: number): any {
-	const result = session.execute(
-		`select id, u_id, c_id, name, completed from todo_list where id = :id`,
-		{
-			id: {
-				dir: oracledb.BIND_IN,
-				val: id,
-				type: oracledb.NUMBER,
-			},
-		},
-		{ outFormat: oracledb.OUT_FORMAT_OBJECT }
-	);
+export function getTodoItem(id: number) {
+    const result = session.execute(
+        `select id, u_id, c_id, name, completed from todo_list where id = :id`,
+        {
+            id: {
+                dir: oracledb.BIND_IN,
+                val: id,
+                type: oracledb.NUMBER,
+            },
+        },
+        { outFormat: oracledb.OUT_FORMAT_OBJECT }
+    );
 
-	return result.rows?.[0] || null;
+    return result.rows?.[0] || null;
 }
 
 /**
@@ -306,31 +303,31 @@ export function getTodoItem(id: number): any {
  * @param {number} id - The ID of the to-do item to be updated.
  * @param {string} newName - The new name to be set for the to-do item.
  * @param {boolean} newCompleted - The new completion status to be set for the to-do item.
- * @returns {boolean} Returns true if the update was successful.
+ * @returns {number} Returns number of rows affected.
  */
-export function updateTodoItem(id: number, newName: string, newCompleted: boolean): boolean {
-	const result = session.execute(
-		`update todo_list set name = :name, completed = :completed where id = :id`,
-		{
-			id: {
-				dir: oracledb.BIND_IN,
-				val: id,
-				type: oracledb.NUMBER,
-			},
-			name: {
-				dir: oracledb.BIND_IN,
-				val: newName,
-				type: oracledb.STRING,
-			},
-			completed: {
-				dir: oracledb.BIND_IN,
-				val: newCompleted ? 1 : 0,
-				type: oracledb.NUMBER,
-			},
-		}
-	);
+export function updateTodoItem(id: number, newName: string, newCompleted: boolean) {
+    const result = session.execute(
+        `update todo_list set name = :name, completed = :completed where id = :id`,
+        {
+            id: {
+                dir: oracledb.BIND_IN,
+                val: id,
+                type: oracledb.NUMBER,
+            },
+            name: {
+                dir: oracledb.BIND_IN,
+                val: newName,
+                type: oracledb.STRING,
+            },
+            completed: {
+                dir: oracledb.BIND_IN,
+                val: newCompleted ? 1 : 0,
+                type: oracledb.NUMBER,
+            },
+        }
+    );
 
-	return true;
+    return result.rowsAffected;
 }
 
 /**
@@ -339,21 +336,21 @@ export function updateTodoItem(id: number, newName: string, newCompleted: boolea
  * Executes an SQL `delete` statement to remove the to-do item from the `todo_list` table.
  *
  * @param {number} id - The ID of the to-do item to delete.
- * @returns {boolean} Returns true if the deletion was executed successfully.
+ * @returns {number} Returns number of rows affected.
  */
-export function deleteTodoItem(id: number): boolean {
-	const result = session.execute(
-		"delete from todo_list where id = :id",
-		{
-			id: {
-				dir: oracledb.BIND_IN,
-				val: id,
-				type: oracledb.NUMBER,
-			},
-		}
-	);
+export function deleteTodoItem(id: number) {
+    const result = session.execute(
+        "delete from todo_list where id = :id",
+        {
+            id: {
+                dir: oracledb.BIND_IN,
+                val: id,
+                type: oracledb.NUMBER,
+            },
+        }
+    );
 
-	return true;
+    return result.rowsAffected;
 }
 
 /**
@@ -364,18 +361,17 @@ export function deleteTodoItem(id: number): boolean {
  * @param {number} userId - The ID of the user whose to-do items are to be retrieved.
  * @returns {any[]} An array of objects, each containing the to-do item's ID, category ID (c_id), name, and completion status (completed).
  */
-export function getTodosByUser(userId: number): any[] {
-	const result = session.execute(
-		"select id, c_id, name, completed from todo_list where u_id = :u_id",
-		{
-			u_id: {
-				dir: oracledb.BIND_IN,
-				val: userId,
-				type: oracledb.NUMBER,
-			},
-		},
-		{ outFormat: oracledb.OUT_FORMAT_OBJECT }
-	);
-
-	return result.rows || [];
+export function getTodosByUser(userId: number) {
+    const result = session.execute(
+        "select id, c_id, name, completed from todo_list where u_id = :u_id",
+        {
+            u_id: {
+                dir: oracledb.BIND_IN,
+                val: userId,
+                type: oracledb.NUMBER,
+            },
+        },
+        { outFormat: oracledb.OUT_FORMAT_OBJECT }
+    );
+    return result.rows || [];
 }
