@@ -313,7 +313,7 @@ export default class Generate extends Command {
         const databaseSID = flags['db-sid'] ?? '';
         const databaseServiceName = flags['db-service-name'] ?? '';
         const databaseUsername = flags['db-username'] ?? '';
-        const sqlclPath = flags['sql-cl'] ?? '';
+        const sqlclPath = flags['sqlcl'] ?? '';
 
         // TODO: Validate and use wallet path
         const walletPathDirectory = flags['wallet-path'] ? flags['wallet-path'] : '';
