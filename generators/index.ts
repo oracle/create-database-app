@@ -142,6 +142,20 @@ export default class extends Generator {
                 this.templatePath( `${this.options.templateChoice}/.env.example` ),
                 this.destinationPath( '.env.example' ),
             );
+        } else if (this.options.templateChoice.includes('mle-ts-sample')) {
+            if( 'walletPath' in this.options ) {
+                this.fs.copyTpl(
+                    this.templatePath( `${this.options.templateChoice}/.env.example.wallet` ),
+                    this.destinationPath( '.env' ),
+                    this.options
+                );
+            } else {
+                this.fs.copyTpl(
+                    this.templatePath( `${this.options.templateChoice}/.env.example` ),
+                    this.destinationPath( '.env' ),
+                    this.options
+                );
+            }
         } else {
             this.fs.copyTpl(
                 this.templatePath( `${ path.dirname( this.options.templateChoice ) }/app/${ path.basename( this.options.templateChoice ) == 'node-jet' ? 'index-proxied' : 'index' }.cjs` ),
@@ -169,7 +183,7 @@ export default class extends Generator {
                     connectionString: '',
                     connectionUsername: '',
                     walletPassword: '',
-                    walletPath: '',
+                    walletPath: ''
                 }
             );
             this.fs.copyTpl(
