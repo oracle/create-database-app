@@ -191,7 +191,12 @@ CREATE OR REPLACE PACKAGE BODY user_package AS
 END user_package;
 
 -- Call MLE functions via the user_package in SQL*Plus or SQLcl
-EXECUTE USER_PACKAGE.NEWUSERFUNC('EMILY');
+DECLARE
+   userId NUMBER;
+BEGIN
+   userId := USER_PACKAGE.NEWUSERFUNC('EMILY');
+   DBMS_OUTPUT.PUT_LINE(userId);
+END;
 
 SELECT USER_PACKAGE.GETUSER(5);
 

@@ -380,6 +380,7 @@ export default class Generate extends Command {
                         description: 'This creates an empty project with MLE and Oracle database connection starter code.'
                     },
                 ],
+                pageSize: 10,
                 default: 'node-vanilla'
             },
         ) : template;
