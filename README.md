@@ -58,6 +58,7 @@ The package offers the following templates, some of them connect to the database
 - `node-angular`: A starter template that uses Node.js and [Angular](https://angular.dev/). It is built by [Angular CLI](https://github.com/angular/angular-cli). (New in `v1.2.0`)
 - `node-react-todo`: A simple task manager template that uses Node.js and [React](https://react.dev/). It demonstrates the use of the database for Create, Read, Update and Delete (CRUD) operations. It is built by [vite](https://vitejs.dev/).
 - `ords-remix-jwt-sample`: A full stack Concert Application made with [Remix](https://remix.run/) that showcases the [Oracle REST Data Services](https://www.oracle.com/database/technologies/appdev/rest.html) functionalities. Some extra configuration is required, learn more about it in the `ords-remix-jwt-sample` [Getting Started Guide](/templates/ords-remix-jwt-sample/README.md#getting-started).
+- `mle-ts-sample`: A starter template application that demonstrates how backend applications can be developed using [Oracle Database Multilingual Engine (MLE)](https://docs.oracle.com/en/database/oracle/oracle-database/23/mlejs/introduction-to-mle.html). Requires SQLcl to be installed, for more information please read [README](/templates/mle-ts-sample/README.md)
 
 Each of the templates include documentation for you to get started with them, as well as NPM scripts for you to use right after generating the application.
 
