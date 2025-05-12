@@ -69,7 +69,7 @@
     "extract-zip": "^2.0.1",
     "untildify": "^5.0.0",
     "yeoman-environment": "^3.19.3",
-    "yeoman-generator": "^5.10.0"
+    "yeoman-generator": "^7.5.1"
   },
   "bundledDependencies": [
     "@inquirer/prompts",
