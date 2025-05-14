@@ -1,6 +1,6 @@
 {
   "name": "@oracle/create-database-app",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Create an Oracle Database Application from a Template",
   "author": "Oracle Corporation",
   "keywords": [
@@ -72,13 +72,6 @@
     "yeoman-generator": "^5.10.0"
   },
   "bundledDependencies": [
-    "@inquirer/prompts",
-    "@oclif/core",
-    "@oclif/plugin-help",
-    "@oclif/plugin-plugins",
-    "extract-zip",
-    "untildify",
-    "yeoman-environment",
     "yeoman-generator"
   ],
   "devDependencies": {
