@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.5.0] - 2025-05-14
+## [1.5.1] - 2025-05-19
 
 ### Added
 
@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Optimized package size.
+
+## [1.5.0] – Unpublished
+**Note:** Originally published as a beta release, then unpublished from NPM.
 
 ## [1.4.1] - 2025-04-23
 
