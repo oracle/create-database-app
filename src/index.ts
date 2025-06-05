@@ -207,7 +207,7 @@ export default class Generate extends Command {
         'template': Flags.string({ 
             char: 't', 
             description: 'Template to use',
-            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular', 'ords-remix-jwt-sample', 'mle-ts-sample'],
+            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular', 'ords-remix-jwt-sample', 'mle-ts-sample', 'mle-ts-ords-backend'],
             multiple: false
         }),
         
@@ -379,6 +379,11 @@ export default class Generate extends Command {
                         value: 'mle-ts-sample',
                         description: 'This creates an empty project with MLE and Oracle database connection starter code.'
                     },
+                    {
+                        name: 'mle-ts-ords-backend',
+                        value: 'mle-ts-ords-backend',
+                        description: 'Creates a starter project with MLE integration, Oracle Database connectivity, and scaffolded ORDS REST endpoints.'
+                    },
                 ],
                 pageSize: 10,
                 default: 'node-vanilla'
@@ -540,7 +545,8 @@ export default class Generate extends Command {
             } );
         }
 
-        if(templateChoice == 'mle-ts-sample'){
+        if(templateChoice == 'mle-ts-sample' || templateChoice == 'mle-ts-ords-backend') 
+        {
             // Ask the user for the path to SQLcl
             Object.assign( configObject, {
                 sqlclPath: sqlclPath === '' ? await input(

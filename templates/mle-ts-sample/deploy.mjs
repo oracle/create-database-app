@@ -12,7 +12,7 @@ let moduleName = process.argv[2] || "mleapp";
 
 const tempSqlPath = path.join(os.tmpdir(), `create_module_${Date.now()}.sql`);
 fs.writeFileSync(tempSqlPath, `
-mle create-module -filename ${bundlePath} -module-name ${moduleName};
+mle create-module -replace -filename ${bundlePath} -module-name ${moduleName};
 EXIT;
 `);
 

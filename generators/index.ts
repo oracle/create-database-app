@@ -92,6 +92,15 @@ export default class extends Generator {
             const { protocol, hostname, port, serviceName } = retrieveConnectionStringDetailsFromORAFile( path.join( walletPath, 'tnsnames.ora' ) );
             this.options.connectionString = generateConnectionString( protocol, hostname, port, serviceName );
         }
+        if(this.options.templateChoice.includes('mle-ts-ords-backend')) {
+            this.fs.copyTpl(
+                this.templatePath( '../../templates/mle-ts-sample' ),
+                this.destinationPath(),
+                {
+                    appName: this.options.appName
+                }
+            );
+        }
         // Copy files that are common to all of the templates.
         this.fs.copyTpl(
             this.templatePath( this.options.templateChoice ),
@@ -142,7 +151,7 @@ export default class extends Generator {
                 this.templatePath( `${this.options.templateChoice}/.env.example` ),
                 this.destinationPath( '.env.example' ),
             );
-        } else if (this.options.templateChoice.includes('mle-ts-sample')) {
+        } else if (this.options.templateChoice.includes('mle-ts-sample') || this.options.templateChoice.includes('mle-ts-ords-backend')) {
             if( 'walletPath' in this.options ) {
                 this.fs.copyTpl(
                     this.templatePath( `${this.options.templateChoice}/.env.example.wallet` ),
