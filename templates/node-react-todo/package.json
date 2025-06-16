@@ -12,7 +12,7 @@
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
     "morgan": "^1.10.0",
     "oracledb": "^6.7.1",
     "react": "^19.0.0",
