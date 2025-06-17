@@ -28,7 +28,7 @@ export function newUser(name: string): number {
             },
         },
     );
-    const id = result.outBinds.id[0];
+    const id = result?.outBinds?.id?.[0];
     return id;
 }
 
@@ -135,7 +135,7 @@ export function newCategory(name: string, priority: priorities): number {
         },
     );
 
-    const id = result.outBinds.id[0];
+    const id = result?.outBinds?.id?.[0];
 
     return id;
 }
@@ -267,7 +267,7 @@ export function newTodoItem(userId: number, categoryId: number, name: string, co
         }
     );
 
-    const id = result.outBinds.id[0];
+    const id = result?.outBinds?.id?.[0];
     return id;
 }
 

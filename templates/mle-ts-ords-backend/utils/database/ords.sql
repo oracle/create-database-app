@@ -2,9 +2,9 @@ create or replace MLE ENV USER_ENV imports (
     'user_list' module USER_LIST
 );
 
-BEGIN
+begin
   ords.enable_schema;
-END;
+end;
 /
 
 declare
@@ -44,7 +44,7 @@ begin
         ~'
     );
     commit;
-END;
+end;
 /
 --------------------------------------------------------------------------------
 -- GET ords/userc/users/:id
@@ -105,12 +105,12 @@ begin
         ~'
     );
     commit;
-END;
+end;
 /
 
 
 --------------------------------------------------------------------------------
--- PUT ords/userc/users/:id
+-- PUT ords/userc/users/edit/:id
 --------------------------------------------------------------------------------
 declare
     c_module_name   constant varchar2(255) := 'users';
@@ -135,5 +135,5 @@ begin
         ~'
     );
     commit;
-END;
+end;
 /
