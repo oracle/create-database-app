@@ -12,7 +12,7 @@ declare
 begin   
     ords.define_module(
         p_module_name    => c_module_name,
-        p_base_path      => '/users/',
+        p_base_path      => '/',
         p_status         => 'PUBLISHED',
         p_items_per_page => 25
     );

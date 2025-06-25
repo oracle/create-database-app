@@ -1,6 +1,6 @@
 import { beforeEach, afterEach, describe, it, expect } from 'vitest';
 
-const BASE_URL = 'http://localhost:8080/ords/userc/users';
+const BASE_URL = 'http://<%= ordsHost %>:<%= ordsPort %>/ords/<%= connectionUsername %>';
 let createdUserId;
 let skipCleanup = false;
 

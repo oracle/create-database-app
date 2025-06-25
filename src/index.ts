@@ -314,6 +314,8 @@ export default class Generate extends Command {
         const databaseServiceName = flags['db-service-name'] ?? '';
         const databaseUsername = flags['db-username'] ?? '';
         const sqlclPath = flags['sqlcl'] ?? '';
+        const ordsHost = flags['ords-host'] ?? '';
+        const ordsPort = flags['ords-port'] ?? '';
 
         // TODO: Validate and use wallet path
         const walletPathDirectory = flags['wallet-path'] ? flags['wallet-path'] : '';
@@ -558,6 +560,30 @@ export default class Generate extends Command {
                     },
                 ) : sqlclPath
             });
+            if (templateChoice == 'mle-ts-ords-backend') 
+            {
+                // Ask the user for the path to SQLcl
+                Object.assign( configObject, {
+                    ordsHost: ordsHost === '' ? await input(
+                        {
+                            message: 'Please provide host name for your ORDS setup e.g. "localhost": ',
+                            validate ( input ) {
+                                return input.trim().length === 0 ? 'This field cannot be empty!' : true;
+                            }
+                        },
+                    ) : ordsHost
+                });
+                Object.assign( configObject, {
+                    ordsPort: ordsPort === '' ? await input(
+                        {
+                            message: 'Please provide port number for your ORDS setup e.g. "8080": ',
+                            validate ( input ) {
+                                return input.trim().length === 0 ? 'This field cannot be empty!' : true;
+                            }
+                        },
+                    ) : ordsPort
+                });
+            }
         }
 
         generateDatabaseApp( configObject );
