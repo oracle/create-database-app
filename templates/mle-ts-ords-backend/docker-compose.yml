@@ -3,29 +3,26 @@ services:
     hostname: database
     image: container-registry.oracle.com/database/free:latest
     environment:
-      - ORACLE_PDB=FREEPDB1
+      - ORACLE_PDB=<%= serviceValue %>
       - ORACLE_PWD=oracle
       - DBHOST=database
+    volumes:
+      - ./utils/database/setup:/opt/oracle/scripts/startup
     ports:
-      - 1235:1521
+      - <%= databasePort %>:1521
     mem_limit: 4096m
     cpus: 2
   ords-node1:
     hostname: ords-node
     image: container-registry.oracle.com/database/ords:latest
     environment:
-      - CONN_STRING=//database:1521/FREEPDB1
+      - CONN_STRING=//database:1521/<%= serviceValue %>
       - ORACLE_PWD=oracle
     volumes:
       - ./ords/config:/etc/ords/config
       - ./apex:/opt/oracle/apex
     ports:
-      - 8080:8080   
-    healthcheck:
-      test: curl --noproxy "localhost" -f -k http://localhost:8080/ords/ || exit 1
-      interval: 30s
-      timeout: 10s
-      retries: 150
+      - 8080:8080
     depends_on:
       db23:
         condition: service_healthy

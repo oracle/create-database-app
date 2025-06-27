@@ -315,7 +315,6 @@ export default class Generate extends Command {
         const databaseUsername = flags['db-username'] ?? '';
         const sqlclPath = flags['sqlcl'] ?? '';
         const ordsHost = flags['ords-host'] ?? '';
-        const ordsPort = flags['ords-port'] ?? '';
 
         // TODO: Validate and use wallet path
         const walletPathDirectory = flags['wallet-path'] ? flags['wallet-path'] : '';
@@ -485,6 +484,12 @@ export default class Generate extends Command {
             Object.assign(configObject, {
                 connectionString: generateConnectionString( protocol, hostname, port, serviceValue )
             });
+            Object.assign(configObject, {
+                serviceValue: serviceValue
+            });
+            Object.assign(configObject, {
+                databasePort: port
+            });
         } else if( databaseConnectionType === 'walletPath' ) {
             let walletPath = '';
 
@@ -516,23 +521,29 @@ export default class Generate extends Command {
             // This is the config object that represents the wallet connection type.
             Object.assign(configObject, {
                 walletPath: walletPath,
-                walletPassword: walletPassword
+                walletPassword: walletPassword,
+                serviceValue: "",
+                databasePort: 8080,
             });
         }
 
-        if(templateChoice !== 'ords-remix-jwt-sample'){
+        if(templateChoice !== 'ords-remix-jwt-sample') {
             // Ask the user for the database connection username.
+            let databaseUser = databaseUsername === '' ? await input(
+                {
+                    message: 'What\'s your database username?',
+                    validate ( input ) {
+                        return input.trim().length === 0 ? 'This field cannot be empty!' : true;
+                    }
+                },
+            ) : databaseUsername;
+            if (templateChoice === 'mle-ts-ords-backend') {
+                databaseUser = databaseUser.toLowerCase();                
+            }            
             Object.assign( configObject, {
-                connectionUsername: databaseUsername === '' ? await input(
-                    {
-                        message: 'What\'s your database username?',
-                        validate ( input ) {
-                            return input.trim().length === 0 ? 'This field cannot be empty!' : true;
-                        }
-                    },
-                ) : databaseUsername
-            } );
-
+                connectionUsername: databaseUser
+            });
+            
             // Ask the user for the database connection password.
             Object.assign( configObject, {
                 connectionPassword: await password(
@@ -566,22 +577,13 @@ export default class Generate extends Command {
                 Object.assign( configObject, {
                     ordsHost: ordsHost === '' ? await input(
                         {
-                            message: 'Please provide host name for your ORDS setup e.g. "localhost": ',
+                            message: 'Please provide ORDS Base URL: ',
                             validate ( input ) {
                                 return input.trim().length === 0 ? 'This field cannot be empty!' : true;
-                            }
+                            },
+                            default: 'http://localhost:8080/ords'
                         },
                     ) : ordsHost
-                });
-                Object.assign( configObject, {
-                    ordsPort: ordsPort === '' ? await input(
-                        {
-                            message: 'Please provide port number for your ORDS setup e.g. "8080": ',
-                            validate ( input ) {
-                                return input.trim().length === 0 ? 'This field cannot be empty!' : true;
-                            }
-                        },
-                    ) : ordsPort
                 });
             }
         }

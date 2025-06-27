@@ -93,13 +93,16 @@ export default class extends Generator {
             this.options.connectionString = generateConnectionString( protocol, hostname, port, serviceName );
         }
         if(this.options.templateChoice.includes('mle-ts-ords-backend')) {
-            this.fs.copyTpl(
-                this.templatePath( '../../templates/mle-ts-sample' ),
-                this.destinationPath(),
-                {
-                    appName: this.options.appName
-                }
-            );
+            const files = ['src/todos.ts', 'test/users.test.js', 'utils/db.mjs', 'utils/database/initdb.sql', 'utils/database/cleanup.sql', 'deploy.mjs', 'tsconfig.json',''];
+            files.forEach(file => {
+                this.fs.copyTpl(
+                    this.templatePath(`../../templates/mle-ts-sample/${file}`),
+                    this.destinationPath(file),
+                    {
+                        appName: this.options.appName
+                    }
+                );
+            });
             // Copy files that are common to all of the templates.
             this.fs.copyTpl(
                 this.templatePath( this.options.templateChoice ),

@@ -1,1 +1,1 @@
-export {newUser, getUser, updateUser, deleteUser, newCategory, getCategory, updateCategory, deleteCategory, newTodoItem, getTodosByUser, getTodoItem, updateTodoItem, deleteTodoItem} from './todos';
+export {newUser, getUser, getAllUsers, updateUser, deleteUser, newCategory, getCategory, updateCategory, deleteCategory, newTodoItem, getTodosByUser, getTodoItem, updateTodoItem, deleteTodoItem} from './todos';

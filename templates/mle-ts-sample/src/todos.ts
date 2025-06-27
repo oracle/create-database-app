@@ -56,6 +56,21 @@ export function getUser(id: number): string | null {
 }
 
 /**
+ * Retrieves all users from the database.
+ *
+ * @returns {any[]} An array of objects, each containing a user's ID and name.
+ */
+export function getAllUsers(): any[] {
+    const result = session.execute(
+        "select id, name from users",
+        {},
+        { outFormat: oracledb.OUT_FORMAT_OBJECT }
+    );
+    // Return all rows as an array of { id, name } objects
+    return result.rows || [];
+}
+
+/**
  * Updates the name of the user with the given ID in the database.
  * 
  * @param {number} id - The ID of the user to be updated.

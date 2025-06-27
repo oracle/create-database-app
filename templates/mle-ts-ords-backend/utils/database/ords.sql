@@ -1,5 +1,5 @@
 create or replace MLE ENV USER_ENV imports (
-    'user_list' module USER_LIST
+    'user_list' module __MODULE_PLACEHOLDER__
 );
 
 begin
@@ -19,11 +19,11 @@ begin
 end;
 /
 --------------------------------------------------------------------------------
--- POST ords/userc/users/create
+-- POST ords/<%= connectionUsername %>/users
 --------------------------------------------------------------------------------
 declare
     c_module_name   constant varchar2(255) := 'users';
-    c_pattern       constant varchar2(255) := 'create';
+    c_pattern       constant varchar2(255) := 'users';
 begin    
     ords.define_template(
         p_module_name    => c_module_name,
@@ -46,12 +46,40 @@ begin
     commit;
 end;
 /
+
 --------------------------------------------------------------------------------
--- GET ords/userc/users/:id
+-- GET ords/<%= connectionUsername %>/users
 --------------------------------------------------------------------------------
 declare
     c_module_name   constant varchar2(255) := 'users';
-    c_pattern       constant varchar2(255) := ':id';
+    c_pattern       constant varchar2(255) := 'users';
+begin   
+    ords.define_handler(
+        p_module_name    => c_module_name,
+        p_pattern        => c_pattern,
+        p_method         => 'GET',
+        p_source_type    => 'mle/javascript',
+        p_mle_env_name   => 'USER_ENV',
+        p_items_per_page => 0,
+        p_mimes_allowed  => null,
+        p_comments       => null,
+        p_source         => q'~
+        (req, resp) => {
+            const { getAllUsersHandler } = await import ('user_list');
+            getAllUsersHandler(req, resp);
+        }
+    ~'
+    ); 
+    commit;
+end;
+/
+
+--------------------------------------------------------------------------------
+-- GET ords/<%= connectionUsername %>/users/:id
+--------------------------------------------------------------------------------
+declare
+    c_module_name   constant varchar2(255) := 'users';
+    c_pattern       constant varchar2(255) := 'users/:id';
 begin 
     ords.define_template(
         p_module_name    => c_module_name,
@@ -80,17 +108,12 @@ end;
 
 
 --------------------------------------------------------------------------------
--- DELETE ords/userc/users/delete/:id
+-- DELETE ords/<%= connectionUsername %>/users/:id
 --------------------------------------------------------------------------------
 declare
     c_module_name   constant varchar2(255) := 'users';
-    c_pattern       constant varchar2(255) := 'delete/:id';
-begin    
-    ords.define_template(
-        p_module_name    => c_module_name,
-        p_pattern        => c_pattern
-    );
-
+    c_pattern       constant varchar2(255) := 'users/:id';
+begin
     ords.define_handler(
         p_module_name => c_module_name,
         p_pattern     => c_pattern,
@@ -110,17 +133,12 @@ end;
 
 
 --------------------------------------------------------------------------------
--- PUT ords/userc/users/edit/:id
+-- PUT ords/<%= connectionUsername %>/users/:id
 --------------------------------------------------------------------------------
 declare
     c_module_name   constant varchar2(255) := 'users';
-    c_pattern       constant varchar2(255) := 'edit/:id';
-begin    
-    ords.define_template(
-        p_module_name    => c_module_name,
-        p_pattern        => c_pattern
-    );
-
+    c_pattern       constant varchar2(255) := 'users/:id';
+begin
     ords.define_handler(
         p_module_name => c_module_name,
         p_pattern     => c_pattern,

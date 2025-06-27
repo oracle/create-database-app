@@ -1,4 +1,4 @@
-import { newUser, getUser, deleteUser, updateUser } from './todos';
+import { newUser, getUser, getAllUsers, deleteUser, updateUser } from './todos';
 
 export async function createUserHandler(req, resp) {
     const id = await newUser(req.query_parameters.name);
@@ -18,6 +18,20 @@ export async function getUserHandler(req, resp) {
         resp.json(userName);    
     }
 }
+
+export async function getAllUsersHandler(req, resp) {
+    const users = await getAllUsers();
+    if(!users) {
+        resp.status(404);
+        resp.content_type('application/json');
+        resp.json({msg: "User not found"});
+    } else {
+        resp.status(200);
+        resp.content_type('application/json');
+        resp.json(users);    
+    }
+}
+
 export async function deleteUserHandler(req, resp) {
     const deleted = await deleteUser(parseInt(req.uri_parameters.id));
     if (deleted > 0) {

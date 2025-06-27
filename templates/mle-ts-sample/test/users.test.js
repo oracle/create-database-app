@@ -1,13 +1,25 @@
 import dotenv from 'dotenv';
 import oracledb from 'oracledb';
 import { beforeAll, afterAll, describe, it, expect } from 'vitest';
+import path from "path";
 
 dotenv.config();
 
-const dbConfig = {
+let walletPath = process.env.WALLET_PATH;
+let walletPassword = process.env.WALLET_PASSWORD;
+if(walletPath && walletPath.length>0) {
+    walletPath = path.join(process.cwd(), path.normalize('./server/utils/db/wallet'));
+}
+
+const dbConfig =  {
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     connectString: process.env.CONNECT_STRING,
+    ...(walletPath && walletPath.length > 0 ? {
+        configDir: walletPath,
+        walletLocation: walletPath,
+        walletPassword: walletPassword
+    }:{})
 };
 
 let mleModuleName = process.env.MLE_MODULE;
@@ -41,6 +53,7 @@ const createPackageSQL = `
 CREATE OR REPLACE PACKAGE user_package AS
     FUNCTION newUserFunc(name IN VARCHAR2) RETURN NUMBER;
     FUNCTION getUser(id IN NUMBER) RETURN VARCHAR2;
+    FUNCTION getAllUsers RETURN JSON;
     FUNCTION updateUser(id IN NUMBER, name IN VARCHAR2) RETURN NUMBER;
     FUNCTION deleteUser(id IN NUMBER) RETURN NUMBER;
 END user_package;
@@ -55,6 +68,10 @@ CREATE OR REPLACE PACKAGE BODY user_package AS
     FUNCTION getUser(id IN NUMBER) RETURN VARCHAR2
     AS MLE MODULE ${mleModuleName}
     SIGNATURE 'getUser(number)';
+    
+    FUNCTION getAllUsers RETURN JSON
+    AS MLE MODULE ${mleModuleName}
+    SIGNATURE 'getAllUsers()';
     
     FUNCTION updateUser(id IN NUMBER, name IN VARCHAR2) RETURN NUMBER
     AS MLE MODULE ${mleModuleName}
@@ -144,6 +161,41 @@ describe('user_package', () => {
         const result = await executeSQLScriptWithOutput(plsql, binds);
         console.log('User:', result.outBinds.user);
         expect(result.outBinds.user).toBe('John Doe');
+    });
+
+    it('should get all users', async () => {
+        // First create two users
+        const binds1 = {
+            name: 'Alice',
+            id: { dir: oracledb.BIND_OUT, type: oracledb.NUMBER }
+        };
+        const r1 = await executeSQLScriptWithOutput(
+            `BEGIN :id := USER_PACKAGE.NEWUSERFUNC(:name); END;`,
+            binds1
+        );
+
+        const binds2 = {
+            name: 'Bob',
+            id: { dir: oracledb.BIND_OUT, type: oracledb.NUMBER }
+        };
+        const r2 = await executeSQLScriptWithOutput(
+            `BEGIN :id := USER_PACKAGE.NEWUSERFUNC(:name); END;`,
+            binds2
+        );
+
+        const plsql = `BEGIN :json := USER_PACKAGE.GETALLUSERS(); END;`;
+        const binds = {
+            json: { dir: oracledb.BIND_OUT, type: oracledb.DB_TYPE_JSON }
+        };
+
+        const result = await executeSQLScriptWithOutput(plsql, binds);
+        const items = result.outBinds.json;
+
+        expect(Array.isArray(items)).toBe(true);
+        // // Expect at least the two recently created users
+        const names = items.map(u => u.NAME);
+        expect(names).toContain('Alice');
+        expect(names).toContain('Bob');
     });
 
     it('should update a user by ID', async () => {
