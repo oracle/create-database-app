@@ -1,0 +1,20 @@
+{
+    "name": "mleapp",
+    "version": "1.0.0",
+    "devDependencies": {
+        "mle-js": "^23.7.0",
+        "typescript": "^5.7.3",
+        "esbuild": "0.25.1",
+        "oracledb": "^6.7.1",
+        "vitest": "^3.1.2",
+        "dotenv": "^16.5.0"
+    },
+    "scripts": {
+        "build": "esbuild src/index.ts --bundle --minify=false --platform=neutral --format=esm --outfile=dist/index.js",
+        "deploy": "node deploy.mjs",
+        "initdb": "node utils/db.mjs utils/database/initdb.sql",
+        "cleandb": "node utils/db.mjs utils/database/cleanup.sql",
+        "ords": "node utils/ords.mjs",
+        "test": "vitest"
+    }
+}
