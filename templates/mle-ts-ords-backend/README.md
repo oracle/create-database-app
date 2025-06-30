@@ -28,6 +28,7 @@ Building on top of the standard [mle-ts-sample](../mle-ts-sample/README.md) layo
 | `utils/database/ords.sql`         | SQL script to configure ORDS: installs ORDS modules, templates, and handlers bound to the MLE JS module.           |
 | `test/rest.test.js`               | Automated tests for the REST API endpoints, using HTTP requests against the running ORDS backend.                  |
 | `docker-compose.yml`              | Docker Compose file spinning up both Oracle Database 23 Free (`db23`) and an ORDS node (`ords-node1`).             |
+| `utils/database/setup/01-user-setup.sql`              | Creates MLE enabled user. The script is run during docker container DB service startup.             |
 
 All standard files and scripts from [`mle-ts-sample`](../mle-ts-sample/README.md) are also present and used as described in that README.
 
@@ -95,12 +96,14 @@ Please check [mle-ts-sample/README](../mle-ts-sample/README.md) for more informa
 The main logic for REST endpoints is in [`src/ords.ts`](src/ords.ts).  
 This file exports handler functions used by ORDS to process REST requests. These handlers are linked to ORDS modules and templates via SQL in [`utils/database/ords.sql`](utils/database/ords.sql).
 
-> **Before running any REST API tests, you must execute [`utils/database/ords.sql`](utils/database/ords.sql) to configure the ORDS modules, templates, and handlers.**
-> 
-> **Important:** The MLE module name used in `ords.sql` is currently hardcoded. If you deployed your module under a different name, **edit `ords.sql` and replace the module name accordingly** to ensure ORDS invokes the correct module.
+> **Before running any REST API tests, you must deploy your ORDS configuration using:**
+```bash
+npm run ords
+```
+> This command runs ['utils/ords.mjs'] script that reads ords.sql, replaces the module placeholder with your module name from .env (MLE_MODULE), and executes the SQL in the database to configure modules, templates, and handlers. 
 
 - `src/index.ts` exports public functions and handlers for deployment as an MLE module.
-- ORDS is configured (via `ords.sql`) to call the correct JS handler for each endpoint.
+- The generated ORDS configuration points to the correct JS handlers for each endpoint.
 
 ## Application Testing
 
@@ -123,6 +126,27 @@ Example (replace `[host]`, `[port]`, `<schema>`, and path as appropriate):
 
 ```bash
 curl -X GET "http://localhost:8080/ords/<schema>/<ords_module_name>/<user_id>"
+```
+Examples:
+- Create user
+```bash 
+curl --location --request POST 'http://localhost:8080/ords/<schema>/users?name=<user name>'
+```
+- Get user information
+```bash 
+curl --location 'http://localhost:8080/ords/<schema>/users/<created user id>'
+```
+- Get all users
+```bash 
+curl --location 'http://localhost:8080/ords/<schema>/users'
+```
+- Update user information
+```bash 
+curl --location --request PUT 'http://localhost:8080/ords/<schema>/users/<created user id>?name=<new user name>'
+```
+- Delete user
+```bash 
+curl --location --request DELETE 'http://localhost:8080/ords/<schema>/users/<created user id>'
 ```
 
 All endpoint routes, HTTP methods, and request/response formats are defined in the ORDS configuration and documented in `utils/database/ords.sql`.
