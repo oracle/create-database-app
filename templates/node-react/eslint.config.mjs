@@ -4,32 +4,37 @@
 ** All rights reserved
 ** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
-import globals from "globals";
-import js from "@eslint/js";
-import nodePlugin from "eslint-plugin-n";
-import reactPlugin from "eslint-plugin-react";
-import reactHooksPlugin from "eslint-plugin-react-hooks";
-import reactRefreshPlugin from "eslint-plugin-react-refresh";
+import js from '@eslint/js'
+import globals from 'globals'
+import nodePlugin from 'eslint-plugin-n'
+import reactPlugin from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import { defineConfig, globalIgnores } from 'eslint/config'
 
-export default [
+export default defineConfig([
+  // Ignore dist folder globally
+  globalIgnores(['dist']),
+
+  // Frontend (React)
   {
-    files: ["src/**/*.js","src/**/*.jsx"],
+    files: ['src/**/*.js', 'src/**/*.jsx'],
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: "module",
+      sourceType: 'module',
       parserOptions: {
         ecmaFeatures: {
           jsx: true
         }
       },
       globals: {
-        ...globals.browser,
+        ...globals.browser
       }
     },
     plugins: {
       react: reactPlugin,
-      "react-hooks": reactHooksPlugin,
-      "react-refresh": reactRefreshPlugin
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh
     },
     settings: {
       react: { version: 'detect' }
@@ -37,18 +42,21 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactPlugin.configs.flat.recommended.rules,
-      ...reactPlugin.configs.flat["jsx-runtime"].rules,
-      ...reactHooksPlugin.configs.recommended.rules,
-      ...reactRefreshPlugin.configs.vite.rules
+      ...reactPlugin.configs.flat['jsx-runtime'].rules,
+      ...reactHooks.configs['recommended-latest'].rules,
+      ...reactRefresh.configs.vite.rules,
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }]
     }
   },
+
+  // Backend (Node.js)
   {
-    files: ["server/**/*.js", "server/**/*.cjs"],
+    files: ['server/**/*.js', 'server/**/*.cjs'],
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: "module",
+      sourceType: 'module',
       globals: {
-        ...globals.node,
+        ...globals.node
       }
     },
     plugins: {
@@ -56,7 +64,7 @@ export default [
     },
     rules: {
       ...js.configs.recommended.rules,
-      ...nodePlugin.configs["flat/recommended-script"].rules
+      ...nodePlugin.configs['flat/recommended-script'].rules
     }
   }
-];
+])
