@@ -554,7 +554,7 @@ export default class Generate extends Command {
             } );
         }
 
-        if(templateChoice == 'mle-ts-sample' || templateChoice == 'mle-ts-ords-backend') 
+        if(templateChoice === 'mle-ts-sample' || templateChoice === 'mle-ts-ords-backend') 
         {
             // Ask the user for the path to SQLcl
             Object.assign( configObject, {
@@ -567,19 +567,20 @@ export default class Generate extends Command {
                     },
                 ) : sqlclPath
             });
-            if (templateChoice == 'mle-ts-ords-backend') 
+            if (templateChoice === 'mle-ts-ords-backend') 
             {
-                // Ask the user for the path to SQLcl
-                Object.assign( configObject, {
-                    ordsHost: ordsHost === '' ? await input(
-                        {
-                            message: 'Please provide ORDS Base URL: ',
-                            validate ( input ) {
-                                return input.trim().length === 0 ? 'This field cannot be empty!' : true;
-                            },
-                            default: 'http://localhost:8080/ords'
+                let ordsHostURL = ordsHost === '' ? await input(
+                    {
+                        message: 'Please provide ORDS Base URL: ',
+                        validate ( input ) {
+                            return input.trim().length === 0 ? 'This field cannot be empty!' : true;
                         },
-                    ) : ordsHost
+                        default: 'http://localhost:8080/ords'   
+                    },
+                ) : ordsHost;
+                const normalizedBaseURL = ordsHostURL.replace(/\/+$/, '');
+                Object.assign( configObject, {
+                    ordsHost: normalizedBaseURL
                 });
             }
         }
