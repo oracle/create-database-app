@@ -26,6 +26,7 @@ Building on top of the standard [mle-ts-sample](../mle-ts-sample/README.md) layo
 | `src/ords.ts`                     | Contains handler functions for ORDS REST endpoints.                      |
 | `src/index.ts`                    | Exports the public API for the MLE module (see mle-ts-sample), plus ORDS handler implementations.                |
 | `utils/database/ords.sql`         | SQL script to configure ORDS: installs ORDS modules, templates, and handlers bound to the MLE JS module.           |
+| `utils/db.mjs` | `db.mjs` is a wrapper around SQLcl. It is used to execute SQL scripts in the database using creadentials specified in `.env` file. See `package.json` for usage. |
 | `test/rest.test.js`               | Automated tests for the REST API endpoints, using HTTP requests against the running ORDS backend.                  |
 | `docker-compose.yml`              | Docker Compose file spinning up both Oracle Database 23 Free (`db23`) and an ORDS node (`ords-node1`).             |
 | `utils/database/setup/01-user-setup.sql`              | Creates MLE enabled user. The script is run during docker container DB service startup.             |
@@ -36,7 +37,7 @@ All standard files and scripts from [`mle-ts-sample`](../mle-ts-sample/README.md
 
 - [Oracle Database 23ai](https://www.oracle.com/database/) or Oracle Database Free (provided via Docker Compose).
 - [Oracle REST Data Services](https://www.oracle.com/database/technologies/appdev/rest.html) (ORDS, configured for database access).
-- [SQLcl](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl) for deploying MLE modules.
+- [SQL Developer Command Line](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl), aka _sqlcl_ is used to deploy the bundled JavaScript code as an MLE module in the database.
 - [Node.js](https://nodejs.org/).
 - (Optional) [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) for quick local setup.  
   _Note: Any suitable container engine, such as [Podman](https://podman.io/), can be used in place of Docker._
