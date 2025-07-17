@@ -207,7 +207,7 @@ export default class Generate extends Command {
         'template': Flags.string({ 
             char: 't', 
             description: 'Template to use',
-            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular', 'ords-remix-jwt-sample', 'mle-ts-sample'],
+            options: ['node-vanilla', 'node-react', 'node-vue', 'node-react-todo', 'node-jet', 'node-angular', 'ords-remix-jwt-sample', 'mle-ts-sample', 'mle-ts-ords-backend'],
             multiple: false
         }),
         
@@ -314,6 +314,7 @@ export default class Generate extends Command {
         const databaseServiceName = flags['db-service-name'] ?? '';
         const databaseUsername = flags['db-username'] ?? '';
         const sqlclPath = flags['sqlcl'] ?? '';
+        const ordsHost = flags['ords-host'] ?? '';
 
         // TODO: Validate and use wallet path
         const walletPathDirectory = flags['wallet-path'] ? flags['wallet-path'] : '';
@@ -378,6 +379,11 @@ export default class Generate extends Command {
                         name: 'mle-ts-sample',
                         value: 'mle-ts-sample',
                         description: 'This creates an empty project with MLE and Oracle database connection starter code.'
+                    },
+                    {
+                        name: 'mle-ts-ords-backend',
+                        value: 'mle-ts-ords-backend',
+                        description: 'Creates a starter project with MLE integration, Oracle Database connectivity, and scaffolded ORDS REST endpoints.'
                     },
                 ],
                 pageSize: 10,
@@ -476,8 +482,10 @@ export default class Generate extends Command {
             
             // This will be config object for the basic connection type.
             Object.assign(configObject, {
-                connectionString: generateConnectionString( protocol, hostname, port, serviceValue )
-            });
+                connectionString: generateConnectionString( protocol, hostname, port, serviceValue ),
+                serviceValue: serviceValue,
+                databasePort: port
+            });            
         } else if( databaseConnectionType === 'walletPath' ) {
             let walletPath = '';
 
@@ -509,23 +517,29 @@ export default class Generate extends Command {
             // This is the config object that represents the wallet connection type.
             Object.assign(configObject, {
                 walletPath: walletPath,
-                walletPassword: walletPassword
+                walletPassword: walletPassword,
+                serviceValue: "",
+                databasePort: 8080,
             });
         }
 
-        if(templateChoice !== 'ords-remix-jwt-sample'){
+        if(templateChoice !== 'ords-remix-jwt-sample') {
             // Ask the user for the database connection username.
+            let databaseUser = databaseUsername === '' ? await input(
+                {
+                    message: 'What\'s your database username?',
+                    validate ( input ) {
+                        return input.trim().length === 0 ? 'This field cannot be empty!' : true;
+                    }
+                },
+            ) : databaseUsername;
+            if (templateChoice === 'mle-ts-ords-backend') {
+                databaseUser = databaseUser.toLowerCase();                
+            }            
             Object.assign( configObject, {
-                connectionUsername: databaseUsername === '' ? await input(
-                    {
-                        message: 'What\'s your database username?',
-                        validate ( input ) {
-                            return input.trim().length === 0 ? 'This field cannot be empty!' : true;
-                        }
-                    },
-                ) : databaseUsername
-            } );
-
+                connectionUsername: databaseUser
+            });
+            
             // Ask the user for the database connection password.
             Object.assign( configObject, {
                 connectionPassword: await password(
@@ -540,7 +554,8 @@ export default class Generate extends Command {
             } );
         }
 
-        if(templateChoice == 'mle-ts-sample'){
+        if(templateChoice === 'mle-ts-sample' || templateChoice === 'mle-ts-ords-backend') 
+        {
             // Ask the user for the path to SQLcl
             Object.assign( configObject, {
                 sqlclPath: sqlclPath === '' ? await input(
@@ -552,6 +567,22 @@ export default class Generate extends Command {
                     },
                 ) : sqlclPath
             });
+            if (templateChoice === 'mle-ts-ords-backend') 
+            {
+                let ordsHostURL = ordsHost === '' ? await input(
+                    {
+                        message: 'Please provide ORDS Base URL: ',
+                        validate ( input ) {
+                            return input.trim().length === 0 ? 'This field cannot be empty!' : true;
+                        },
+                        default: 'http://localhost:8080/ords'   
+                    },
+                ) : ordsHost;
+                const normalizedBaseURL = ordsHostURL.replace(/\/+$/, '');
+                Object.assign( configObject, {
+                    ordsHost: normalizedBaseURL
+                });
+            }
         }
 
         generateDatabaseApp( configObject );

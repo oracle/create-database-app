@@ -92,14 +92,34 @@ export default class extends Generator {
             const { protocol, hostname, port, serviceName } = retrieveConnectionStringDetailsFromORAFile( path.join( walletPath, 'tnsnames.ora' ) );
             this.options.connectionString = generateConnectionString( protocol, hostname, port, serviceName );
         }
-        // Copy files that are common to all of the templates.
-        this.fs.copyTpl(
-            this.templatePath( this.options.templateChoice ),
-            this.destinationPath(),
-            {
-                appName: this.options.appName
-            }
-        );
+        if(this.options.templateChoice.includes('mle-ts-ords-backend')) {
+            const files = ['src/todos.ts', 'test/users.test.js', 'utils/db.mjs', 'utils/database/initdb.sql', 'utils/database/cleanup.sql', 'deploy.mjs', 'tsconfig.json',''];
+            files.forEach(file => {
+                this.fs.copyTpl(
+                    this.templatePath(`../../templates/mle-ts-sample/${file}`),
+                    this.destinationPath(file),
+                    {
+                        appName: this.options.appName
+                    }
+                );
+            });
+            // Copy files that are common to all of the templates.
+            this.fs.copyTpl(
+                this.templatePath( this.options.templateChoice ),
+                this.destinationPath(),
+                this.options
+            );
+        } else {
+            // Copy files that are common to all of the templates.
+            this.fs.copyTpl(
+                this.templatePath( this.options.templateChoice ),
+                this.destinationPath(),
+                {
+                    appName: this.options.appName
+                }
+            );
+        }
+        
         this.fs.copy(
             this.templatePath(`${ path.dirname( this.options.templateChoice ) }/app/.github`),
             this.destinationPath('.github')
@@ -142,7 +162,7 @@ export default class extends Generator {
                 this.templatePath( `${this.options.templateChoice}/.env.example` ),
                 this.destinationPath( '.env.example' ),
             );
-        } else if (this.options.templateChoice.includes('mle-ts-sample')) {
+        } else if (this.options.templateChoice.includes('mle-ts-sample') || this.options.templateChoice.includes('mle-ts-ords-backend')) {
             if( 'walletPath' in this.options ) {
                 this.fs.copyTpl(
                     this.templatePath( `${this.options.templateChoice}/.env.example.wallet` ),
