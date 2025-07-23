@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2025-07-24
+
+### Added
+
+- Introducing a new template that showcases REST API development with Oracle REST Data Services (ORDS) and the Oracle Database Multilingual Engine (MLE).
+
+### Changed
+
+- `node-angular` template migrated from Angular `v19.2` to `v20.x`.
+- General update of dependencies.
+
 ## [1.5.1] - 2025-05-19
 
 ### Added
