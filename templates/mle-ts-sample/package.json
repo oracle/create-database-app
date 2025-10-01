@@ -7,7 +7,7 @@
         "esbuild": "0.25.1",
         "oracledb": "^6.7.1",
         "vitest": "^3.1.2",
-        "dotenv": "^16.5.0"
+        "dotenv": "^17.2.3"
     },
     "scripts": {
         "build": "esbuild src/index.ts --bundle --minify=false --platform=neutral --format=esm --outfile=dist/index.js",
