@@ -4,7 +4,7 @@
     "devDependencies": {
         "mle-js": "^23.7.0",
         "typescript": "^5.7.3",
-        "esbuild": "0.25.1",
+        "esbuild": "0.25.11",
         "oracledb": "^6.7.1",
         "vitest": "^3.1.2",
         "dotenv": "^16.5.0"
