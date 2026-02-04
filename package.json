@@ -1,6 +1,6 @@
 {
   "name": "@oracle/create-database-app",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Create an Oracle Database Application from a Template",
   "author": "Oracle Corporation",
   "keywords": [
