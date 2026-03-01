@@ -63,7 +63,7 @@
     "@svgr/plugin-svgo": "8.1.0",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.0",
-    "@typescript-eslint/eslint-plugin": "8.54.0",
+    "@typescript-eslint/eslint-plugin": "8.56.1",
     "@typescript-eslint/parser": "8.54.0",
     "autoprefixer": "10.4.21",
     "eslint": "8.57.1",
