@@ -5,11 +5,13 @@
 ** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
 import type {
+  LinksFunction,
   LoaderFunctionArgs,
 } from '@remix-run/node';
 import { json, ErrorResponse } from '@remix-run/node';
 import {
   Links,
+  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -18,8 +20,11 @@ import {
   useLoaderData,
   useRouteError,
 } from '@remix-run/react';
-import { ReactElement } from 'react';
-import { StyledEngineProvider } from '@mui/material';
+import {
+  ReactElement, ReactNode, useEffect, useState,
+} from 'react';
+import { createPortal } from 'react-dom';
+import datepicker from 'react-datepicker/dist/react-datepicker.css';
 import stylesheet from './tailwind.css?url';
 import type { LoaderError } from './models/LoaderError';
 import {
@@ -27,6 +32,7 @@ import {
 } from './utils/auth.server';
 import NavBar from './components/navbar/NavBar';
 import {
+  BASIC_SCHEMA_AUTH,
   CITIES_ENDPOINT,
 } from './routes/constants/index.server';
 import TooltipButton from './components/tooltips/TooltipButton';
@@ -38,12 +44,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userProfile = await auth.isAuthenticated(request);
   const profile = userProfile?.profile || null;
   const USER_CREDENTIALS = userProfile === null
-    ? null
+    ? BASIC_SCHEMA_AUTH
     : `${userProfile.tokenType} ${userProfile.accessToken}`;
   const session = await getSession(request.headers.get('Cookie'));
   const error = session.get(auth.sessionErrorKey) as LoaderError;
 
-  const cities = await ORDSFetcher(CITIES_ENDPOINT, USER_CREDENTIALS!);
+  const cities = await ORDSFetcher(CITIES_ENDPOINT, USER_CREDENTIALS);
   if (cities.items.length === 0) {
     const errorMessage = 'The cities endpoint has no elements. Review your database configuration and try again.';
     throw new Response(errorMessage, {
@@ -59,6 +65,64 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   });
 };
 
+export const links: LinksFunction = () => [
+  {
+    rel: 'stylesheet',
+    href: stylesheet,
+  },
+  {
+    rel: 'stylesheet',
+    href: datepicker,
+  },
+];
+
+/**
+ * Renders the route metadata and stylesheet links for the document head.
+ * @returns the head contents.
+ */
+export function Head(): ReactElement {
+  return (
+    <>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <Meta />
+      <Links />
+    </>
+  );
+}
+
+/**
+ * Mounts the head contents into `document.head` after hydration finishes.
+ * @returns the client-only head portal.
+ */
+function HydratedHead() {
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  return isHydrated ? createPortal(<Head />, document.head) : null;
+}
+
+/**
+ * Shared app shell used by both the main app and the root error boundary.
+ * @param root0 the shell children.
+ * @param root0.children the rendered route content.
+ * @returns the app shell.
+ */
+function AppShell({ children }: { children: ReactNode }): ReactElement {
+  return (
+    <>
+      <HydratedHead />
+      {children}
+      <ScrollRestoration />
+      <Scripts />
+      <LiveReload />
+    </>
+  );
+}
+
 /**
  *
  * @returns Display the error page.
@@ -67,22 +131,10 @@ export function ErrorBoundary() : ReactElement {
   const error = useRouteError();
   if (isRouteErrorResponse(error)) {
     return (
-      <html lang="en">
-        <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <Meta />
-          <Links />
-        </head>
-        <body>
-          <StyledEngineProvider injectFirst>
-            <ErrorComponent error={error} />
-            <TooltipButton />
-            <ScrollRestoration />
-            <Scripts />
-          </StyledEngineProvider>
-        </body>
-      </html>
+      <AppShell>
+        <ErrorComponent error={error} />
+        <TooltipButton />
+      </AppShell>
     );
   } if (error instanceof Error) {
     const unknownError : ErrorResponse = {
@@ -91,30 +143,19 @@ export function ErrorBoundary() : ReactElement {
       data: error.stack,
     };
     return (
-      <html lang="en">
-        <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <Meta />
-          <Links />
-        </head>
-        <body>
-          <StyledEngineProvider injectFirst>
-            <ErrorComponent error={unknownError} />
-            <TooltipButton />
-            <ScrollRestoration />
-            <Scripts />
-          </StyledEngineProvider>
-        </body>
-      </html>
+      <AppShell>
+        <ErrorComponent error={unknownError} />
+        <TooltipButton />
+      </AppShell>
     );
   }
-  return <h1 className="text-3xl font-semibold">Unknown Error</h1>;
-}
 
-export const links = () => [
-  { rel: 'stylesheet', href: stylesheet },
-];
+  return (
+    <AppShell>
+      <h1 className="text-3xl font-semibold">Unknown Error</h1>
+    </AppShell>
+  );
+}
 
 /**
  *
@@ -126,23 +167,11 @@ export default function App() : ReactElement {
     cities,
   } = useLoaderData<typeof loader>();
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <StyledEngineProvider injectFirst>
-          <NavBar user={profile} cities={cities} />
-          <Outlet />
-          <TooltipButton />
-          <Footer />
-          <ScrollRestoration />
-          <Scripts />
-        </StyledEngineProvider>
-      </body>
-    </html>
+    <AppShell>
+      <NavBar user={profile} cities={cities} />
+      <Outlet />
+      <TooltipButton />
+      <Footer />
+    </AppShell>
   );
 }
