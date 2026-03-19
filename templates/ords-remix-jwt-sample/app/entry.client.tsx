@@ -21,13 +21,30 @@ import {
 import { hydrateRoot } from 'react-dom/client';
 import { MuiProvider } from './mui/MuiProvider';
 
+const SERVER_HEAD_PATTERN = /<!--start head-->[\s\S]*?<!--end head-->/;
+
+/**
+ * Removes the static server-rendered head so the client portal can own it.
+ */
+function removeServerHead() : void {
+  document.head.innerHTML = document.head.innerHTML.replace(SERVER_HEAD_PATTERN, '');
+}
+
 startTransition(() => {
+  const rootElement = document.getElementById('root');
+
+  if (rootElement === null) {
+    throw new Error('Could not find the root element to hydrate.');
+  }
+
   hydrateRoot(
-    document,
+    rootElement,
     <StrictMode>
       <MuiProvider>
         <RemixBrowser />
       </MuiProvider>
     </StrictMode>,
   );
+
+  removeServerHead();
 });

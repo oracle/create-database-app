@@ -11,126 +11,24 @@
 /* eslint-disable jsdoc/require-param-description */
 /* eslint-disable jsdoc/require-returns */
 /* eslint-disable jsdoc/require-jsdoc */
-/* eslint-disable no-magic-numbers */
 /* eslint-disable no-console */
-/* eslint-disable no-param-reassign */
-import { PassThrough } from 'node:stream';
-
 import type {
   AppLoadContext, EntryContext,
 } from '@remix-run/node';
-import { createReadableStreamFromReadable } from '@remix-run/node';
 import { RemixServer } from '@remix-run/react';
-import { isbot } from 'isbot';
-import { renderToPipeableStream } from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import { MuiProvider } from './mui/MuiProvider';
+import createEmotionCache from './mui/createEmotionCache';
+import { Head } from './root';
 
-const ABORT_DELAY = 5_000;
+const HEAD_START = '<!--start head-->';
+const HEAD_END = '<!--end head-->';
 
-function handleBotRequest(
-  request: Request,
-  responseStatusCode: number,
-  responseHeaders: Headers,
-  remixContext: EntryContext,
-) {
-  return new Promise((resolve, reject) => {
-    let shellRendered = false;
-    const {
-      pipe, abort,
-    } = renderToPipeableStream(
-      <RemixServer
-        context={remixContext}
-        url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
-      {
-        onAllReady() {
-          shellRendered = true;
-          const body = new PassThrough();
-          const stream = createReadableStreamFromReadable(body);
-
-          responseHeaders.set('Content-Type', 'text/html');
-
-          resolve(
-            new Response(stream, {
-              headers: responseHeaders,
-              status: responseStatusCode,
-            }),
-          );
-
-          pipe(body);
-        },
-        onShellError(error: unknown) {
-          reject(error);
-        },
-        onError(error: unknown) {
-          responseStatusCode = 500;
-          // Log streaming rendering errors from inside the shell.  Don't log
-          // errors encountered during initial shell rendering since they'll
-          // reject and get logged in handleDocumentRequest.
-          if (shellRendered) {
-            console.error(error);
-          }
-        },
-      },
-    );
-
-    setTimeout(abort, ABORT_DELAY);
-  });
-}
-
-function handleBrowserRequest(
-  request: Request,
-  responseStatusCode: number,
-  responseHeaders: Headers,
-  remixContext: EntryContext,
-) {
-  return new Promise((resolve, reject) => {
-    let shellRendered = false;
-    const {
-      pipe, abort,
-    } = renderToPipeableStream(
-      <MuiProvider>
-        <RemixServer
-          context={remixContext}
-          url={request.url}
-          abortDelay={ABORT_DELAY}
-        />
-      </MuiProvider>,
-      {
-        onShellReady() {
-          shellRendered = true;
-          const body = new PassThrough();
-          const stream = createReadableStreamFromReadable(body);
-
-          responseHeaders.set('Content-Type', 'text/html');
-
-          resolve(
-            new Response(stream, {
-              headers: responseHeaders,
-              status: responseStatusCode,
-            }),
-          );
-
-          pipe(body);
-        },
-        onShellError(error: unknown) {
-          reject(error);
-        },
-        onError(error: unknown) {
-          responseStatusCode = 500;
-          // Log streaming rendering errors from inside the shell.  Don't log
-          // errors encountered during initial shell rendering since they'll
-          // reject and get logged in handleDocumentRequest.
-          if (shellRendered) {
-            console.error(error);
-          }
-        },
-      },
-    );
-
-    setTimeout(abort, ABORT_DELAY);
-  });
+function renderDocument(
+  head: string,
+  body: string,
+): string {
+  return `<!DOCTYPE html><html lang="en"><head>${HEAD_START}${head}${HEAD_END}</head><body><div id="root">${body}</div></body></html>`;
 }
 
 /**
@@ -154,17 +52,33 @@ export default function handleRequest(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loadContext: AppLoadContext,
 ) {
-  return isbot(request.headers.get('user-agent') || '')
-    ? handleBotRequest(
-      request,
-      responseStatusCode,
-      responseHeaders,
-      remixContext,
-    )
-    : handleBrowserRequest(
-      request,
-      responseStatusCode,
-      responseHeaders,
-      remixContext,
-    );
+  const rootRouteModule = remixContext.routeModules.root;
+  const headContext: EntryContext = {
+    ...remixContext,
+    routeModules: {
+      ...remixContext.routeModules,
+      root: {
+        ...rootRouteModule,
+        default: Head,
+        ErrorBoundary: Head,
+      },
+    },
+  };
+
+  const head = renderToString(
+    <RemixServer context={headContext} url={request.url} />,
+  );
+
+  const body = renderToString(
+    <MuiProvider emotionCache={createEmotionCache()}>
+      <RemixServer context={remixContext} url={request.url} />
+    </MuiProvider>,
+  );
+
+  responseHeaders.set('Content-Type', 'text/html');
+
+  return new Response(renderDocument(head, body), {
+    headers: responseHeaders,
+    status: responseStatusCode,
+  });
 }
