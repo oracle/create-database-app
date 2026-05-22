@@ -4,18 +4,27 @@
 ** All rights reserved
 ** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
-export const AUTH0_RETURN_TO_URL = process.env.AUTH0_RETURN_TO_URL!;
-export const AUTH0_CALLBACK_URL = process.env.AUTH0_CALLBACK_URL!;
-export const AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID!;
-export const AUTH0_CLIENT_SECRET = process.env.AUTH0_CLIENT_SECRET!;
-export const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN!;
-export const AUTH0_LOGOUT_URL = process.env.AUTH0_LOGOUT_URL!;
-export const AUTH0_AUDIENCE = process.env.JWT_AUDIENCE!;
+const AUTH0_BASE_URL = process.env.AUTH0_DOMAIN ? `https://${process.env.AUTH0_DOMAIN}` : '';
+
+export const OIDC_RETURN_TO_URL = process.env.OIDC_RETURN_TO_URL || process.env.AUTH0_RETURN_TO_URL || 'http://localhost:3000';
+export const OIDC_REDIRECT_URI = process.env.OIDC_REDIRECT_URI || process.env.AUTH0_CALLBACK_URL || '';
+export const OIDC_CLIENT_ID = process.env.OIDC_CLIENT_ID || process.env.AUTH0_CLIENT_ID || '';
+export const OIDC_CLIENT_SECRET = process.env.OIDC_CLIENT_SECRET || process.env.AUTH0_CLIENT_SECRET || '';
+export const OIDC_AUTHORIZATION_ENDPOINT = process.env.OIDC_AUTHORIZATION_ENDPOINT
+  || (AUTH0_BASE_URL ? `${AUTH0_BASE_URL}/authorize` : '');
+export const OIDC_TOKEN_ENDPOINT = process.env.OIDC_TOKEN_ENDPOINT
+  || (AUTH0_BASE_URL ? `${AUTH0_BASE_URL}/oauth/token` : '');
+export const OIDC_USERINFO_ENDPOINT = process.env.OIDC_USERINFO_ENDPOINT
+  || (AUTH0_BASE_URL ? `${AUTH0_BASE_URL}/userinfo` : '');
+export const OIDC_LOGOUT_ENDPOINT = process.env.OIDC_LOGOUT_ENDPOINT || process.env.AUTH0_LOGOUT_URL || '';
+export const OIDC_AUDIENCE = process.env.OIDC_AUDIENCE || process.env.JWT_AUDIENCE || '';
+export const OIDC_SCOPES = process.env.OIDC_SCOPES
+  || 'openid,email,profile,ords/sample-app/concert_app_authuser,ords/sample-app/concert_app_admin';
 export const SCHEMA_NAME = process.env.SCHEMA_NAME || '';
 export const { SCHEMA_PASSWORD } = process.env;
-export const ADBS_ENDPOINT = process.env.ADB_ORDS_URL;
-export const BASE_ENDPOINT = ADBS_ENDPOINT + SCHEMA_NAME.toLowerCase();
-export const STATS_ENDPOINT = `${BASE_ENDPOINT}/euser/v1/landing_page_global_stats/`;
+export const ADBS_ENDPOINT = process.env.BD_ORDS_URL;
+export const BASE_ENDPOINT = ADBS_ENDPOINT;
+export const STATS_ENDPOINT = `${BASE_ENDPOINT}/euser/v1/landing_page_global_stats`;
 export const CITIES_ENDPOINT = `${BASE_ENDPOINT}/euser/v1/cities`;
 export const EVENTS_ENDPOINT = `${BASE_ENDPOINT}/euser/v1/eventsHome`;
 export const EVENT_ENDPOINT = `${BASE_ENDPOINT}/euser/v1/event`;

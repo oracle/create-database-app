@@ -49,7 +49,7 @@ function ErrorComponent(props: ErrorPageProps) {
         {
           error.status === HTTP_UNAUTHORIZED_CODE && (
             <div className="p-4">
-              <Form method="post" action="/auth0">
+              <Form method="post" action="/oidc">
                 <button
                   className="rounded bg-red-600 px-8 py-2 text-white hover:bg-red-500"
                   type="submit"

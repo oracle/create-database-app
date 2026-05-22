@@ -4,12 +4,12 @@
 ** All rights reserved
 ** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
-import { Auth0Profile } from 'remix-auth-auth0';
 import Concert from './ORDSConcert';
 import ORDSResponse from './ORDSResponse';
+import OIDCProfile from './OIDCProfile';
 
 interface ConcertBannerProps {
-  user : Auth0Profile | null;
+  user : OIDCProfile | null;
   concert: ORDSResponse<Concert>;
   likedConcert: boolean;
 }

@@ -10,7 +10,6 @@ import Artist from '../../models/Artist';
 import EventStatus from '../../models/EventStatus';
 import ORDSResponse from '../../models/ORDSResponse';
 import Venue from '../../models/Venue';
-import { BASE } from '../../routes/constants/index.server';
 import TooltipComponent from '../tooltips/TooltipComponent';
 import featureDescriptions from '../../utils/ORDSFeaturesDescription';
 
@@ -34,15 +33,15 @@ function EventForm(props: EventFormProps) {
   const [eventStatus, setEventStatus] = React.useState(status.items[0].event_status_id);
   const handleArtistSelect = (event: React.FormEvent<EventTarget>) => {
     const target = event.target as HTMLInputElement;
-    setArtist(parseInt(target.value, BASE));
+    setArtist(parseInt(target.value, 10));
   };
   const handleVenueSelect = (event: React.FormEvent<EventTarget>) => {
     const target = event.target as HTMLInputElement;
-    setVenue(parseInt(target.value, BASE));
+    setVenue(parseInt(target.value, 10));
   };
   const handleStatusSelect = (event: React.FormEvent<EventTarget>) => {
     const target = event.target as HTMLInputElement;
-    setEventStatus(parseInt(target.value, BASE));
+    setEventStatus(parseInt(target.value, 10));
   };
   return (
     <div className="flex flex-row">

@@ -8,7 +8,7 @@ import { Form } from '@remix-run/react';
 import { ReactElement } from 'react';
 /**
  *
- * @returns Sign In with Auth0
+ * @returns Sign In with OCI IAM
  */
 export default function SignIn(): ReactElement {
   return (
@@ -18,8 +18,8 @@ export default function SignIn(): ReactElement {
     }}
     >
       <h1>Sign In</h1>
-      <Form action="../auth/auth0" method="post">
-        <button type="button">Login with Auth0</button>
+      <Form action="/oidc" method="post">
+        <button type="submit">Login with OCI IAM</button>
       </Form>
     </div>
   );

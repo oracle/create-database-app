@@ -8,7 +8,6 @@ import { Form } from '@remix-run/react';
 import React from 'react';
 import City from '../../models/City';
 import ORDSResponse from '../../models/ORDSResponse';
-import { BASE } from '../../routes/constants/index.server';
 
 interface VenuesFormProps {
   cities: ORDSResponse<City>
@@ -25,7 +24,7 @@ function VenuesForm(props: VenuesFormProps) {
 
   const handleCitySelect = (event: React.FormEvent<EventTarget>) => {
     const target = event.target as HTMLInputElement;
-    setCity(parseInt(target.value, BASE));
+    setCity(parseInt(target.value, 10));
   };
 
   return (

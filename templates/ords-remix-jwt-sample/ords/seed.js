@@ -7,24 +7,54 @@
 import * as dotenv from 'dotenv';
 import path from 'path';
 import populateObjects from './seedScripts/batchload.js';
-import autoRESTDisableObjects from './migrateScripts/autoRESTDisableObjects.js';
+import {
+  closeConnection,
+  getConnection,
+} from './utils/oracleConnection.js';
 
 dotenv.config({ path: `${path.resolve()}/.env` });
-const { ADB_ORDS_URL } = process.env;
-const { SCHEMA_NAME } = process.env;
-const { SCHEMA_PASSWORD } = process.env;
-const ORDS_SCHEMA_AUTH_CREDENTIALS = `${SCHEMA_NAME}:${SCHEMA_PASSWORD}`;
-const BASIC_SCHEMA_AUTH = `Basic ${Buffer.from(ORDS_SCHEMA_AUTH_CREDENTIALS).toString('base64')}`;
-const ADB_SCHEMA_ENDPOINT = `${ADB_ORDS_URL}${SCHEMA_NAME.toLowerCase()}/`;
+const {
+  BD_CONNECT_STRING,
+  SCHEMA_NAME,
+  SCHEMA_PASSWORD,
+} = process.env;
 
 /**
- * Seeding script populates the schema objects with randomly generated data.
+ * Returns a required environment variable and throws when missing.
+ * @param {string | undefined} value the variable value.
+ * @param {string} variableName the variable name.
+ * @returns {string} the non-empty variable value.
  */
-async function seed() {
-  await populateObjects(ADB_SCHEMA_ENDPOINT, BASIC_SCHEMA_AUTH);
-  // eslint-disable-next-line no-console
-  console.log('Disabling autoREST functionality...');
-  await autoRESTDisableObjects(SCHEMA_NAME, ADB_SCHEMA_ENDPOINT, BASIC_SCHEMA_AUTH);
+function getRequiredEnvVar(value, variableName) {
+  if (!value || value.trim() === '') {
+    throw new Error(`Missing required environment variable: ${variableName}`);
+  }
+  return value;
 }
 
-seed();
+/**
+ * Seeding script populates the schema objects with sample data using direct SQL.
+ */
+async function seed() {
+  const connectString = getRequiredEnvVar(BD_CONNECT_STRING, 'BD_CONNECT_STRING');
+  const schemaName = getRequiredEnvVar(SCHEMA_NAME, 'SCHEMA_NAME');
+  const schemaPassword = getRequiredEnvVar(SCHEMA_PASSWORD, 'SCHEMA_PASSWORD');
+
+  let schemaConnection;
+  try {
+    schemaConnection = await getConnection({
+      user: schemaName,
+      password: schemaPassword,
+      connectString,
+    });
+    await populateObjects(schemaConnection);
+  } finally {
+    await closeConnection(schemaConnection);
+  }
+}
+
+seed().catch((error) => {
+  // eslint-disable-next-line no-console
+  console.error(error);
+  process.exitCode = 1;
+});

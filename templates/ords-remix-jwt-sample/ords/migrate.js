@@ -8,66 +8,71 @@ import * as dotenv from 'dotenv';
 import path from 'path';
 import createSchema from './RESTfulServices/RESTSchema.js';
 import createObjects from './migrateScripts/schemaObjects.js';
-import createModules from './migrateScripts/defineModules.js';
-import protectEndpoints from './migrateScripts/protectEndpoints.js';
-import autoRESTEnableObjects from './migrateScripts/autoRESTEnableObjects.js';
-import setConfig from './utils/enviroment.js';
+import {
+  closeConnection,
+  getConnection,
+} from './utils/oracleConnection.js';
 
 dotenv.config({ path: `${path.resolve()}/.env` });
-let {
-  ADB_ORDS_URL,
+
+const {
+  BD_CONNECT_STRING,
   SCHEMA_NAME,
   SCHEMA_PASSWORD,
-  ADB_ADMIN_USER,
-  ADB_ADMIN_PASSWORD,
+  BD_ADMIN_USER,
+  BD_ADMIN_PASSWORD,
 } = process.env;
-let ORDS_ADMIN_AUTH_CREDENTIALS = `${ADB_ADMIN_USER}:${ADB_ADMIN_PASSWORD}`;
-let BASIC_ADMIN_AUTH = `Basic ${Buffer.from(ORDS_ADMIN_AUTH_CREDENTIALS).toString('base64')}`;
-let ORDS_SCHEMA_AUTH_CREDENTIALS = `${SCHEMA_NAME}:${SCHEMA_PASSWORD}`;
-let BASIC_SCHEMA_AUTH = `Basic ${Buffer.from(ORDS_SCHEMA_AUTH_CREDENTIALS).toString('base64')}`;
-let ADB_ADMIN_ENDPOINT = `${ADB_ORDS_URL}${ADB_ADMIN_USER.toLowerCase()}/_/sql`;
-let ADB_SCHEMA_ENDPOINT = `${ADB_ORDS_URL}${SCHEMA_NAME.toLowerCase()}/_/sql`;
-
-const { JWT_ISSUER } = process.env;
-const { JWT_VERIFICATION_KEY } = process.env;
-const { JWT_AUDIENCE } = process.env;
 
 /**
- * Uses CLI and .env to set environment constants.
+ * Returns a required environment variable and throws when missing.
+ * @param {string | undefined} value the variable value.
+ * @param {string} variableName the variable name.
+ * @returns {string} the non-empty variable value.
  */
-async function setEnvironment() {
-  const envConfig = await setConfig();
-  if (Object.keys(envConfig).length > 0) {
-    ADB_ORDS_URL = envConfig.ADB_ORDS_URL || ADB_ORDS_URL;
-    SCHEMA_NAME = envConfig.SCHEMA_NAME || SCHEMA_NAME;
-    SCHEMA_PASSWORD = envConfig.SCHEMA_PASSWORD || SCHEMA_PASSWORD;
-    ADB_ADMIN_USER = envConfig.ADB_ADMIN_USER || ADB_ADMIN_USER;
-    ADB_ADMIN_PASSWORD = envConfig.ADB_ADMIN_PASSWORD || ADB_ADMIN_PASSWORD;
-    ORDS_ADMIN_AUTH_CREDENTIALS = `${ADB_ADMIN_USER}:${ADB_ADMIN_PASSWORD}`;
-    BASIC_ADMIN_AUTH = `Basic ${Buffer.from(ORDS_ADMIN_AUTH_CREDENTIALS).toString('base64')}`;
-    ORDS_SCHEMA_AUTH_CREDENTIALS = `${SCHEMA_NAME}:${SCHEMA_PASSWORD}`;
-    BASIC_SCHEMA_AUTH = `Basic ${Buffer.from(ORDS_SCHEMA_AUTH_CREDENTIALS).toString('base64')}`;
-    ADB_ADMIN_ENDPOINT = `${ADB_ORDS_URL}${ADB_ADMIN_USER.toLowerCase()}/_/sql`;
-    ADB_SCHEMA_ENDPOINT = `${ADB_ORDS_URL}${SCHEMA_NAME.toLowerCase()}/_/sql`;
+function getRequiredEnvVar(value, variableName) {
+  if (!value || value.trim() === '') {
+    throw new Error(`Missing required environment variable: ${variableName}`);
+  }
+  return value;
+}
+
+/**
+ * Migrate script: creates schema and schema objects using direct SQL.
+ */
+async function migrate() {
+  const connectString = getRequiredEnvVar(BD_CONNECT_STRING, 'BD_CONNECT_STRING');
+  const schemaName = getRequiredEnvVar(SCHEMA_NAME, 'SCHEMA_NAME');
+  const schemaPassword = getRequiredEnvVar(SCHEMA_PASSWORD, 'SCHEMA_PASSWORD');
+  const adminUser = getRequiredEnvVar(BD_ADMIN_USER, 'BD_ADMIN_USER');
+  const adminPassword = getRequiredEnvVar(BD_ADMIN_PASSWORD, 'BD_ADMIN_PASSWORD');
+
+  let adminConnection;
+  let schemaConnection;
+
+  try {
+    adminConnection = await getConnection({
+      user: adminUser,
+      password: adminPassword,
+      connectString,
+    });
+    await createSchema(adminConnection, schemaName, schemaPassword);
+
+    schemaConnection = await getConnection({
+      user: schemaName,
+      password: schemaPassword,
+      connectString,
+    });
+    await createObjects(schemaConnection);
+    // eslint-disable-next-line no-console
+    console.log(`Migrate completed successfully for schema ${schemaName}.`);
+  } finally {
+    await closeConnection(schemaConnection);
+    await closeConnection(adminConnection);
   }
 }
 
-/**
- * migrate script, creates the schema, objects, modules, and more.
- */
-async function migrate() {
-  await setEnvironment();
-  await createSchema(SCHEMA_NAME, SCHEMA_PASSWORD, ADB_ADMIN_ENDPOINT, BASIC_ADMIN_AUTH);
-  await createObjects(ADB_SCHEMA_ENDPOINT, BASIC_SCHEMA_AUTH);
-  await createModules(ADB_SCHEMA_ENDPOINT, BASIC_SCHEMA_AUTH);
-  await protectEndpoints(
-    ADB_SCHEMA_ENDPOINT,
-    BASIC_SCHEMA_AUTH,
-    JWT_ISSUER,
-    JWT_AUDIENCE,
-    JWT_VERIFICATION_KEY,
-  );
-  await autoRESTEnableObjects(SCHEMA_NAME, ADB_SCHEMA_ENDPOINT, BASIC_SCHEMA_AUTH);
-}
-
-migrate();
+migrate().catch((error) => {
+  // eslint-disable-next-line no-console
+  console.error(error);
+  process.exitCode = 1;
+});

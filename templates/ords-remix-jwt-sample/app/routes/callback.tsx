@@ -8,7 +8,7 @@ import type { LoaderFunctionArgs } from '@remix-run/node';
 
 import { auth } from '~/utils/auth.server';
 
-export const loader = async ({ request }: LoaderFunctionArgs) => auth.authenticate('auth0', request, {
+export const loader = async ({ request }: LoaderFunctionArgs) => auth.authenticate('oidc', request, {
   successRedirect: '/private/profile',
   failureRedirect: '/error',
 });

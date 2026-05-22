@@ -1,0 +1,1795 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Concert App API Spec",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/euser/v1/artists": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_artists",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "artists/",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT\n      A.ARTIST_ID,\n      A.NAME,\n      A.DESCRIPTION,\n      LISTAGG(MG.NAME, ', ') WITHIN GROUP(\n      ORDER BY\n          MG.NAME\n      ) AS MUSIC_GENRES\n    FROM\n      ARTISTS A\n      LEFT JOIN ARTIST_CLASSIFICATIONS AA ON A.ARTIST_ID = AA.ARTIST_ID\n      LEFT JOIN MUSIC_GENRES           MG ON AA.MUSIC_GENRE_ID = MG.MUSIC_GENRE_ID\n    GROUP BY\n      A.ARTIST_ID,\n      A.NAME,\n      A.DESCRIPTION\n    ORDER BY\n      A.NAME",
+          "parameters": []
+        }
+      }
+    },
+    "/euser/v1/artist/{id}": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_artist_id",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "artist/:id",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT\n      A.ARTIST_ID,\n      A.NAME,\n      A.DESCRIPTION,\n      A.BIO,\n      LISTAGG(MG.NAME, ', ') WITHIN GROUP( \n      ORDER BY\n          MG.NAME\n      ) AS MUSIC_GENRES\n    FROM\n      ARTISTS A\n      LEFT JOIN ARTIST_CLASSIFICATIONS AA ON A.ARTIST_ID = AA.ARTIST_ID\n      LEFT JOIN MUSIC_GENRES           MG ON AA.MUSIC_GENRE_ID = MG.MUSIC_GENRE_ID\n    WHERE A.ARTIST_ID = :id\n    GROUP BY\n      A.ARTIST_ID,\n      A.NAME,\n      A.DESCRIPTION,\n      A.BIO\n    ORDER BY\n      A.NAME",
+          "parameters": [
+            {
+              "name": "id",
+              "bindVariable": "id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/euser/v1/artists/{artist_name}": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_artists_artist_name",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "artist_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "artists/:artist_name",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM ARTISTS \n      WHERE NAME LIKE '%' || :artist_name || '%'",
+          "parameters": [
+            {
+              "name": "artist_name",
+              "bindVariable": "artist_name",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/euser/v1/venues": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_venues",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "venues/",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM VENUES ORDER BY NAME DESC",
+          "parameters": []
+        }
+      }
+    },
+    "/euser/v1/venues/{venue_name}": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_venues_venue_name",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "venue_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "venues/:venue_name",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM VENUES\n    WHERE NAME LIKE '%' || :venue_name || '%'",
+          "parameters": [
+            {
+              "name": "venue_name",
+              "bindVariable": "venue_name",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/euser/v1/cities": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_cities",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "cities/",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT C.CITY_ID, C.NAME, C.DESCRIPTION, COUNT(E.EVENT_ID) AS EVENT_COUNT\n      FROM CITIES C\n      LEFT JOIN VENUES V ON C.CITY_ID = V.CITY_ID\n      LEFT JOIN EVENTS E ON V.VENUE_ID = E.VENUE_ID\n      GROUP BY C.CITY_ID, C.NAME, C.DESCRIPTION\n      ORDER BY EVENT_COUNT DESC",
+          "parameters": []
+        }
+      }
+    },
+    "/euser/v1/venues_by_city/{city_name}": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_venues_by_city_city_name",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "city_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "venues_by_city/:city_name",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT V.* \n      FROM VENUES V JOIN CITIES C \n      ON V.CITY_ID = C.CITY_ID\n      WHERE C.CITY_NAME = :CITY_NAME\n            ",
+          "parameters": [
+            {
+              "name": "city_name",
+              "bindVariable": "city_name",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/euser/v1/venue/{venue_id}": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_venue_venue_id",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "venue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "venue/:venue_id",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM VENUES WHERE VENUE_ID = :VENUE_ID",
+          "parameters": [
+            {
+              "name": "venue_id",
+              "bindVariable": "venue_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/euser/v1/events": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_events",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "events/",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM EVENTS",
+          "parameters": []
+        }
+      }
+    },
+    "/euser/v1/events/{event_name}": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_events_event_name",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "event_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "events/:event_name",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM EVENTS_VIEW \n    WHERE ARTIST_NAME LIKE '%' || :event_name || '%'\n    ORDER BY EVENT_DATE ASC",
+          "parameters": [
+            {
+              "name": "event_name",
+              "bindVariable": "event_name",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/euser/v1/event/{event_id}": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_event_event_id",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "event/:event_id",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM EVENTS_VIEW WHERE EVENT_ID = :event_id",
+          "parameters": [
+            {
+              "name": "event_id",
+              "bindVariable": "event_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/euser/v1/landing_page_global_stats": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_landing_page_global_stats",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "landing_page_global_stats/",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM BANNER_VIEW",
+          "parameters": []
+        }
+      }
+    },
+    "/euser/v1/eventsHome": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_eventshome",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "eventsHome/",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM EVENTS_VIEW ORDER BY EVENT_DATE ASC",
+          "parameters": []
+        }
+      }
+    },
+    "/euser/v1/artistEvents/{id}": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_artistevents_id",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "artistEvents/:id",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM EVENTS_VIEW WHERE ARTIST_ID = :id ORDER BY EVENT_DATE ASC",
+          "parameters": [
+            {
+              "name": "id",
+              "bindVariable": "id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/euser/v1/cityEvents/{cityName}": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_cityevents_cityname",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "cityName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "cityEvents/:cityName",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM EVENTS_VIEW WHERE CITY_NAME=:cityName  ORDER BY EVENT_DATE ASC",
+          "parameters": [
+            {
+              "name": "cityName",
+              "bindVariable": "cityName",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/euser/v1/eventStatus": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_eventstatus",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "eventStatus/",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM EVENT_STATUS",
+          "parameters": []
+        }
+      }
+    },
+    "/euser/v1/musicGenres": {
+      "get": {
+        "operationId": "get_concert_app_euser_v1_musicgenres",
+        "tags": [
+          "concert_app.euser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.euser.v1",
+          "pattern": "musicGenres/",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT * FROM MUSIC_GENRES",
+          "parameters": []
+        }
+      }
+    },
+    "/authuser/v1/events": {
+      "get": {
+        "operationId": "get_concert_app_authuser_v1_events",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "events/",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT \n        a.name AS ARTIST_NAME,\n        e.event_id AS EVENT_ID,\n        e.event_date AS EVENT_DATE,\n        e.event_details AS EVENT_DETAILS,\n        es.event_status_name as EVENT_STATUS_NAME,\n        es.event_status_id AS EVENT_STATUS_ID,\n        v.venue_id AS VENUE_ID,\n        v.name AS VENUE_NAME\n    FROM \n        events e\n        INNER JOIN artists a ON e.artist_id = a.artist_id\n        INNER JOIN event_status es ON e.event_status_id = es.event_status_id\n        INNER JOIN venues v ON e.venue_id = v.venue_id\n        ORDER BY e.event_date DESC",
+          "parameters": []
+        }
+      }
+    },
+    "/authuser/v1/event/{event_id}": {
+      "get": {
+        "operationId": "get_concert_app_authuser_v1_event_event_id",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "event/:event_id",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT \n        a.name AS ARTIST_NAME,\n        e.event_id AS EVENT_ID,\n        e.event_date AS EVENT_DATE,\n        e.event_details AS EVENT_DETAILS,\n        es.event_status_name as EVENT_STATUS_NAME,\n        es.event_status_id AS EVENT_STATUS_ID,\n        v.venue_id AS VENUE_ID,\n        v.name AS VENUE_NAME\n    FROM \n        events e\n        INNER JOIN artists a ON e.artist_id = a.artist_id\n        INNER JOIN event_status es ON e.event_status_id = es.event_status_id\n        INNER JOIN venues v ON e.venue_id = v.venue_id\n        WHERE e.event_id = :event_id",
+          "parameters": [
+            {
+              "name": "event_id",
+              "bindVariable": "event_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/authuser/v1/liked_artists/{user_id}": {
+      "get": {
+        "operationId": "get_concert_app_authuser_v1_liked_artists_user_id",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_artists/:user_id",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT A.* FROM ARTISTS A \n        JOIN LIKED_ARTIST L_A \n        ON A.ARTIST_ID = L_A.ARTIST_ID\n        WHERE L_A.USER_ID = :user_id",
+          "parameters": [
+            {
+              "name": "user_id",
+              "bindVariable": "user_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/authuser/v1/liked_artist/{user_id}/{artist_id}": {
+      "get": {
+        "operationId": "get_concert_app_authuser_v1_liked_artist_user_id_artist_id",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "artist_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_artist/:user_id/:artist_id",
+          "method": "GET",
+          "sourceType": "json/item",
+          "source": "SELECT COUNT(1) as likedArtist FROM LIKED_ARTIST \n        WHERE USER_ID = :user_id AND ARTIST_ID = :artist_id",
+          "parameters": [
+            {
+              "name": "user_id",
+              "bindVariable": "user_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            },
+            {
+              "name": "artist_id",
+              "bindVariable": "artist_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/authuser/v1/liked_venues/{user_id}": {
+      "get": {
+        "operationId": "get_concert_app_authuser_v1_liked_venues_user_id",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_venues/:user_id",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT V.* FROM VENUE V \n        JOIN LIKED_VENUE L_V \n        ON V.ID = L_V.VENUE_ID\n        WHERE L_V.USER_ID = :user_id",
+          "parameters": [
+            {
+              "name": "user_id",
+              "bindVariable": "user_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/authuser/v1/liked_venue/{user_id}/{venue_id}": {
+      "get": {
+        "operationId": "get_concert_app_authuser_v1_liked_venue_user_id_venue_id",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "venue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_venue/:user_id/:venue_id",
+          "method": "GET",
+          "sourceType": "json/item",
+          "source": "SELECT COUNT(1) as likedVenue FROM LIKED_VENUE \n        WHERE USER_ID = :user_id AND VENUE_ID = :venue_id",
+          "parameters": [
+            {
+              "name": "user_id",
+              "bindVariable": "user_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            },
+            {
+              "name": "venue_id",
+              "bindVariable": "venue_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/authuser/v1/liked_events/{user_id}": {
+      "get": {
+        "operationId": "get_concert_app_authuser_v1_liked_events_user_id",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_events/:user_id",
+          "method": "GET",
+          "sourceType": "json/collection",
+          "source": "SELECT E.* FROM EVENTS E \n        JOIN LIKED_EVENT L_E \n        ON E.EVENT_ID = L_E.EVENT_ID\n        WHERE L_E.USER_ID = :user_id",
+          "parameters": [
+            {
+              "name": "user_id",
+              "bindVariable": "user_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/authuser/v1/liked_event/{user_id}/{event_id}": {
+      "get": {
+        "operationId": "get_concert_app_authuser_v1_liked_event_user_id_event_id",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_event/:user_id/:event_id",
+          "method": "GET",
+          "sourceType": "json/item",
+          "source": "SELECT COUNT(1) as likedEvent FROM LIKED_EVENT \n        WHERE USER_ID = :user_id AND EVENT_ID = :event_id",
+          "parameters": [
+            {
+              "name": "user_id",
+              "bindVariable": "user_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            },
+            {
+              "name": "event_id",
+              "bindVariable": "event_id",
+              "sourceType": "URI",
+              "parameterType": "STRING",
+              "accessMethod": "IN",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/authuser/v1/liked_artist": {
+      "post": {
+        "operationId": "post_concert_app_authuser_v1_liked_artist",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_artist",
+          "method": "POST",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      INSERT INTO LIKED_ARTIST(ARTIST_ID, USER_ID)\n      VALUES (:ARTIST_ID, :USER_ID);\n      :status_code := 201;\n      :pv_result := 'ARTIST LIKED SUCCESSFULLY';\n      :pn_status := 'SUCCESS';\n      EXCEPTION \n      WHEN OTHERS THEN \n      :status_code := 400;\n      :pv_result := 'UNABLE TO LIKE ARTIST';\n      :pn_status := 'ERROR';\n    END;\n        ",
+          "parameters": []
+        }
+      },
+      "delete": {
+        "operationId": "delete_concert_app_authuser_v1_liked_artist",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_artist",
+          "method": "DELETE",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      DELETE FROM LIKED_ARTIST\n      WHERE ARTIST_ID = :ARTIST_ID AND USER_ID = :USER_ID;\n      IF SQL%ROWCOUNT = 0 THEN\n          :status_code := 404;\n          :pv_result := 'Invalid user_id or artist_id number';\n          :pn_status := 'NO_MATCH';\n      ELSE\n          :status_code := 200;\n          :pv_result := 'UNLIKED ARTIST SUCCESSFULLY';\n          :pn_status := 'SUCCESS';\n      END IF;\n      EXCEPTION \n      WHEN OTHERS THEN \n          :status_code := 400;\n          :pv_result := 'UNABLE TO UNLIKE ';\n          :pn_status := 'ERROR';\n        END;\n        ",
+          "parameters": []
+        }
+      }
+    },
+    "/authuser/v1/liked_venue": {
+      "post": {
+        "operationId": "post_concert_app_authuser_v1_liked_venue",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_venue",
+          "method": "POST",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      INSERT INTO LIKED_VENUE(VENUE_ID, USER_ID)\n      VALUES (:VENUE_ID, :USER_ID);\n      :status_code := 201;\n      :pv_result := 'VENUE LIKED SUCCESSFULLY';\n      :pn_status := 'SUCCESS';\n      EXCEPTION \n      WHEN OTHERS THEN \n      :status_code := 400;\n      :pv_result := 'UNABLE TO LIKE VENUE';\n      :pn_status := 'ERROR';\n    END;\n        ",
+          "parameters": []
+        }
+      },
+      "delete": {
+        "operationId": "delete_concert_app_authuser_v1_liked_venue",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_venue",
+          "method": "DELETE",
+          "sourceType": "json/collection",
+          "source": "BEGIN\n      DELETE FROM LIKED_VENUE \n      WHERE VENUE_ID = :VENUE_ID AND USER_ID = :USER_ID;\n      IF SQL%ROWCOUNT = 0 THEN\n          :status_code := 404;\n          :pv_result := 'Invalid user_id or venue_id number';\n          :pn_status := 'NO_MATCH';\n      ELSE\n          :status_code := 200;\n          :pv_result := 'UNLIKED VENUE SUCCESSFULLY';\n          :pn_status := 'SUCCESS';\n      END IF;\n      EXCEPTION \n      WHEN OTHERS THEN \n      :status_code := 400;\n      :PN_RESULT := 'UNABLE TO UNLIKE VENUE';\n      :pn_status := 'ERROR';\n    END;\n        ",
+          "parameters": []
+        }
+      }
+    },
+    "/authuser/v1/liked_event": {
+      "post": {
+        "operationId": "post_concert_app_authuser_v1_liked_event",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_event",
+          "method": "POST",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      INSERT INTO LIKED_EVENT(EVENT_ID, USER_ID)\n      VALUES (:EVENT_ID, :USER_ID);\n      :status_code := 201;\n      :pv_result := 'EVENT LIKED SUCCESSFULLY';\n      :pn_status := 'SUCCESS';\n      EXCEPTION \n      WHEN OTHERS THEN \n          :status_code := 400;\n          :pv_result := 'UNABLE TO LIKE EVENT.';\n          :pn_status := 'ERROR';\n    END;\n        ",
+          "parameters": []
+        }
+      },
+      "delete": {
+        "operationId": "delete_concert_app_authuser_v1_liked_event",
+        "tags": [
+          "concert_app.authuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_authuser"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.authuser.v1",
+          "pattern": "liked_event",
+          "method": "DELETE",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      DELETE FROM LIKED_EVENT \n      WHERE EVENT_ID = :EVENT_ID AND USER_ID = :USER_ID;\n      IF SQL%ROWCOUNT = 0 THEN\n          :status_code := 404;\n          :pv_result := 'Invalid user_id or event_id number';\n          :pn_status := 'NO_MATCH';\n      ELSE\n          :status_code := 200;\n          :pv_result := 'UNLIKED EVENT SUCCESSFULLY';\n          :pn_status := 'SUCCESS';\n      END IF;\n      EXCEPTION \n      WHEN OTHERS THEN \n          :status_code := 400;\n          :pv_result := 'UNABLE TO UNLIKE EVENT';\n          :pn_status := 'ERROR';\n        END;\n        ",
+          "parameters": []
+        }
+      }
+    },
+    "/adminuser/v1/artists": {
+      "post": {
+        "operationId": "post_concert_app_adminuser_v1_artists",
+        "tags": [
+          "concert_app.adminuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_admin"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.adminuser.v1",
+          "pattern": "artists",
+          "method": "POST",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n    INSERT INTO ARTISTS(NAME, DESCRIPTION, BIO)\n    VALUES (:name, :description, :bio)\n    RETURNING ARTIST_ID INTO :artist_id;\n    :status_code:= 201;\n    :pv_result := 'Artists Added';\n    :pn_status := 'SUCCESS';\n    EXCEPTION \n        WHEN OTHERS THEN \n        :status_code:= 400;\n        :artist_id := -1;\n        :pv_result := 'UNABLE TO ADD ARTIST' || SQLERRM;\n        :pn_status := 'ERROR';\n    END;\n        ",
+          "parameters": []
+        }
+      },
+      "put": {
+        "operationId": "put_concert_app_adminuser_v1_artists",
+        "tags": [
+          "concert_app.adminuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_admin"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.adminuser.v1",
+          "pattern": "artists",
+          "method": "PUT",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n          UPDATE ARTISTS A\n          SET NAME = nvl(:name, A.NAME), BIO = nvl(:bio, A.BIO)\n          WHERE A.ARTIST_ID = :id;\n          :status_code:= 201;\n          :pv_result := 'Artists Updated';\n          :pn_status := 'SUCCESS';\n          EXCEPTION \n              WHEN OTHERS THEN \n              :status_code:= 400;\n              :pv_result := 'UNABLE TO UPDATE ARTIST' || SQLERRM;\n              :pn_status := 'ERROR';\n          END;\n          ",
+          "parameters": []
+        }
+      },
+      "delete": {
+        "operationId": "delete_concert_app_adminuser_v1_artists",
+        "tags": [
+          "concert_app.adminuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_admin"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.adminuser.v1",
+          "pattern": "artists",
+          "method": "DELETE",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      DELETE FROM ARTISTS\n      WHERE ARTIST_ID = :id;\n\n      IF SQL%ROWCOUNT = 0 THEN\n          :status_code:= 404;\n          :pv_result := 'Invalid artist id';\n          :pn_status := 'NO_MATCH';\n      ELSE\n          :status_code:= 200;\n          :pv_result := 'Artist Deleted';\n          :pn_status := 'SUCCESS';\n      END IF;\n\n      EXCEPTION \n          WHEN OTHERS THEN \n          :status_code:= 400;\n          :pv_result := 'UNABLE TO DELETE ARTIST' || SQLERRM;\n          :pn_status := 'ERROR';\n    END;\n        ",
+          "parameters": []
+        }
+      }
+    },
+    "/adminuser/v1/venues": {
+      "post": {
+        "operationId": "post_concert_app_adminuser_v1_venues",
+        "tags": [
+          "concert_app.adminuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_admin"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.adminuser.v1",
+          "pattern": "venues",
+          "method": "POST",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      INSERT INTO VENUES(NAME, LOCATION, CITY_ID)\n      VALUES (:name, :location, :city_id)\n      RETURNING VENUE_ID INTO :venue_id; \n      :status_code:= 201;\n      :pv_result := 'Venue Added';\n      :pn_status := 'SUCCESS';\n      EXCEPTION \n          WHEN OTHERS THEN \n          :status_code:= 400;\n          :pv_result := 'UNABLE TO ADD VENUE' || SQLERRM;\n          :pn_status := 'ERROR';\n      END;\n          ",
+          "parameters": []
+        }
+      },
+      "put": {
+        "operationId": "put_concert_app_adminuser_v1_venues",
+        "tags": [
+          "concert_app.adminuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_admin"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.adminuser.v1",
+          "pattern": "venues",
+          "method": "PUT",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      UPDATE VENUES V\n      SET NAME = nvl(:name, V.NAME), LOCATION = nvl(:location, V.LOCATION)\n      WHERE V.ID = :id;\n      :status_code:= 201;\n      :pv_result := 'VENUE Updated';\n      :pn_status := 'SUCCESS';\n      EXCEPTION \n          WHEN OTHERS THEN \n          :status_code:= 400;\n          :pv_result := 'UNABLE TO UPDATE VENUE' || SQLERRM;\n          :pn_status := 'ERROR';\n      END;\n          ",
+          "parameters": []
+        }
+      },
+      "delete": {
+        "operationId": "delete_concert_app_adminuser_v1_venues",
+        "tags": [
+          "concert_app.adminuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_admin"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.adminuser.v1",
+          "pattern": "venues",
+          "method": "DELETE",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      DELETE FROM VENUES\n      WHERE VENUE_ID = :id;\n\n      IF SQL%ROWCOUNT = 0 THEN\n          :status_code:= 404;\n          :pv_result := 'Invalid venue id';\n          :pn_status := 'NO_MATCH';\n      ELSE\n          :status_code:= 200;\n          :pv_result := 'Venue Deleted';\n          :pn_status := 'SUCCESS';\n      END IF;\n\n      EXCEPTION \n          WHEN OTHERS THEN \n          :status_code:= 400;\n          :pv_result := 'UNABLE TO DELETE ARTIST' || SQLERRM;\n          :pn_status := 'ERROR';\n      END;\n          ",
+          "parameters": []
+        }
+      }
+    },
+    "/adminuser/v1/events": {
+      "post": {
+        "operationId": "post_concert_app_adminuser_v1_events",
+        "tags": [
+          "concert_app.adminuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_admin"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.adminuser.v1",
+          "pattern": "events",
+          "method": "POST",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      INSERT INTO EVENTS(EVENT_DATE, ARTIST_ID, VENUE_ID, EVENT_STATUS_ID, EVENT_DETAILS)\n      VALUES (TO_DATE(:e_date, 'YYYY-MM-DD'),\n      :artist_id, :venue_id, :event_status_id, :event_details)\n      RETURNING EVENT_ID INTO :event_id; \n      :status_code:= 201;\n      :pv_result := 'Event Added';\n      :pn_status := 'SUCCESS';\n      EXCEPTION \n          WHEN OTHERS THEN \n          :status_code:= 400;\n          :pv_result := 'UNABLE TO ADD EVENT' || SQLERRM;\n          :pn_status := 'ERROR';\n      END;\n          ",
+          "parameters": []
+        }
+      },
+      "put": {
+        "operationId": "put_concert_app_adminuser_v1_events",
+        "tags": [
+          "concert_app.adminuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_admin"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.adminuser.v1",
+          "pattern": "events",
+          "method": "PUT",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      UPDATE EVENTS E\n      SET \n      E_DATE = nvl(TO_DATE(:e_date, 'YYYY-MM-DDTHH:mm:ss.SSSZ'), E.EVENT_DATE), \n      ARTIST_ID = nvl(:artist_id, E.ARTIST_ID),\n      VENUE_ID = nvl(:venue_id, E.VENUE_ID),\n      EVENT_STATUS_ID = nvl(:event_status_id, E.EVENT_STATUS_ID),\n      EVENT_DETAILS = nvl(:event_details, E.EVENT_DETAILS),\n      WHERE E.ID = :id;\n      :status_code:= 201;\n      :pv_result := 'Event Updated';\n      :pn_status := 'SUCCESS';\n      EXCEPTION \n          WHEN OTHERS THEN \n          :status_code:= 400;\n          :pv_result := 'UNABLE TO UPDATE EVENT' || SQLERRM;\n          :pn_status := 'ERROR';\n      END;\n          ",
+          "parameters": []
+        }
+      },
+      "delete": {
+        "operationId": "delete_concert_app_adminuser_v1_events",
+        "tags": [
+          "concert_app.adminuser.v1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BEARER": [
+              "concert_app_admin"
+            ]
+          }
+        ],
+        "x-dbtools-operation": {
+          "moduleName": "concert_app.adminuser.v1",
+          "pattern": "events",
+          "method": "DELETE",
+          "sourceType": "plsql/block",
+          "source": "BEGIN\n      DELETE FROM EVENTS\n      WHERE EVENT_ID = :id;\n\n      IF SQL%ROWCOUNT = 0 THEN\n          :status_code:= 404;\n          :pv_result := 'Invalid event id';\n          :pn_status := 'NO_MATCH';\n      ELSE\n          :status_code:= 200;\n          :pv_result := 'Event Deleted';\n          :pn_status := 'SUCCESS';\n      END IF;\n\n      EXCEPTION \n          WHEN OTHERS THEN \n          :status_code:= 400;\n          :pv_result := 'UNABLE TO DELETE ARTIST' || SQLERRM;\n          :pn_status := 'ERROR';\n      END;\n          ",
+          "parameters": []
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BEARER": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "<DOMAIN_URL>:443/oauth2/v1/token",
+            "scopes": {
+              "concert_app_admin": "Provides access to the concert app admin endpoints",
+              "concert_app_authuser": "Provides access to the user specific endpoints",
+              "concert_app_euser": "Provides limited access to the concert app endpoints"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-dbtools-properties": {
+    "itemsPerPage": 1,
+    "published": "PUBLISHED"
+  }
+}

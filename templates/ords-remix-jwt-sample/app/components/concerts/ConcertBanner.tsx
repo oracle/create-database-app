@@ -219,7 +219,7 @@ function ConcertBanner(props : ConcertBannerProps) {
                 people going
               </p>
             </div>
-            <Form method="post" action="/auth0">
+            <Form method="post" action="/oidc">
               <button
                 className="rounded bg-red-600 px-4 py-2 text-xs text-white hover:bg-red-500"
                 type="submit"
