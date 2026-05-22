@@ -8,7 +8,6 @@ import React from 'react';
 import {
   Box, CircularProgress, Modal, Chip,
 } from '@mui/material';
-import { Auth0Profile } from 'remix-auth-auth0';
 import { Form, useNavigation, useSearchParams } from '@remix-run/react';
 import Artist from '../../models/Artist';
 import { modalStyle } from '../../CommonStyles';
@@ -20,10 +19,11 @@ import artistImages from '../utils/artistImages';
 import artistBackgrounds from '../utils/artistBackgrounds';
 import artistBioColor from '../utils/artistBioTextColor';
 import artistTitleColor from '../utils/artistTitleColor';
+import OIDCProfile from '../../models/OIDCProfile';
 
 interface HeroBannerProps {
   artist: Artist;
-  user: Auth0Profile | null;
+  user: OIDCProfile | null;
   userLikedArtist: boolean;
 }
 
@@ -160,7 +160,7 @@ function HeroBanner(props: HeroBannerProps) {
                 100 followers
               </p>
             </div>
-            <Form method="post" action="/auth0" className="flex w-2/5 justify-center">
+            <Form method="post" action="/oidc" className="flex w-2/5 justify-center">
               <button type="submit" className="w-2/5 rounded-3xl bg-red-600 py-4 text-white">
                 Sign in
               </button>

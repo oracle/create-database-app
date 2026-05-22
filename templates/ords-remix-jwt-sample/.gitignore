@@ -1,0 +1,20 @@
+# MacOS 
+.DS_Store
+.DS_Store?
+
+# Visual Studio Code
+.vscode/
+
+# Node and NPM installation folder
+/node
+
+# Node Modules
+node_modules/
+
+# Remix 
+/.cache
+/build
+/public/build
+
+# Enviorement variables
+.env

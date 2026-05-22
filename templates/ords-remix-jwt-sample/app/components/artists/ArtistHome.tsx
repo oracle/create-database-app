@@ -6,7 +6,6 @@
 */
 import React from 'react';
 import { Divider } from '@mui/material';
-import { Auth0Profile } from 'remix-auth-auth0';
 import HeroBanner from './HeroBanner';
 import Countdown from '../homepage/Countdown';
 import Timeline from '../homepage/Timeline';
@@ -15,12 +14,13 @@ import DiscoverArtists from './DiscoverArtists';
 import Artist from '../../models/Artist';
 import ORDSResponse from '../../models/ORDSResponse';
 import ORDSConcert from '../../models/ORDSConcert';
+import OIDCProfile from '../../models/OIDCProfile';
 
 interface ArtistHomeProps {
   artists: ORDSResponse< Artist>;
   events: ORDSResponse< ORDSConcert >;
   similarArtists: ORDSResponse< Artist >;
-  user: Auth0Profile | null;
+  user: OIDCProfile | null;
   likedArtist: boolean;
 }
 /**

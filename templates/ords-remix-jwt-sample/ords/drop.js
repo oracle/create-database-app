@@ -7,22 +7,58 @@
 import * as dotenv from 'dotenv';
 import path from 'path';
 import dropUser from './utils/dropUser.js';
+import {
+  closeConnection,
+  getConnection,
+} from './utils/oracleConnection.js';
 
 dotenv.config({ path: `${path.resolve()}/.env` });
 const {
-  ADB_ORDS_URL, SCHEMA_NAME,
-  ADB_ADMIN_USER,
-  ADB_ADMIN_PASSWORD,
+  BD_CONNECT_STRING,
+  SCHEMA_NAME,
+  BD_ADMIN_USER,
+  BD_ADMIN_PASSWORD,
 } = process.env;
-const ORDS_ADMIN_AUTH_CREDENTIALS = `${ADB_ADMIN_USER}:${ADB_ADMIN_PASSWORD}`;
-const BASIC_ADMIN_AUTH = `Basic ${Buffer.from(ORDS_ADMIN_AUTH_CREDENTIALS).toString('base64')}`;
-const ADB_ADMIN_ENDPOINT = `${ADB_ORDS_URL}admin/_/sql`;
 
 /**
- * drop script, drops the schema and all of the objects associated to it.
+ * Returns a required environment variable and throws when missing.
+ * @param {string | undefined} value the variable value.
+ * @param {string} variableName the variable name.
+ * @returns {string} the non-empty variable value.
  */
-async function drop() {
-  await dropUser(SCHEMA_NAME, ADB_ADMIN_ENDPOINT, BASIC_ADMIN_AUTH);
+function getRequiredEnvVar(value, variableName) {
+  if (!value || value.trim() === '') {
+    throw new Error(`Missing required environment variable: ${variableName}`);
+  }
+  return value;
 }
 
-drop();
+/**
+ * Drop script: drops the schema and all associated objects.
+ */
+async function drop() {
+  const connectString = getRequiredEnvVar(BD_CONNECT_STRING, 'BD_CONNECT_STRING');
+  const schemaName = getRequiredEnvVar(SCHEMA_NAME, 'SCHEMA_NAME');
+  const adminUser = getRequiredEnvVar(BD_ADMIN_USER, 'BD_ADMIN_USER');
+  const adminPassword = getRequiredEnvVar(BD_ADMIN_PASSWORD, 'BD_ADMIN_PASSWORD');
+
+  let adminConnection;
+  try {
+    adminConnection = await getConnection({
+      user: adminUser,
+      password: adminPassword,
+      connectString,
+    });
+    await dropUser(adminConnection, schemaName);
+    // eslint-disable-next-line no-console
+    console.log(`Drop completed successfully for schema ${schemaName}.`);
+  } finally {
+    await closeConnection(adminConnection);
+  }
+}
+
+drop().catch((error) => {
+  // eslint-disable-next-line no-console
+  console.error(error);
+  process.exitCode = 1;
+});
