@@ -68,8 +68,8 @@
     "@oclif/plugin-plugins": "^5.3.7",
     "extract-zip": "^2.0.1",
     "untildify": "^5.0.0",
-    "yeoman-environment": "^3.19.3",
-    "yeoman-generator": "^5.10.0"
+    "yeoman-environment": "^6.1.0",
+    "yeoman-generator": "^8.2.2"
   },
   "bundledDependencies": [
     "yeoman-generator"
